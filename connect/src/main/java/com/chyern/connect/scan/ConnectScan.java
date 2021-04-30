@@ -1,6 +1,6 @@
 package com.chyern.connect.scan;
 
-import com.github.chyern.connect.registered.ConnectScanRegistrar;
+import com.chyern.connect.registered.ConnectScanRegistrar;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

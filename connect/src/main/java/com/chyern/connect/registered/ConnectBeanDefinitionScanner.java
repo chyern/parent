@@ -1,6 +1,6 @@
 package com.chyern.connect.registered;
 
-import com.github.chyern.connect.scan.Connect;
+import com.chyern.connect.scan.Connect;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
