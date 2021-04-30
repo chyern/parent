@@ -1,5 +1,9 @@
 package com.chyern.connect.handler;
 
+import com.chyern.connect.Exception.ConnectException;
+import com.google.gson.GsonBuilder;
+
+import java.net.URL;
 import java.util.Map;
 
 /**
@@ -10,27 +14,36 @@ import java.util.Map;
  */
 public abstract class AbstractConnectHandler {
 
-    protected String uri;
+    private static final String JSON_UTF_8 = "application/json;charset=utf-8";
+
+    protected URL url;
 
     protected String method;
 
     protected Map<String, String> headers;
 
-    protected Map<String,Object> query;
-
     protected Object body;
 
     protected Class respClazz;
 
-    protected abstract void before() throws Exception;
-
-    public Object execute() throws Exception{
-        before();
-        Object obj = null;
-        after();
-        return obj;
+    protected void before() throws Exception {
+        headers.put("Content-Type", JSON_UTF_8);
+        headers.put("accept", JSON_UTF_8);
     }
 
-    protected abstract void after() throws Exception;
+    protected abstract String around() throws Exception;
+
+    protected Object after(String result) throws Exception {
+        return new GsonBuilder().create().fromJson(result, respClazz);
+    }
+
+    public Object execute() throws ConnectException {
+        try {
+            before();
+            return after(around());
+        } catch (Exception e) {
+            throw new ConnectException(e.getMessage());
+        }
+    }
 
 }

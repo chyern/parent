@@ -15,7 +15,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Description: TODO
@@ -29,22 +31,23 @@ public class ConnectProxy implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Connect connect = method.getDeclaringClass().getAnnotation(Connect.class);
         AbstractConnectHandler handler = connect.clazz().newInstance();
-
-        String uri = connect.value();
         Map<String, String> httpMethodMap = getHttpMethod(method);
-        uri += httpMethodMap.values().stream().findFirst().get();
+        String urlStr = connect.value() + httpMethodMap.values().stream().findFirst().get();
+        URL url = new URL(urlStr);
+        LinkedHashMap<String, Object> queries = getQuery(method, args);
+        if (queries.size() > 0) {
+            String queryStr = StringUtils.join(queries.entrySet().stream().map(query -> query.getKey() + "=" + query.getValue()).collect(Collectors.toList()), "&");
+            url = new URL(urlStr + "?" + queryStr);
+        }
         String httpMethod = httpMethodMap.keySet().stream().findFirst().get();
         Map<String, String> headers = getHeaders(method, args);
-        Map<String, Object> query = getQuery(method, args);
         Object body = getBody(method, args);
         Class<?> returnType = method.getReturnType();
-
         Field[] declaredFields = AbstractConnectHandler.class.getDeclaredFields();
         Arrays.stream(declaredFields).forEach(field -> field.setAccessible(true));
-        declaredFields[0].set(handler, uri);
-        declaredFields[1].set(handler, httpMethod);
-        declaredFields[2].set(handler, headers);
-        declaredFields[3].set(handler, query);
+        declaredFields[1].set(handler, url);
+        declaredFields[2].set(handler, httpMethod);
+        declaredFields[3].set(handler, headers);
         declaredFields[4].set(handler, body);
         declaredFields[5].set(handler, returnType);
         return handler.execute();
@@ -71,8 +74,8 @@ public class ConnectProxy implements InvocationHandler {
         return headers;
     }
 
-    private Map<String, Object> getQuery(Method method, Object[] args) throws Throwable {
-        Map<String, Object> query = new HashMap<>();
+    private LinkedHashMap<String, Object> getQuery(Method method, Object[] args) throws Throwable {
+        LinkedHashMap<String, Object> query = new LinkedHashMap<>();
         Annotation[][] parameterAnnotations = method.getParameterAnnotations();
         for (int i = 0; i < parameterAnnotations.length; i++) {
             for (int j = 0; j < parameterAnnotations[i].length; j++) {
