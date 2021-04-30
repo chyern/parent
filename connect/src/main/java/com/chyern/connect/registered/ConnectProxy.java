@@ -10,16 +10,12 @@ import com.chyern.connect.annotations.method.PUT;
 import com.chyern.connect.handler.AbstractConnectHandler;
 import com.chyern.connect.scan.Connect;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.env.Environment;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Description: TODO
@@ -29,29 +25,12 @@ import java.util.regex.Pattern;
  */
 public class ConnectProxy implements InvocationHandler {
 
-    private static final String REGEX = "\\$\\{.*\\}";
-
-    private final ApplicationContext applicationContext;
-
-    public ConnectProxy(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
-
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Connect connect = method.getDeclaringClass().getAnnotation(Connect.class);
         AbstractConnectHandler handler = connect.clazz().newInstance();
 
         String uri = connect.value();
-        Matcher matcher = Pattern.compile(REGEX).matcher(uri);
-        if (matcher.find()) {
-            Environment environment = applicationContext.getEnvironment();
-            String envStr = environment.getProperty(matcher.group().substring(2, matcher.group().length() - 1));
-            if (StringUtils.isBlank(envStr)) {
-                throw new Throwable();
-            }
-            uri = envStr;
-        }
         Map<String, String> httpMethodMap = getHttpMethod(method);
         uri += httpMethodMap.values().stream().findFirst().get();
         String httpMethod = httpMethodMap.keySet().stream().findFirst().get();

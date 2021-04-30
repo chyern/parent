@@ -1,9 +1,6 @@
 package com.chyern.connect.registered;
 
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 
 import java.lang.reflect.Proxy;
 
@@ -13,10 +10,9 @@ import java.lang.reflect.Proxy;
  * @author Chyern
  * @since 2021/4/24
  */
-public class ConnectFactoryBean<T> implements FactoryBean<T>, ApplicationContextAware {
+public class ConnectFactoryBean<T> implements FactoryBean<T> {
 
     private final Class<T> interfaceType;
-    private ApplicationContext applicationContext;
 
     public ConnectFactoryBean(Class<T> interfaceType) {
         this.interfaceType = interfaceType;
@@ -24,7 +20,7 @@ public class ConnectFactoryBean<T> implements FactoryBean<T>, ApplicationContext
 
     @Override
     public T getObject() {
-        ConnectProxy apiProxy = new ConnectProxy(applicationContext);
+        ConnectProxy apiProxy = new ConnectProxy();
         return (T) Proxy.newProxyInstance(interfaceType.getClassLoader(), new Class[]{interfaceType}, apiProxy);
     }
 
@@ -38,8 +34,4 @@ public class ConnectFactoryBean<T> implements FactoryBean<T>, ApplicationContext
         return true;
     }
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
 }

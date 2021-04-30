@@ -9,7 +9,12 @@ package com.chyern.connect.handler;
 public class DefaultConnectHandler extends AbstractConnectHandler {
 
     @Override
-    public Object execute() throws Exception {
-        return null;
+    protected void before() throws Exception {
+
+    }
+
+    @Override
+    protected void after() throws Exception {
+
     }
 }

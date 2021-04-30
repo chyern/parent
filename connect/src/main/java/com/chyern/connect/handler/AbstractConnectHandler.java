@@ -22,6 +22,15 @@ public abstract class AbstractConnectHandler {
 
     protected Class respClazz;
 
-    public abstract Object execute() throws Exception;
+    protected abstract void before() throws Exception;
+
+    public Object execute() throws Exception{
+        before();
+        Object obj = null;
+        after();
+        return obj;
+    }
+
+    protected abstract void after() throws Exception;
 
 }
