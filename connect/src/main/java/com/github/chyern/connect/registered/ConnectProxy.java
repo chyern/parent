@@ -1,14 +1,14 @@
-package com.chyern.connect.registered;
+package com.github.chyern.connect.registered;
 
-import com.chyern.connect.annotations.Body;
-import com.chyern.connect.annotations.Headers;
-import com.chyern.connect.annotations.Query;
-import com.chyern.connect.annotations.method.DELETE;
-import com.chyern.connect.annotations.method.GET;
-import com.chyern.connect.annotations.method.POST;
-import com.chyern.connect.annotations.method.PUT;
-import com.chyern.connect.handler.AbstractConnectHandler;
-import com.chyern.connect.scan.Connect;
+import com.github.chyern.connect.annotations.Body;
+import com.github.chyern.connect.annotations.Headers;
+import com.github.chyern.connect.annotations.Query;
+import com.github.chyern.connect.annotations.method.DELETE;
+import com.github.chyern.connect.annotations.method.GET;
+import com.github.chyern.connect.annotations.method.POST;
+import com.github.chyern.connect.annotations.method.PUT;
+import com.github.chyern.connect.handler.AbstractConnectHandler;
+import com.github.chyern.connect.scan.Connect;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.annotation.Annotation;

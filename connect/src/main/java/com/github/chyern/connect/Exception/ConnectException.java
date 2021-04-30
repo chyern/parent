@@ -1,4 +1,4 @@
-package com.chyern.connect.Exception;
+package com.github.chyern.connect.Exception;
 
 /**
  * Description: TODO

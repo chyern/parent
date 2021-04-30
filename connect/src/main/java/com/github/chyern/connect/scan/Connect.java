@@ -1,7 +1,7 @@
-package com.chyern.connect.scan;
+package com.github.chyern.connect.scan;
 
-import com.chyern.connect.handler.AbstractConnectHandler;
-import com.chyern.connect.handler.DefaultConnectHandler;
+import com.github.chyern.connect.handler.AbstractConnectHandler;
+import com.github.chyern.connect.handler.DefaultConnectHandler;
 
 import java.lang.annotation.*;
 

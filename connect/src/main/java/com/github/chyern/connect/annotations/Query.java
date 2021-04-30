@@ -1,4 +1,4 @@
-package com.chyern.connect.annotations;
+package com.github.chyern.connect.annotations;
 
 import java.lang.annotation.*;
 

@@ -1,6 +1,6 @@
-package com.chyern.connect.handler;
+package com.github.chyern.connect.handler;
 
-import com.chyern.connect.Exception.ConnectException;
+import com.github.chyern.connect.Exception.ConnectException;
 import com.google.gson.GsonBuilder;
 
 import java.net.URL;

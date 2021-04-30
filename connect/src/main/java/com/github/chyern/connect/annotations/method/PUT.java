@@ -1,4 +1,4 @@
-package com.chyern.connect.annotations.method;
+package com.github.chyern.connect.annotations.method;
 
 import java.lang.annotation.*;
 
@@ -11,6 +11,6 @@ import java.lang.annotation.*;
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface POST {
+public @interface PUT {
     String value() default "";
 }

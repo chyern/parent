@@ -1,7 +1,7 @@
-package com.chyern.connect.registered;
+package com.github.chyern.connect.registered;
 
-import com.chyern.connect.scan.Connect;
-import com.chyern.connect.scan.ConnectScan;
+import com.github.chyern.connect.scan.Connect;
+import com.github.chyern.connect.scan.ConnectScan;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.annotation.AnnotationAttributes;

@@ -1,4 +1,4 @@
-package com.chyern.connect.registered;
+package com.github.chyern.connect.registered;
 
 import org.springframework.beans.factory.FactoryBean;
 

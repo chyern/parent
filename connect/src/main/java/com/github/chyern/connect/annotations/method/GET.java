@@ -1,4 +1,4 @@
-package com.chyern.connect.annotations;
+package com.github.chyern.connect.annotations.method;
 
 import java.lang.annotation.*;
 
@@ -9,8 +9,8 @@ import java.lang.annotation.*;
  * @since 2021/4/22
  */
 @Documented
-@Target(ElementType.PARAMETER)
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Path {
+public @interface GET {
     String value() default "";
 }

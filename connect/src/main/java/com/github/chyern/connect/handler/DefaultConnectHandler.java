@@ -1,4 +1,4 @@
-package com.chyern.connect.handler;
+package com.github.chyern.connect.handler;
 
 import com.google.gson.GsonBuilder;
 

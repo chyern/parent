@@ -1,4 +1,4 @@
-package com.chyern.connect.annotations;
+package com.github.chyern.connect.annotations;
 
 import java.lang.annotation.*;
 
@@ -11,5 +11,6 @@ import java.lang.annotation.*;
 @Documented
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Body {
+public @interface Path {
+    String value() default "";
 }
