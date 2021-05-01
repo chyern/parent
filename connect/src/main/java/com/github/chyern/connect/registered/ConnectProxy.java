@@ -1,7 +1,8 @@
 package com.github.chyern.connect.registered;
 
+import com.github.chyern.connect.Exception.ConnectException;
 import com.github.chyern.connect.annotations.Body;
-import com.github.chyern.connect.annotations.Headers;
+import com.github.chyern.connect.annotations.Header;
 import com.github.chyern.connect.annotations.Query;
 import com.github.chyern.connect.annotations.method.DELETE;
 import com.github.chyern.connect.annotations.method.GET;
@@ -59,14 +60,14 @@ public class ConnectProxy implements InvocationHandler {
         for (int i = 0; i < parameterAnnotations.length; i++) {
             for (int j = 0; j < parameterAnnotations[i].length; j++) {
                 Annotation annotation = parameterAnnotations[i][j];
-                if (annotation instanceof Headers) {
+                if (annotation instanceof Header) {
                     if (headers.size() != 0) {
-                        throw new Throwable();
+                        throw new ConnectException("It is not allowed to define two request types on a single header");
                     }
                     try {
                         headers.putAll((Map<String, String>) args[i]);
                     } catch (Exception e) {
-                        throw new Throwable();
+                        throw new ConnectException("Type of error for @Header.eg.Map<String,String>");
                     }
                 }
             }
@@ -81,11 +82,7 @@ public class ConnectProxy implements InvocationHandler {
             for (int j = 0; j < parameterAnnotations[i].length; j++) {
                 Annotation annotation = parameterAnnotations[i][j];
                 if (annotation instanceof Query) {
-                    try {
-                        query.put(((Query) annotation).value(), args[i]);
-                    } catch (Exception e) {
-                        throw new Throwable();
-                    }
+                    query.put(((Query) annotation).value(), args[i]);
                 }
             }
         }
@@ -100,7 +97,7 @@ public class ConnectProxy implements InvocationHandler {
                 Annotation annotation = parameterAnnotations[i][j];
                 if (annotation instanceof Body) {
                     if (Objects.nonNull(obj)) {
-                        throw new Throwable();
+                        throw new ConnectException("It is not allowed to define two request types on a single body");
                     }
                     obj = args[i];
                 }
@@ -122,7 +119,7 @@ public class ConnectProxy implements InvocationHandler {
             }
         }
         if (httpMethodMap.size() != 1) {
-            throw new Throwable();
+            throw new ConnectException("It is not allowed to define two request types on a single method");
         }
         return httpMethodMap;
     }
