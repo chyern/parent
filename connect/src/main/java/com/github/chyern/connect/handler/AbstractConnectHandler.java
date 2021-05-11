@@ -26,14 +26,14 @@ public abstract class AbstractConnectHandler {
 
     protected Class respClazz;
 
-    protected void before() throws Exception {
+    protected void before() {
         headers.put("Content-Type", JSON_UTF_8);
         headers.put("accept", JSON_UTF_8);
     }
 
     protected abstract String around() throws Exception;
 
-    protected Object after(String result) throws Exception {
+    protected Object after(String result) {
         return new GsonBuilder().create().fromJson(result, respClazz);
     }
 

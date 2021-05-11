@@ -2,7 +2,7 @@ package com.github.chyern.connect.registered;
 
 import com.github.chyern.connect.Exception.ConnectException;
 import com.github.chyern.connect.annotations.Body;
-import com.github.chyern.connect.annotations.Header;
+import com.github.chyern.connect.annotations.Path;
 import com.github.chyern.connect.annotations.Query;
 import com.github.chyern.connect.annotations.method.DELETE;
 import com.github.chyern.connect.annotations.method.GET;
@@ -32,61 +32,53 @@ public class ConnectProxy implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Connect connect = method.getDeclaringClass().getAnnotation(Connect.class);
         AbstractConnectHandler handler = connect.clazz().newInstance();
-        Map<String, String> httpMethodMap = getHttpMethod(method);
-        String urlStr = connect.value() + httpMethodMap.values().stream().findFirst().get();
-        URL url = new URL(urlStr);
-        LinkedHashMap<String, Object> queries = getQuery(method, args);
-        if (queries.size() > 0) {
-            String queryStr = StringUtils.join(queries.entrySet().stream().map(query -> query.getKey() + "=" + query.getValue()).collect(Collectors.toList()), "&");
-            url = new URL(urlStr + "?" + queryStr);
-        }
-        String httpMethod = httpMethodMap.keySet().stream().findFirst().get();
-        Map<String, String> headers = getHeaders(method, args);
+        Map.Entry<String, String> entry = getHttpMethod(method);
+        String url = connect.value() + entry.getKey();
+        buildUrlByPath(url, method, args);
+        buildUrlByQuery(url, method, args);
         Object body = getBody(method, args);
         Class<?> returnType = method.getReturnType();
         Field[] declaredFields = AbstractConnectHandler.class.getDeclaredFields();
         Arrays.stream(declaredFields).forEach(field -> field.setAccessible(true));
-        declaredFields[1].set(handler, url);
-        declaredFields[2].set(handler, httpMethod);
-        declaredFields[3].set(handler, headers);
+        declaredFields[1].set(handler, new URL(url));
+        declaredFields[2].set(handler, entry.getValue());
         declaredFields[4].set(handler, body);
         declaredFields[5].set(handler, returnType);
         return handler.execute();
     }
 
-    private Map<String, String> getHeaders(Method method, Object[] args) throws Throwable {
-        Map<String, String> headers = new HashMap<>();
+    private void buildUrlByPath(String url, Method method, Object[] args) throws ConnectException {
         Annotation[][] parameterAnnotations = method.getParameterAnnotations();
         for (int i = 0; i < parameterAnnotations.length; i++) {
             for (int j = 0; j < parameterAnnotations[i].length; j++) {
                 Annotation annotation = parameterAnnotations[i][j];
-                if (annotation instanceof Header) {
-                    if (headers.size() != 0) {
-                        throw new ConnectException("It is not allowed to define two request types on a single header");
+                if (annotation instanceof Path) {
+                    String path = "{" + ((Path) annotation).value() + "}";
+                    if (!url.contains(path)) {
+                        throw new ConnectException("Could not bind the path " + path);
                     }
-                    try {
-                        headers.putAll((Map<String, String>) args[i]);
-                    } catch (Exception e) {
-                        throw new ConnectException("Type of error for @Header.eg.Map<String,String>");
-                    }
+                    url = url.replace(path, args[i].toString());
                 }
             }
         }
-        return headers;
     }
 
-    private LinkedHashMap<String, Object> getQuery(Method method, Object[] args) throws Throwable {
-        LinkedHashMap<String, Object> query = new LinkedHashMap<>();
+
+    private void buildUrlByQuery(String url, Method method, Object[] args) {
+        LinkedHashMap<String, Object> queries = new LinkedHashMap<>();
         Annotation[][] parameterAnnotations = method.getParameterAnnotations();
         for (int i = 0; i < parameterAnnotations.length; i++) {
             for (int j = 0; j < parameterAnnotations[i].length; j++) {
                 Annotation annotation = parameterAnnotations[i][j];
                 if (annotation instanceof Query) {
-                    query.put(((Query) annotation).value(), args[i]);
+                    queries.put(((Query) annotation).value(), args[i]);
                 }
             }
         }
-        return query;
+        if (queries.size() > 0) {
+            String queryStr = StringUtils.join(queries.entrySet().stream().map(query -> query.getKey() + "=" + query.getValue()).collect(Collectors.toList()), "&");
+            url = url + "?" + queryStr;
+        }
     }
 
     private Object getBody(Method method, Object[] args) throws Throwable {
@@ -107,20 +99,30 @@ public class ConnectProxy implements InvocationHandler {
     }
 
 
-    private Map<String, String> getHttpMethod(Method method) throws Throwable {
-        Map<String, String> httpMethodMap = new HashMap<>();
+    private Map.Entry<String, String> getHttpMethod(Method method) throws Throwable {
         List<Class<? extends Annotation>> classes = Arrays.asList(GET.class, POST.class, PUT.class, DELETE.class);
-        for (Class<? extends Annotation> aClass : classes) {
-            if (method.isAnnotationPresent(aClass)) {
-                Annotation annotation = method.getAnnotation(aClass);
-                String httpMethod = StringUtils.substringAfterLast(annotation.annotationType().getName(), ".");
-                String value = (String) annotation.annotationType().getMethod("value").invoke(annotation);
-                httpMethodMap.put(httpMethod, value);
+        List<Class<? extends Annotation>> collect = classes.stream().filter(method::isAnnotationPresent).collect(Collectors.toList());
+        if (collect.size() != 1) {
+            throw new ConnectException("It is not a single method");
+        }
+        Annotation annotation = method.getAnnotation(collect.get(0));
+        String httpMethod = StringUtils.substringAfterLast(annotation.annotationType().getName(), ".");
+        String value = (String) annotation.annotationType().getMethod("value").invoke(annotation);
+        return new Map.Entry<String, String>() {
+            @Override
+            public String getKey() {
+                return httpMethod;
             }
-        }
-        if (httpMethodMap.size() != 1) {
-            throw new ConnectException("It is not allowed to define two request types on a single method");
-        }
-        return httpMethodMap;
+
+            @Override
+            public String getValue() {
+                return value;
+            }
+
+            @Override
+            public String setValue(String value) {
+                return httpMethod;
+            }
+        };
     }
 }
