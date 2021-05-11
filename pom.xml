@@ -11,6 +11,7 @@
 
     <modules>
         <module>connect</module>
+        <module>permission</module>
     </modules>
 
     <properties>
@@ -26,6 +27,16 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
                 <version>5.3.6</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>5.3.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>9.0.43</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
