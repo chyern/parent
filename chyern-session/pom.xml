@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>session</artifactId>
+    <artifactId>chyern-session</artifactId>
 
     <dependencies>
         <dependency>

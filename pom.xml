@@ -10,9 +10,10 @@
     <description>project for chyern</description>
 
     <modules>
-        <module>connect</module>
-        <module>permission</module>
-        <module>session</module>
+        <module>chyern-connect</module>
+        <module>chyern-permission</module>
+        <module>chyern-session</module>
+        <module>chyern-all</module>
     </modules>
 
     <properties>
@@ -26,17 +27,22 @@
         <dependencies>
             <dependency>
                 <groupId>com.github.chyern</groupId>
-                <artifactId>connect</artifactId>
+                <artifactId>chyern-connect</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.chyern</groupId>
-                <artifactId>permission</artifactId>
+                <artifactId>chyern-permission</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.chyern</groupId>
-                <artifactId>session</artifactId>
+                <artifactId>chyern-session</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.chyern</groupId>
+                <artifactId>chyern-all</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
