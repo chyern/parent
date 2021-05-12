@@ -26,7 +26,7 @@ public abstract class AbstractConnectHandler {
 
     protected Class respClazz;
 
-    protected void before() {
+    protected void before() throws Exception{
         headers.put("Content-Type", JSON_UTF_8);
         headers.put("accept", JSON_UTF_8);
     }
