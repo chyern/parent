@@ -1,7 +1,6 @@
 package com.github.chyen.session;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.session.config.annotation.web.http.EnableSpringHttpSession;
 import org.springframework.session.web.http.HttpSessionStrategy;
 
@@ -11,7 +10,6 @@ import org.springframework.session.web.http.HttpSessionStrategy;
  * @author Chyern
  * @since 2021/4/20
  */
-@Configuration
 @EnableSpringHttpSession
 public class SessionConfig {
 
@@ -28,5 +26,10 @@ public class SessionConfig {
     @Bean
     SessionRepository sessionRepository() {
         return new SessionRepository();
+    }
+
+    @Bean
+    SessionManagement sessionManagement(){
+        return new SessionManagement();
     }
 }
