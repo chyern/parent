@@ -13,6 +13,6 @@ import java.lang.annotation.*;
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import(PermissionConfig.class)
+@Import({PermissionConfig.class, PermissionConfigurerAdapter.class})
 public @interface EnablePermission {
 }

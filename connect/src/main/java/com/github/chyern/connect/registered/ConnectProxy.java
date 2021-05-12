@@ -33,7 +33,7 @@ public class ConnectProxy implements InvocationHandler {
         Connect connect = method.getDeclaringClass().getAnnotation(Connect.class);
         AbstractConnectHandler handler = connect.clazz().newInstance();
         Map.Entry<String, String> entry = getHttpMethod(method);
-        String url = connect.value() + entry.getKey();
+        String url = connect.value() + entry.getValue();
         buildUrlByPath(url, method, args);
         buildUrlByQuery(url, method, args);
         Object body = getBody(method, args);
@@ -41,7 +41,7 @@ public class ConnectProxy implements InvocationHandler {
         Field[] declaredFields = AbstractConnectHandler.class.getDeclaredFields();
         Arrays.stream(declaredFields).forEach(field -> field.setAccessible(true));
         declaredFields[1].set(handler, new URL(url));
-        declaredFields[2].set(handler, entry.getValue());
+        declaredFields[2].set(handler, entry.getKey());
         declaredFields[4].set(handler, body);
         declaredFields[5].set(handler, returnType);
         return handler.execute();
@@ -121,7 +121,7 @@ public class ConnectProxy implements InvocationHandler {
 
             @Override
             public String setValue(String value) {
-                return httpMethod;
+                return value;
             }
         };
     }

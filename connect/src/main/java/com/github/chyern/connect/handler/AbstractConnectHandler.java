@@ -4,6 +4,7 @@ import com.github.chyern.connect.Exception.ConnectException;
 import com.google.gson.GsonBuilder;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -20,20 +21,20 @@ public abstract class AbstractConnectHandler {
 
     protected String method;
 
-    protected Map<String, String> headers;
+    protected Map<String, String> headers = new HashMap<>();
 
     protected Object body;
 
     protected Class respClazz;
 
-    protected void before() throws Exception{
+    protected void before() throws Exception {
         headers.put("Content-Type", JSON_UTF_8);
         headers.put("accept", JSON_UTF_8);
     }
 
     protected abstract String around() throws Exception;
 
-    protected Object after(String result) throws Exception{
+    protected Object after(String result) throws Exception {
         return new GsonBuilder().create().fromJson(result, respClazz);
     }
 

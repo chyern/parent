@@ -27,14 +27,16 @@ public class PermissionHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
-        Permission permission = handlerMethod.getMethodAnnotation(Permission.class);
-        if (permission != null && StringUtils.isNoneBlank(permission.value())) {
-            Boolean hasPermission = permissionHandler.hasPermission(permission.value());
-            if (!hasPermission) {
-                response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(returnStr);
-                return false;
+        if (handler instanceof HandlerMethod) {
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            Permission permission = handlerMethod.getMethodAnnotation(Permission.class);
+            if (permission != null && StringUtils.isNoneBlank(permission.value())) {
+                Boolean hasPermission = permissionHandler.hasPermission(permission.value());
+                if (!hasPermission) {
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().write(returnStr);
+                    return false;
+                }
             }
         }
         return true;

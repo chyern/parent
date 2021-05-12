@@ -37,9 +37,11 @@ public class SessionHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
-        if (handlerMethod.hasMethodAnnotation(LoginOut.class)) {
-            sessionManagement.removeSession();
+        if (handler instanceof HandlerMethod) {
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            if (handlerMethod.hasMethodAnnotation(LoginOut.class)) {
+                sessionManagement.removeSession();
+            }
         }
     }
 
