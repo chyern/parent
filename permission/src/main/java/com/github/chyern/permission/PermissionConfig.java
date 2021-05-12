@@ -1,7 +1,6 @@
 package com.github.chyern.permission;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * Description: TODO
@@ -9,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
  * @author Chyern
  * @since 2021/5/11
  */
-@Configuration
 public class PermissionConfig {
 
     @Bean
