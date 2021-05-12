@@ -1,15 +1,15 @@
 package com.github.chyern.connect.registered;
 
 import com.github.chyern.connect.Exception.ConnectException;
-import com.github.chyern.connect.annotations.Body;
-import com.github.chyern.connect.annotations.Path;
-import com.github.chyern.connect.annotations.Query;
-import com.github.chyern.connect.annotations.method.DELETE;
-import com.github.chyern.connect.annotations.method.GET;
-import com.github.chyern.connect.annotations.method.POST;
-import com.github.chyern.connect.annotations.method.PUT;
-import com.github.chyern.connect.handler.AbstractConnectHandler;
-import com.github.chyern.connect.scan.Connect;
+import com.github.chyern.connect.annotation.Connect;
+import com.github.chyern.connect.annotation.method.DELETE;
+import com.github.chyern.connect.annotation.method.GET;
+import com.github.chyern.connect.annotation.method.POST;
+import com.github.chyern.connect.annotation.method.PUT;
+import com.github.chyern.connect.annotation.resource.Body;
+import com.github.chyern.connect.annotation.resource.Path;
+import com.github.chyern.connect.annotation.resource.Query;
+import com.github.chyern.connect.processor.AbstractConnectProcessor;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.annotation.Annotation;
@@ -31,14 +31,14 @@ public class ConnectProxy implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Connect connect = method.getDeclaringClass().getAnnotation(Connect.class);
-        AbstractConnectHandler handler = connect.clazz().newInstance();
+        AbstractConnectProcessor handler = connect.clazz().newInstance();
         Map.Entry<String, String> entry = getHttpMethod(method);
         String url = connect.value() + entry.getValue();
         buildUrlByPath(url, method, args);
         buildUrlByQuery(url, method, args);
         Object body = getBody(method, args);
         Class<?> returnType = method.getReturnType();
-        Field[] declaredFields = AbstractConnectHandler.class.getDeclaredFields();
+        Field[] declaredFields = AbstractConnectProcessor.class.getDeclaredFields();
         Arrays.stream(declaredFields).forEach(field -> field.setAccessible(true));
         declaredFields[1].set(handler, new URL(url));
         declaredFields[2].set(handler, entry.getKey());
