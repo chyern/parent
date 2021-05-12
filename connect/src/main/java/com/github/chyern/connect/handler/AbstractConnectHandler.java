@@ -33,7 +33,7 @@ public abstract class AbstractConnectHandler {
 
     protected abstract String around() throws Exception;
 
-    protected Object after(String result) {
+    protected Object after(String result) throws Exception{
         return new GsonBuilder().create().fromJson(result, respClazz);
     }
 
