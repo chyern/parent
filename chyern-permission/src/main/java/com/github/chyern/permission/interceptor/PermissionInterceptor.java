@@ -3,7 +3,6 @@ package com.github.chyern.permission.interceptor;
 import com.github.chyern.permission.annotation.Permission;
 import com.github.chyern.permission.processor.PermissionProcessor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,9 +20,6 @@ import java.io.IOException;
  */
 public class PermissionInterceptor implements HandlerInterceptor {
 
-    @Value("${permission.without}")
-    private String returnStr;
-
     @Resource
     private PermissionProcessor permissionHandler;
 
@@ -32,11 +28,11 @@ public class PermissionInterceptor implements HandlerInterceptor {
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             Permission permission = handlerMethod.getMethodAnnotation(Permission.class);
-            if (permission != null && StringUtils.isNoneBlank(permission.value())) {
-                Boolean hasPermission = permissionHandler.hasPermission(permission.value());
+            if (permission != null && StringUtils.isNoneBlank(permission.permissionCode())) {
+                Boolean hasPermission = permissionHandler.hasPermission(permission.permissionCode());
                 if (!hasPermission) {
                     response.setCharacterEncoding("UTF-8");
-                    response.getWriter().write(returnStr);
+                    response.getWriter().write(permissionHandler.returnData());
                     return false;
                 }
             }
