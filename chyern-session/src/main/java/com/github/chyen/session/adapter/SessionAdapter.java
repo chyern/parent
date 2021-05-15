@@ -25,7 +25,6 @@ public class SessionAdapter extends org.springframework.web.servlet.config.annot
         registry.addInterceptor(interceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(excludePathPatterns.excludePathPatterns());
-        super.addInterceptors(registry);
     }
 
     @Override

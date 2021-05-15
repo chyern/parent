@@ -1,9 +1,9 @@
 package com.github.chyen.session.processor;
 
+import com.github.chyen.session.model.Session;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 
 /**
  * Description: TODO
@@ -17,7 +17,7 @@ public class SessionManagement<T> {
     public static final String SESSION_NAME = "token";
 
     @Resource
-    private HttpSession session;
+    private Session session;
 
     @Resource
     private SessionProcessor<T> sessionHandler;

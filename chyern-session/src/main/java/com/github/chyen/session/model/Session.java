@@ -1,7 +1,5 @@
 package com.github.chyen.session.model;
 
-import org.springframework.session.ExpiringSession;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -13,7 +11,7 @@ import java.util.UUID;
  * @author Chyern
  * @since 2021/5/10
  */
-public class Session implements ExpiringSession {
+public class Session implements org.springframework.session.Session {
 
     private final String id;
 
@@ -47,35 +45,5 @@ public class Session implements ExpiringSession {
     @Override
     public void removeAttribute(String attributeName) {
         map.remove(attributeName);
-    }
-
-    @Override
-    public long getCreationTime() {
-        return 0;
-    }
-
-    @Override
-    public void setLastAccessedTime(long lastAccessedTime) {
-
-    }
-
-    @Override
-    public long getLastAccessedTime() {
-        return 0;
-    }
-
-    @Override
-    public void setMaxInactiveIntervalInSeconds(int interval) {
-
-    }
-
-    @Override
-    public int getMaxInactiveIntervalInSeconds() {
-        return 0;
-    }
-
-    @Override
-    public boolean isExpired() {
-        return false;
     }
 }

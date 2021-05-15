@@ -3,6 +3,9 @@ package com.github.chyern.permission.interceptor;
 import com.github.chyern.permission.annotation.Permission;
 import com.github.chyern.permission.processor.PermissionProcessor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,7 +21,9 @@ import java.io.IOException;
  * @author Chyern
  * @since 2021/5/10
  */
-public class PermissionInterceptor implements HandlerInterceptor {
+public class PermissionInterceptor implements HandlerInterceptor, ApplicationContextAware {
+
+    private ApplicationContext applicationContext;
 
     @Resource
     private PermissionProcessor permissionHandler;
@@ -32,7 +37,7 @@ public class PermissionInterceptor implements HandlerInterceptor {
                 Boolean hasPermission = permissionHandler.hasPermission(permission.permissionCode());
                 if (!hasPermission) {
                     response.setCharacterEncoding("UTF-8");
-                    response.getWriter().write(permissionHandler.returnData());
+                    response.getWriter().write(retun());
                     return false;
                 }
             }
@@ -48,5 +53,15 @@ public class PermissionInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
+
+    private String retun() {
+        String property = applicationContext.getEnvironment().getProperty("permission.without");
+        return StringUtils.isNoneBlank(property) ? property : "permission.without";
     }
 }

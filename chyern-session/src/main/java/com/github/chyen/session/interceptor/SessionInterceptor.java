@@ -2,7 +2,10 @@ package com.github.chyen.session.interceptor;
 
 import com.github.chyen.session.annotation.LoginOut;
 import com.github.chyen.session.processor.SessionManagement;
-import org.springframework.beans.factory.annotation.Value;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,10 +21,9 @@ import java.io.IOException;
  * @author Chyern
  * @since 2021/5/10
  */
-public class SessionInterceptor implements HandlerInterceptor {
+public class SessionInterceptor implements HandlerInterceptor, ApplicationContextAware {
 
-    @Value("${session.without.login}")
-    private String returnStr;
+    private ApplicationContext applicationContext;
 
     @Resource
     private SessionManagement sessionManagement;
@@ -33,7 +35,7 @@ public class SessionInterceptor implements HandlerInterceptor {
             return true;
         }
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(returnStr);
+        response.getWriter().write(retun());
         return false;
     }
 
@@ -52,4 +54,13 @@ public class SessionInterceptor implements HandlerInterceptor {
 
     }
 
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
+
+    private String retun() {
+        String property = applicationContext.getEnvironment().getProperty("session.without.login");
+        return StringUtils.isNoneBlank(property) ? property : "session.without.login";
+    }
 }

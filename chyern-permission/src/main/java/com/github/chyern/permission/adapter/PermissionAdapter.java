@@ -21,7 +21,6 @@ public class PermissionAdapter extends org.springframework.web.servlet.config.an
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(interceptor)
                 .addPathPatterns("/**");
-        super.addInterceptors(registry);
     }
 
     @Override

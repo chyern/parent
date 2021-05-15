@@ -13,4 +13,5 @@ public interface SessionProcessor<T> {
     Boolean removeSession(String sessionId);
 
     T getSession(String sessionId);
+
 }

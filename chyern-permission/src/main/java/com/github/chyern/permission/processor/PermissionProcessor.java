@@ -9,6 +9,4 @@ package com.github.chyern.permission.processor;
 public interface PermissionProcessor {
 
     Boolean hasPermission(String permissionCode);
-
-    String returnData();
 }
