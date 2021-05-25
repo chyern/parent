@@ -20,10 +20,10 @@ public class SessionManagement<T> {
     private Session session;
 
     @Resource
-    private SessionProcessor<T> sessionHandler;
+    private SessionProcessor<T> sessionProcessor;
 
     public Boolean setSession(T obj) {
-        Boolean setSession = sessionHandler.setSession(session.getId(), obj);
+        Boolean setSession = sessionProcessor.setSession(session.getId(), obj);
         if (setSession) {
             session.setAttribute(SessionManagement.SESSION_NAME, session.getId());
             return true;
@@ -32,7 +32,7 @@ public class SessionManagement<T> {
     }
 
     public Boolean removeSession() {
-        Boolean removeSession = sessionHandler.removeSession(session.getId());
+        Boolean removeSession = sessionProcessor.removeSession(session.getId());
         if (removeSession) {
             session.removeAttribute(SessionManagement.SESSION_NAME);
             return true;
@@ -41,7 +41,7 @@ public class SessionManagement<T> {
     }
 
     public T getSession() {
-        return sessionHandler.getSession(session.getId());
+        return sessionProcessor.getSession(session.getId());
     }
 
 }

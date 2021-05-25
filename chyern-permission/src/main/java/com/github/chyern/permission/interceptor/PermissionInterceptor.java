@@ -26,7 +26,7 @@ public class PermissionInterceptor implements HandlerInterceptor, ApplicationCon
     private ApplicationContext applicationContext;
 
     @Resource
-    private PermissionProcessor permissionHandler;
+    private PermissionProcessor permissionProcessor;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
@@ -34,7 +34,7 @@ public class PermissionInterceptor implements HandlerInterceptor, ApplicationCon
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             Permission permission = handlerMethod.getMethodAnnotation(Permission.class);
             if (permission != null && StringUtils.isNoneBlank(permission.permissionCode())) {
-                Boolean hasPermission = permissionHandler.hasPermission(permission.permissionCode());
+                Boolean hasPermission = permissionProcessor.hasPermission(permission.permissionCode());
                 if (!hasPermission) {
                     response.setCharacterEncoding("UTF-8");
                     response.getWriter().write(retun());
