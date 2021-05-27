@@ -37,7 +37,7 @@ public class PermissionInterceptor implements HandlerInterceptor, ApplicationCon
                 Boolean hasPermission = permissionProcessor.hasPermission(permission.permissionCode());
                 if (!hasPermission) {
                     response.setCharacterEncoding("UTF-8");
-                    response.getWriter().write(retun());
+                    response.getWriter().write(returnStr());
                     return false;
                 }
             }
@@ -60,7 +60,7 @@ public class PermissionInterceptor implements HandlerInterceptor, ApplicationCon
         this.applicationContext = applicationContext;
     }
 
-    private String retun() {
+    private String returnStr() {
         String property = applicationContext.getEnvironment().getProperty("permission.without");
         return StringUtils.isNoneBlank(property) ? property : "permission.without";
     }

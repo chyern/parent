@@ -35,7 +35,7 @@ public class SessionInterceptor implements HandlerInterceptor, ApplicationContex
             return true;
         }
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(retun());
+        response.getWriter().write(returnStr());
         return false;
     }
 
@@ -59,7 +59,7 @@ public class SessionInterceptor implements HandlerInterceptor, ApplicationContex
         this.applicationContext = applicationContext;
     }
 
-    private String retun() {
+    private String returnStr() {
         String property = applicationContext.getEnvironment().getProperty("session.without.login");
         return StringUtils.isNoneBlank(property) ? property : "session.without.login";
     }
