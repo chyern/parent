@@ -18,7 +18,7 @@ public class PermissionConfig {
     }
 
     @Bean
-    public PermissionAdapter permissionAdapter(){
+    public PermissionAdapter permissionAdapter() {
         return new PermissionAdapter();
     }
 }

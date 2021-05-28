@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,6 +26,7 @@ public class PermissionInterceptor implements HandlerInterceptor, ApplicationCon
 
     private ApplicationContext applicationContext;
 
+    @Lazy
     @Resource
     private PermissionProcessor permissionProcessor;
 
