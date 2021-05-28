@@ -1,7 +1,6 @@
 package com.github.chyen.session.processor;
 
 import com.github.chyen.session.model.Session;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -20,7 +19,6 @@ public class SessionManagement<T> {
     @Resource
     private Session session;
 
-    @Lazy
     @Resource
     private SessionProcessor<T> sessionProcessor;
 
