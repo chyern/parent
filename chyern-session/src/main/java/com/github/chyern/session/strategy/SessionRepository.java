@@ -1,7 +1,7 @@
-package com.github.chyen.session.strategy;
+package com.github.chyern.session.strategy;
 
 
-import com.github.chyen.session.model.Session;
+import com.github.chyern.session.model.Session;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;

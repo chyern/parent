@@ -1,6 +1,6 @@
-package com.github.chyen.session.adapter;
+package com.github.chyern.session.adapter;
 
-import com.github.chyen.session.interceptor.SessionInterceptor;
+import com.github.chyern.session.interceptor.SessionInterceptor;
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 

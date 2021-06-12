@@ -1,4 +1,4 @@
-package com.github.chyen.session.adapter;
+package com.github.chyern.session.adapter;
 
 import java.util.List;
 

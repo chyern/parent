@@ -1,4 +1,4 @@
-package com.github.chyen.session.model;
+package com.github.chyern.session.model;
 
 import java.util.HashMap;
 import java.util.Map;

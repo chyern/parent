@@ -13,7 +13,6 @@
         <module>chyern-connect</module>
         <module>chyern-permission</module>
         <module>chyern-session</module>
-        <module>chyern-all</module>
     </modules>
 
     <properties>
@@ -38,11 +37,6 @@
             <dependency>
                 <groupId>com.github.chyern</groupId>
                 <artifactId>chyern-session</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.chyern</groupId>
-                <artifactId>chyern-all</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

@@ -1,6 +1,6 @@
-package com.github.chyen.session.strategy;
+package com.github.chyern.session.strategy;
 
-import com.github.chyen.session.processor.SessionManagement;
+import com.github.chyern.session.processor.SessionManagement;
 import org.springframework.session.web.http.HttpSessionStrategy;
 
 import javax.servlet.http.Cookie;

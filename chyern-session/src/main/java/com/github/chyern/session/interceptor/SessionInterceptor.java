@@ -1,7 +1,7 @@
-package com.github.chyen.session.interceptor;
+package com.github.chyern.session.interceptor;
 
-import com.github.chyen.session.annotation.LoginOut;
-import com.github.chyen.session.processor.SessionManagement;
+import com.github.chyern.session.annotation.LoginOut;
+import com.github.chyern.session.processor.SessionManagement;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

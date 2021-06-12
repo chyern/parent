@@ -1,4 +1,4 @@
-package com.github.chyen.session.annotation;
+package com.github.chyern.session.annotation;
 
 import java.lang.annotation.*;
 
@@ -11,5 +11,5 @@ import java.lang.annotation.*;
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface LoginIn {
+public @interface LoginOut {
 }

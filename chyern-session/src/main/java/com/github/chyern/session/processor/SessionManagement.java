@@ -1,6 +1,6 @@
-package com.github.chyen.session.processor;
+package com.github.chyern.session.processor;
 
-import com.github.chyen.session.model.Session;
+import com.github.chyern.session.model.Session;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
