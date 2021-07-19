@@ -1,10 +1,11 @@
 package com.github.chyern.session.config;
 
+import com.github.chyern.session.model.Session;
+import com.github.chyern.session.processor.SessionManagement;
 import com.github.chyern.session.strategy.SessionRepository;
 import com.github.chyern.session.strategy.SessionStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.session.config.annotation.web.http.EnableSpringHttpSession;
 import org.springframework.session.web.http.HttpSessionStrategy;
 
 /**
@@ -14,8 +15,17 @@ import org.springframework.session.web.http.HttpSessionStrategy;
  * @since 2021/4/20
  */
 @Configuration
-@EnableSpringHttpSession
 public class SessionConfig {
+
+    @Bean
+    Session session(){
+        return new Session();
+    }
+
+    @Bean
+    SessionManagement sessionManagement() {
+        return new SessionManagement();
+    }
 
     @Bean
     HttpSessionStrategy httpSessionStrategy() {
@@ -26,4 +36,5 @@ public class SessionConfig {
     SessionRepository sessionRepository() {
         return new SessionRepository();
     }
+
 }

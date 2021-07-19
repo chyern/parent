@@ -1,7 +1,6 @@
 package com.github.chyern.session.processor;
 
 import com.github.chyern.session.model.Session;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
@@ -11,7 +10,6 @@ import javax.annotation.Resource;
  * @author Chyern
  * @since 2021/5/10
  */
-@Component
 public class SessionManagement<T> {
 
     public static final String SESSION_NAME = "token";
