@@ -1,6 +1,7 @@
 package com.github.chyern.session.adapter;
 
 import com.github.chyern.session.interceptor.SessionInterceptor;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
@@ -12,6 +13,7 @@ import javax.annotation.Resource;
  * @author Chyern
  * @since 2021/4/20
  */
+@Configuration
 public class SessionAdapter extends org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter implements Ordered {
 
     @Resource

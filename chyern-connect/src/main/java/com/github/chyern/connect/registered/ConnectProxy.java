@@ -1,6 +1,7 @@
 package com.github.chyern.connect.registered;
 
-import com.github.chyern.connect.Exception.ConnectException;
+import com.github.chyern.common.enums.ChyernErrorEnum;
+import com.github.chyern.common.exception.ChyernException;
 import com.github.chyern.connect.annotation.Connect;
 import com.github.chyern.connect.annotation.method.DELETE;
 import com.github.chyern.connect.annotation.method.GET;
@@ -47,7 +48,7 @@ public class ConnectProxy implements InvocationHandler {
         return handler.execute();
     }
 
-    private void buildUrlByPath(String url, Method method, Object[] args) throws ConnectException {
+    private void buildUrlByPath(String url, Method method, Object[] args) {
         Annotation[][] parameterAnnotations = method.getParameterAnnotations();
         for (int i = 0; i < parameterAnnotations.length; i++) {
             for (int j = 0; j < parameterAnnotations[i].length; j++) {
@@ -55,7 +56,7 @@ public class ConnectProxy implements InvocationHandler {
                 if (annotation instanceof Path) {
                     String path = "{" + ((Path) annotation).value() + "}";
                     if (!url.contains(path)) {
-                        throw new ConnectException("Could not bind the path " + path);
+                        throw new ChyernException(ChyernErrorEnum.CONNECT_PATH_ERROR);
                     }
                     url = url.replace(path, args[i].toString());
                 }
@@ -89,7 +90,7 @@ public class ConnectProxy implements InvocationHandler {
                 Annotation annotation = parameterAnnotations[i][j];
                 if (annotation instanceof Body) {
                     if (Objects.nonNull(obj)) {
-                        throw new ConnectException("It is not allowed to define two request types on a single body");
+                        throw new ChyernException(ChyernErrorEnum.CONNECT_BODY_ERROR);
                     }
                     obj = args[i];
                 }
@@ -103,7 +104,7 @@ public class ConnectProxy implements InvocationHandler {
         List<Class<? extends Annotation>> classes = Arrays.asList(GET.class, POST.class, PUT.class, DELETE.class);
         List<Class<? extends Annotation>> collect = classes.stream().filter(method::isAnnotationPresent).collect(Collectors.toList());
         if (collect.size() != 1) {
-            throw new ConnectException("It is not a single method");
+            throw new ChyernException(ChyernErrorEnum.CONNECT_METHOD_ERROR);
         }
         Annotation annotation = method.getAnnotation(collect.get(0));
         String httpMethod = StringUtils.substringAfterLast(annotation.annotationType().getName(), ".");

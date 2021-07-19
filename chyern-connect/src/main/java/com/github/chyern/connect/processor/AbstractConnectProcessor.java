@@ -1,6 +1,7 @@
 package com.github.chyern.connect.processor;
 
-import com.github.chyern.connect.Exception.ConnectException;
+import com.github.chyern.common.enums.ChyernErrorEnum;
+import com.github.chyern.common.exception.ChyernException;
 import com.google.gson.GsonBuilder;
 
 import java.net.URL;
@@ -27,23 +28,23 @@ public abstract class AbstractConnectProcessor {
 
     protected Class respClazz;
 
-    protected void before() throws Exception {
+    protected void before() {
         headers.put("Content-Type", JSON_UTF_8);
         headers.put("accept", JSON_UTF_8);
     }
 
     protected abstract String around() throws Exception;
 
-    protected Object after(String result) throws Exception {
+    protected Object after(String result) {
         return new GsonBuilder().create().fromJson(result, respClazz);
     }
 
-    public Object execute() throws ConnectException {
+    public Object execute() {
         try {
             before();
             return after(around());
         } catch (Exception e) {
-            throw new ConnectException(e.getMessage());
+            throw new ChyernException(ChyernErrorEnum.CONNECT_RESULT_ERROR);
         }
     }
 

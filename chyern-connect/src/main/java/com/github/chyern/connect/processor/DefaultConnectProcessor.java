@@ -1,5 +1,7 @@
 package com.github.chyern.connect.processor;
 
+import com.github.chyern.common.enums.ChyernErrorEnum;
+import com.github.chyern.common.exception.ChyernException;
 import com.google.gson.GsonBuilder;
 
 import java.io.*;
@@ -15,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 public class DefaultConnectProcessor extends AbstractConnectProcessor {
 
     @Override
-    protected String around() throws Exception {
+    protected String around() throws Exception{
         String result;
         BufferedReader readerBuffer = null;
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -44,7 +46,7 @@ public class DefaultConnectProcessor extends AbstractConnectProcessor {
                 }
                 result = resultBuffer.toString();
             } else {
-                throw new Exception("The connection fails.Caused by: " + responseCode);
+                throw new ChyernException(ChyernErrorEnum.CONNECT_RESULT_ERROR);
             }
         } finally {
             if (readerBuffer != null) {

@@ -3,8 +3,8 @@ package com.github.chyern.session.strategy;
 
 import com.github.chyern.session.model.Session;
 
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Description: TODO
@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class SessionRepository implements org.springframework.session.SessionRepository<Session> {
 
-    private final ConcurrentMap<String, Session> sessionMap = new ConcurrentHashMap<>();
+    private final Map<String, Session> sessionMap = new HashMap<>();
 
     @Override
     public Session createSession() {
