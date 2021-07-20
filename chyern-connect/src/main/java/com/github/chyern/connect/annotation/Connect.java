@@ -16,7 +16,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Connect {
 
-    String value() default "";
+    String value();
 
     Class<? extends AbstractConnectProcessor> clazz() default DefaultConnectProcessor.class;
 }

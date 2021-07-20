@@ -6,11 +6,14 @@ import java.lang.annotation.*;
  * Description: TODO
  *
  * @author Chyern
- * @since 2021/4/22
+ * @since 2021/7/20
  */
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface DELETE {
-    String value() default "";
+public @interface RequestMapping {
+
+    String value();
+
+    Method method();
 }

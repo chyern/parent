@@ -2,9 +2,8 @@ package com.github.chyern.connect.processor;
 
 import com.github.chyern.common.enums.ChyernErrorEnum;
 import com.github.chyern.common.exception.ChyernException;
-import com.google.gson.GsonBuilder;
 
-import java.net.URL;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +17,7 @@ public abstract class AbstractConnectProcessor {
 
     private static final String JSON_UTF_8 = "application/json;charset=utf-8";
 
-    protected URL url;
+    protected URI url;
 
     protected String method;
 
@@ -33,11 +32,9 @@ public abstract class AbstractConnectProcessor {
         headers.put("accept", JSON_UTF_8);
     }
 
-    protected abstract String around() throws Exception;
+    protected abstract <T> T around();
 
-    protected Object after(String result) {
-        return new GsonBuilder().create().fromJson(result, respClazz);
-    }
+    protected abstract  <T> T after(Object obj);
 
     public Object execute() {
         try {
