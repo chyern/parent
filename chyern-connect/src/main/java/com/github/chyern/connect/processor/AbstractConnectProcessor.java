@@ -1,8 +1,5 @@
 package com.github.chyern.connect.processor;
 
-import com.github.chyern.common.enums.ChyernErrorEnum;
-import com.github.chyern.common.exception.ChyernException;
-
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,15 +31,11 @@ public abstract class AbstractConnectProcessor {
 
     protected abstract <T> T around();
 
-    protected abstract  <T> T after(Object obj);
+    protected abstract <T> T after(Object obj);
 
     public Object execute() {
-        try {
-            before();
-            return after(around());
-        } catch (Exception e) {
-            throw new ChyernException(ChyernErrorEnum.CONNECT_RESULT_ERROR);
-        }
+        before();
+        return after(around());
     }
 
 }
