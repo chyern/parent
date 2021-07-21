@@ -1,5 +1,6 @@
 package com.github.chyern.session.config;
 
+import com.github.chyern.session.adapter.SessionAdapter;
 import com.github.chyern.session.interceptor.SessionInterceptor;
 import com.github.chyern.session.interceptor.WebInterceptor;
 import com.github.chyern.session.processor.SessionManagement;
@@ -28,6 +29,11 @@ public class SessionConfig {
     @Bean
     SessionInterceptor sessionInterceptor() {
         return new SessionInterceptor();
+    }
+
+    @Bean
+    SessionAdapter sessionAdapter(){
+        return new SessionAdapter();
     }
 
 }
