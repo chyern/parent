@@ -1,6 +1,6 @@
-package com.github.chyern.session;
+package com.github.chyern.permission;
 
-import com.github.chyern.session.config.SessionConfig;
+import com.github.chyern.permission.aspect.PermissionAspect;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
 @Retention(java.lang.annotation.RetentionPolicy.RUNTIME)
 @Target({java.lang.annotation.ElementType.TYPE})
 @Documented
-@Import(SessionConfig.class)
+@Import(PermissionAspect.class)
 @Configuration
-public @interface EnableSession {
+public @interface EnablePermission {
 }

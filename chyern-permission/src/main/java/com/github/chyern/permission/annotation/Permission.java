@@ -13,5 +13,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Permission {
 
-    String permissionCode() default "";
+    String permissionCode();
 }
