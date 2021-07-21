@@ -1,6 +1,6 @@
 package com.github.chyern.session.processor;
 
-import com.github.chyern.session.model.Session;
+import com.github.chyern.session.interceptor.WebInterceptor;
 
 import javax.annotation.Resource;
 
@@ -12,34 +12,19 @@ import javax.annotation.Resource;
  */
 public class SessionManagement<T> {
 
-    public static final String SESSION_NAME = "token";
-
-    @Resource
-    private Session session;
-
     @Resource
     private SessionProcessor<T> sessionProcessor;
 
     public Boolean setSession(T obj) {
-        Boolean setSession = sessionProcessor.setSession(session.getId(), obj);
-        if (setSession) {
-            session.setAttribute(SessionManagement.SESSION_NAME, session.getId());
-            return true;
-        }
-        return false;
+        return sessionProcessor.setSession(WebInterceptor.getSessionId(), obj);
     }
 
     public Boolean removeSession() {
-        Boolean removeSession = sessionProcessor.removeSession(session.getId());
-        if (removeSession) {
-            session.removeAttribute(SessionManagement.SESSION_NAME);
-            return true;
-        }
-        return false;
+        return sessionProcessor.removeSession(WebInterceptor.getSessionId());
     }
 
     public T getSession() {
-        return sessionProcessor.getSession(session.getId());
+        return sessionProcessor.getSession(WebInterceptor.getSessionId());
     }
 
 }
