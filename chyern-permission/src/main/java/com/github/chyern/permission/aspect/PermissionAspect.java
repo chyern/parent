@@ -9,8 +9,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-
-import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 /**
@@ -22,7 +21,7 @@ import javax.annotation.Resource;
 @Aspect
 public class PermissionAspect {
 
-    @Resource
+    @Autowired
     private PermissionProcessor permissionProcessor;
 
     @Pointcut("@annotation(com.github.chyern.permission.annotation.Permission)")
