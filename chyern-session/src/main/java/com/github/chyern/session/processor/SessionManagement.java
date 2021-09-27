@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class SessionManagement<T> {
 
     @Autowired
-    private SessionProcessor<T> sessionProcessor;
+    private ISessionProcessor<T> sessionProcessor;
 
     public Boolean setSession(T obj) {
         return sessionProcessor.setSession(ContextUtil.get().getToken(), obj);

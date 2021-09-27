@@ -6,7 +6,7 @@ package com.github.chyern.permission.processor;
  * @author Chyern
  * @since 2021/5/10
  */
-public interface PermissionProcessor {
+public interface IPermissionProcessor {
 
     Boolean hasPermission(String permissionCode);
 }

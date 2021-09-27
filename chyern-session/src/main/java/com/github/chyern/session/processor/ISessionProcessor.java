@@ -6,7 +6,7 @@ package com.github.chyern.session.processor;
  * @author Chyern
  * @since 2021/5/10
  */
-public interface SessionProcessor<T> {
+public interface ISessionProcessor<T> {
 
     Boolean setSession(String sessionId, T session);
 

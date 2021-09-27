@@ -3,7 +3,7 @@ package com.github.chyern.permission.aspect;
 import com.github.chyern.common.enums.ErrorEnum;
 import com.github.chyern.common.exception.Exception;
 import com.github.chyern.permission.annotation.Permission;
-import com.github.chyern.permission.processor.PermissionProcessor;
+import com.github.chyern.permission.processor.IPermissionProcessor;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class PermissionAspect {
 
     @Autowired
-    private PermissionProcessor permissionProcessor;
+    private IPermissionProcessor permissionProcessor;
 
     @Pointcut("@annotation(com.github.chyern.permission.annotation.Permission)")
     public void cut() {
