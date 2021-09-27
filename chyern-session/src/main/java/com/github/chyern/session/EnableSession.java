@@ -1,12 +1,9 @@
 package com.github.chyern.session;
 
-import com.github.chyern.session.config.SessionConfig;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Description: TODO
@@ -14,10 +11,10 @@ import java.lang.annotation.Target;
  * @author Chyern
  * @since 2021/7/19
  */
-@Retention(java.lang.annotation.RetentionPolicy.RUNTIME)
-@Target({java.lang.annotation.ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE})
 @Documented
-@Import(SessionConfig.class)
+@ComponentScan(basePackages = {"com.github.chyern.session"})
 @Configuration
 public @interface EnableSession {
 }

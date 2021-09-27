@@ -1,8 +1,8 @@
 package com.github.chyern.session.processor;
 
 import com.github.chyern.session.interceptor.WebInterceptor;
-
-import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Description: TODO
@@ -10,21 +10,22 @@ import javax.annotation.Resource;
  * @author Chyern
  * @since 2021/5/10
  */
+@Component
 public class SessionManagement<T> {
 
-    @Resource
+    @Autowired
     private SessionProcessor<T> sessionProcessor;
 
     public Boolean setSession(T obj) {
-        return sessionProcessor.setSession(WebInterceptor.getSessionId(), obj);
+        return sessionProcessor.setSession(WebInterceptor.getToken(), obj);
     }
 
     public Boolean removeSession() {
-        return sessionProcessor.removeSession(WebInterceptor.getSessionId());
+        return sessionProcessor.removeSession(WebInterceptor.getToken());
     }
 
     public T getSession() {
-        return sessionProcessor.getSession(WebInterceptor.getSessionId());
+        return sessionProcessor.getSession(WebInterceptor.getToken());
     }
 
 }
