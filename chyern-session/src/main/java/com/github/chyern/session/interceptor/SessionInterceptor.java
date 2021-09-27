@@ -1,7 +1,7 @@
 package com.github.chyern.session.interceptor;
 
-import com.github.chyern.common.enums.ChyernErrorEnum;
-import com.github.chyern.common.exception.ChyernException;
+import com.github.chyern.common.enums.ErrorEnum;
+import com.github.chyern.common.exception.Exception;
 import com.github.chyern.session.annotation.LoginOut;
 import com.github.chyern.session.processor.SessionManagement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class SessionInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         Object session = sessionManagement.getSession();
         if (session == null) {
-            throw new ChyernException(ChyernErrorEnum.WITHOUT_LOGIN);
+            throw new Exception(ErrorEnum.WITHOUT_LOGIN);
         }
         return true;
     }

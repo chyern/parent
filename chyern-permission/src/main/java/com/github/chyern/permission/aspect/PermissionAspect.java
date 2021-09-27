@@ -1,7 +1,7 @@
 package com.github.chyern.permission.aspect;
 
-import com.github.chyern.common.enums.ChyernErrorEnum;
-import com.github.chyern.common.exception.ChyernException;
+import com.github.chyern.common.enums.ErrorEnum;
+import com.github.chyern.common.exception.Exception;
 import com.github.chyern.permission.annotation.Permission;
 import com.github.chyern.permission.processor.PermissionProcessor;
 import org.aspectj.lang.JoinPoint;
@@ -34,7 +34,7 @@ public class PermissionAspect {
         String permissionCode = annotation.permissionCode();
         Boolean hasPermission = permissionProcessor.hasPermission(permissionCode);
         if (!hasPermission) {
-            throw new ChyernException(ChyernErrorEnum.WITHOUT_PERMISSION);
+            throw new Exception(ErrorEnum.WITHOUT_PERMISSION);
         }
     }
 }

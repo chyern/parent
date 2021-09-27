@@ -1,5 +1,6 @@
 package com.github.chyern.common.enums;
 
+import com.github.chyern.common.constant.Error;
 import lombok.Getter;
 
 /**
@@ -9,7 +10,7 @@ import lombok.Getter;
  * @since 2021/7/19
  */
 @Getter
-public enum ChyernErrorEnum {
+public enum ErrorEnum implements Error {
 
     WITHOUT_LOGIN(1000, "without login"),
     WITHOUT_PERMISSION(1001, "without permission"),
@@ -22,11 +23,11 @@ public enum ChyernErrorEnum {
     CONNECT_RESULT_ERROR(2004, "Connect is unsuccessful"),
     ;
 
-    private final Integer code;
-    private final String message;
+    private final Integer errorCode;
+    private final String errorMsg;
 
-    ChyernErrorEnum(Integer code, String message) {
-        this.code = code;
-        this.message = message;
+    ErrorEnum(Integer errorCode, String errorMsg) {
+        this.errorCode = errorCode;
+        this.errorMsg = errorMsg;
     }
 }

@@ -1,7 +1,7 @@
 package com.github.chyern.connect.processor;
 
-import com.github.chyern.common.enums.ChyernErrorEnum;
-import com.github.chyern.common.exception.ChyernException;
+import com.github.chyern.common.enums.ErrorEnum;
+import com.github.chyern.common.exception.Exception;
 import com.google.gson.GsonBuilder;
 import org.springframework.http.*;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
@@ -31,7 +31,7 @@ public class DefaultConnectProcessor extends AbstractConnectProcessor {
     protected <T> T after(Object obj) {
         ResponseEntity entity = (ResponseEntity) obj;
         if (HttpStatus.OK != entity.getStatusCode()) {
-            throw new ChyernException(ChyernErrorEnum.CONNECT_RESULT_ERROR);
+            throw new Exception(ErrorEnum.CONNECT_RESULT_ERROR);
         }
         return (T) entity.getBody();
     }

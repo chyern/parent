@@ -1,6 +1,10 @@
 package com.github.chyern.session.interceptor;
 
+import com.alibaba.fastjson.JSON;
+import com.github.chyern.common.exception.Exception;
+import com.github.chyern.common.response.Response;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -63,7 +67,17 @@ public class WebInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, java.lang.Exception ex) throws java.lang.Exception {
+        try {
+            if (ex instanceof Exception) {
+                Exception exception = (Exception) ex;
+                response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(JSON.toJSONString(Response.buildFailure(exception.getError())));
+            }
+        } catch (java.lang.Exception ignore) {
+        }
         threadLocal.remove();
     }
+
 }

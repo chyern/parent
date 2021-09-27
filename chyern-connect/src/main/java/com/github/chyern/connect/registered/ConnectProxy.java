@@ -1,7 +1,7 @@
 package com.github.chyern.connect.registered;
 
-import com.github.chyern.common.enums.ChyernErrorEnum;
-import com.github.chyern.common.exception.ChyernException;
+import com.github.chyern.common.enums.ErrorEnum;
+import com.github.chyern.common.exception.Exception;
 import com.github.chyern.connect.annotation.Connect;
 import com.github.chyern.connect.annotation.method.RequestMapping;
 import com.github.chyern.connect.annotation.resource.Body;
@@ -42,7 +42,7 @@ public class ConnectProxy implements InvocationHandler {
         String url = buildUrl(connect.value());
         RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
         if (requestMapping == null) {
-            throw new ChyernException(ChyernErrorEnum.CONNECT_METHOD_ERROR);
+            throw new Exception(ErrorEnum.CONNECT_METHOD_ERROR);
         }
         url += requestMapping.value();
         buildUrlByPath(url, method, args);
@@ -66,7 +66,7 @@ public class ConnectProxy implements InvocationHandler {
                 return context.getEnvironment().getProperty(split[0]);
             } else {
                 if (split.length < 2) {
-                    throw new ChyernException(ChyernErrorEnum.CONNECT_URL_ERROR);
+                    throw new Exception(ErrorEnum.CONNECT_URL_ERROR);
                 }
                 return StringUtils.substringAfter(key, ":");
             }
@@ -83,7 +83,7 @@ public class ConnectProxy implements InvocationHandler {
                 if (annotation instanceof Path) {
                     String path = "{" + ((Path) annotation).value() + "}";
                     if (!url.contains(path)) {
-                        throw new ChyernException(ChyernErrorEnum.CONNECT_PATH_ERROR);
+                        throw new Exception(ErrorEnum.CONNECT_PATH_ERROR);
                     }
                     url = url.replace(path, args[i].toString());
                 }
@@ -117,7 +117,7 @@ public class ConnectProxy implements InvocationHandler {
                 Annotation annotation = parameterAnnotations[i][j];
                 if (annotation instanceof Body) {
                     if (Objects.nonNull(obj)) {
-                        throw new ChyernException(ChyernErrorEnum.CONNECT_BODY_ERROR);
+                        throw new Exception(ErrorEnum.CONNECT_BODY_ERROR);
                     }
                     obj = args[i];
                 }
