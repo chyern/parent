@@ -16,8 +16,8 @@ public class SessionManagement<T> {
     @Autowired(required = false)
     private ISessionProcessor<T> sessionProcessor;
 
-    public Boolean setSession(T obj) {
-        return sessionProcessor.setSession(ContextUtil.get().getToken(), obj);
+    public void setSession(T obj) {
+        sessionProcessor.setSession(ContextUtil.get().getToken(), obj);
     }
 
     public Boolean removeSession() {

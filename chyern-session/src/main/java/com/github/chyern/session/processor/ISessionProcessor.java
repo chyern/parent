@@ -8,7 +8,7 @@ package com.github.chyern.session.processor;
  */
 public interface ISessionProcessor<T> {
 
-    Boolean setSession(String token, T session);
+    void setSession(String token, T session);
 
     Boolean removeSession(String token);
 
