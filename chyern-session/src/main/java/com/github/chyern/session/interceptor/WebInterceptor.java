@@ -2,7 +2,9 @@ package com.github.chyern.session.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.github.chyern.common.exception.Exception;
+import com.github.chyern.common.model.Context;
 import com.github.chyern.common.response.Response;
+import com.github.chyern.common.utils.ContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -23,16 +25,11 @@ import java.util.UUID;
 @Component
 public class WebInterceptor implements HandlerInterceptor {
 
-    public static final String TOKEN_NAME = "chyern-token";
-
-    private static ThreadLocal<String> threadLocal = new ThreadLocal<>();
-
-    public static String getToken() {
-        return threadLocal.get();
-    }
+    private static final String TOKEN_NAME = "chyern-token";
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        Context context = new Context();
         //从cookie中获取
         String token = getToken(request.getCookies());
         if (StringUtils.isBlank(token)) {
@@ -43,7 +40,8 @@ public class WebInterceptor implements HandlerInterceptor {
                 token = UUID.randomUUID().toString();
             }
         }
-        threadLocal.set(token);
+        context.setToken(token);
+        ContextUtil.set(context);
         setResponse(response);
         return true;
     }
@@ -59,7 +57,7 @@ public class WebInterceptor implements HandlerInterceptor {
     }
 
     private void setResponse(HttpServletResponse response) {
-        String token = getToken();
+        String token = ContextUtil.get().getToken();
         Cookie cookie = new Cookie(TOKEN_NAME, token);
         cookie.setPath("/");
         response.addCookie(cookie);
@@ -77,7 +75,7 @@ public class WebInterceptor implements HandlerInterceptor {
             }
         } catch (java.lang.Exception ignore) {
         }
-        threadLocal.remove();
+        ContextUtil.remove();
     }
 
 }

@@ -1,6 +1,6 @@
 package com.github.chyern.session.processor;
 
-import com.github.chyern.session.interceptor.WebInterceptor;
+import com.github.chyern.common.utils.ContextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,15 +17,15 @@ public class SessionManagement<T> {
     private SessionProcessor<T> sessionProcessor;
 
     public Boolean setSession(T obj) {
-        return sessionProcessor.setSession(WebInterceptor.getToken(), obj);
+        return sessionProcessor.setSession(ContextUtil.get().getToken(), obj);
     }
 
     public Boolean removeSession() {
-        return sessionProcessor.removeSession(WebInterceptor.getToken());
+        return sessionProcessor.removeSession(ContextUtil.get().getToken());
     }
 
     public T getSession() {
-        return sessionProcessor.getSession(WebInterceptor.getToken());
+        return sessionProcessor.getSession(ContextUtil.get().getToken());
     }
 
 }
