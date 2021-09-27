@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SessionManagement<T> {
 
-    @Autowired
+    @Autowired(required = false)
     private ISessionProcessor<T> sessionProcessor;
 
     public Boolean setSession(T obj) {
