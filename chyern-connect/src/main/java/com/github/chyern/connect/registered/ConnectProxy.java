@@ -12,11 +12,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationContext;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.net.URI;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -49,12 +48,7 @@ public class ConnectProxy implements InvocationHandler {
         buildUrlByQuery(url, method, args);
         Object body = getBody(method, args);
 
-        Field[] declaredFields = AbstractConnectProcessor.class.getDeclaredFields();
-        Arrays.stream(declaredFields).forEach(field -> field.setAccessible(true));
-        declaredFields[1].set(handler, new URI(url));
-        declaredFields[2].set(handler, requestMapping.method().name());
-        declaredFields[4].set(handler, body);
-        declaredFields[5].set(handler, method.getReturnType());
+        handler.init(new URI(url), requestMapping.method().name(), new HashMap<>(0), body, method.getReturnType());
         return handler.execute();
     }
 

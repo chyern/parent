@@ -24,6 +24,14 @@ public abstract class AbstractConnectProcessor {
 
     protected Class respClazz;
 
+    public void init(URI url, String method, Map<String, String> headers, Object body, Class respClazz) {
+        this.url = url;
+        this.method = method;
+        this.headers = headers;
+        this.body = body;
+        this.respClazz = respClazz;
+    }
+
     protected void before() {
         headers.put("Content-Type", JSON_UTF_8);
         headers.put("accept", JSON_UTF_8);
