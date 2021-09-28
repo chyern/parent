@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Aspect
 public class PermissionAspect {
 
-    @Autowired(required = false)
+    @Autowired
     private IPermissionProcessor permissionProcessor;
 
     @Pointcut("@annotation(com.github.chyern.permission.annotation.Permission)")
