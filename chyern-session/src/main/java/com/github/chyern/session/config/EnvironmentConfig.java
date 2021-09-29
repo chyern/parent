@@ -21,6 +21,6 @@ public class EnvironmentConfig implements EnvironmentAware {
 
     @Override
     public void setEnvironment(Environment environment) {
-        excludePathPatterns = environment.getProperty("chyern.session.exclude.path.patterns", List.class);
+        excludePathPatterns = environment.getProperty("session.exclude.path.patterns", List.class);
     }
 }
