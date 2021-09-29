@@ -1,10 +1,14 @@
 package com.github.chyern.session.config;
 
 import lombok.Getter;
+import org.springframework.boot.context.properties.bind.BindResult;
+import org.springframework.boot.context.properties.bind.Bindable;
+import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,8 +23,21 @@ public class EnvironmentConfig implements EnvironmentAware {
     @Getter
     private List<String> excludePathPatterns;
 
+    private Environment env;
+
     @Override
     public void setEnvironment(Environment environment) {
-        excludePathPatterns = environment.getProperty("session.exclude.path.patterns", List.class);
+        env = environment;
+
+        excludePathPatterns = getPropertyList("session.exclude.path.patterns");
+    }
+
+    private String getProperty(String key) {
+        return env.getProperty(key);
+    }
+
+    private List<String> getPropertyList(String key) {
+        BindResult<List<String>> bind = Binder.get(env).bind(key, Bindable.listOf(String.class));
+        return bind.orElse(new ArrayList<>());
     }
 }
