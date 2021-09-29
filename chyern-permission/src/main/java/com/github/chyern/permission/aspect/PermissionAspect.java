@@ -29,7 +29,7 @@ public class PermissionAspect {
     }
 
     @Before("cut()")
-    public void around(JoinPoint joinPoint) {
+    public void before(JoinPoint joinPoint) {
         Permission annotation = ((MethodSignature) joinPoint.getSignature()).getMethod().getAnnotation(Permission.class);
         String permissionCode = annotation.permissionCode();
         Boolean hasPermission = permissionProcessor.hasPermission(permissionCode);
