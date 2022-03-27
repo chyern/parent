@@ -5,6 +5,7 @@ import com.github.chyern.common.exception.Exception;
 import com.github.chyern.common.model.Context;
 import com.github.chyern.common.response.Response;
 import com.github.chyern.common.utils.ContextUtil;
+import com.github.chyern.common.utils.LambdaUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -50,7 +51,7 @@ public class WebInterceptor implements HandlerInterceptor {
 
     private String getToken(Cookie[] cookies) {
         if (cookies != null) {
-            Cookie cookie = Arrays.stream(cookies).filter(item -> TOKEN_KEY.equals(item.getName())).findFirst().orElse(null);
+            Cookie cookie = LambdaUtil.findFirst(Arrays.asList(cookies), item -> TOKEN_KEY.equals(item.getName()));
             if (cookie != null) {
                 return cookie.getValue();
             }

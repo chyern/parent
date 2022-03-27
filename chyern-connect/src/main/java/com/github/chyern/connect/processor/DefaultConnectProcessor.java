@@ -1,7 +1,7 @@
 package com.github.chyern.connect.processor;
 
 import com.github.chyern.common.enums.ErrorEnum;
-import com.github.chyern.common.exception.Exception;
+import com.github.chyern.common.utils.AssertUtil;
 import com.google.gson.GsonBuilder;
 import org.springframework.http.*;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
@@ -30,9 +30,7 @@ public class DefaultConnectProcessor extends AbstractConnectProcessor {
     @Override
     protected <T> T after(Object obj) {
         ResponseEntity entity = (ResponseEntity) obj;
-        if (HttpStatus.OK != entity.getStatusCode()) {
-            throw new Exception(ErrorEnum.CONNECT_RESULT_ERROR);
-        }
+        AssertUtil.isTrue(HttpStatus.OK == entity.getStatusCode(), ErrorEnum.CONNECT_RESULT_ERROR);
         return (T) entity.getBody();
     }
 }

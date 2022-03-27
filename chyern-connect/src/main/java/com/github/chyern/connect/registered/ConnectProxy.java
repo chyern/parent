@@ -1,7 +1,7 @@
 package com.github.chyern.connect.registered;
 
 import com.github.chyern.common.enums.ErrorEnum;
-import com.github.chyern.common.exception.Exception;
+import com.github.chyern.common.utils.AssertUtil;
 import com.github.chyern.connect.annotation.Connect;
 import com.github.chyern.connect.annotation.method.RequestMapping;
 import com.github.chyern.connect.annotation.resource.Body;
@@ -17,7 +17,6 @@ import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -40,9 +39,7 @@ public class ConnectProxy implements InvocationHandler {
         AbstractConnectProcessor handler = connect.clazz().newInstance();
         String url = buildUrl(connect.value());
         RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
-        if (requestMapping == null) {
-            throw new Exception(ErrorEnum.CONNECT_METHOD_ERROR);
-        }
+        AssertUtil.isNull(requestMapping, ErrorEnum.CONNECT_METHOD_ERROR);
         url += requestMapping.value();
         buildUrlByPath(url, method, args);
         buildUrlByQuery(url, method, args);
@@ -59,9 +56,7 @@ public class ConnectProxy implements InvocationHandler {
             if (context.getEnvironment().containsProperty(split[0])) {
                 return context.getEnvironment().getProperty(split[0]);
             } else {
-                if (split.length < 2) {
-                    throw new Exception(ErrorEnum.CONNECT_URL_ERROR);
-                }
+                AssertUtil.isTrue(split.length >= 2, ErrorEnum.CONNECT_URL_ERROR);
                 return StringUtils.substringAfter(key, ":");
             }
         } else {
@@ -76,9 +71,7 @@ public class ConnectProxy implements InvocationHandler {
                 Annotation annotation = parameterAnnotations[i][j];
                 if (annotation instanceof Path) {
                     String path = "{" + ((Path) annotation).value() + "}";
-                    if (!url.contains(path)) {
-                        throw new Exception(ErrorEnum.CONNECT_PATH_ERROR);
-                    }
+                    AssertUtil.isTrue(url.contains(path), ErrorEnum.CONNECT_PATH_ERROR);
                     url = url.replace(path, args[i].toString());
                 }
             }
@@ -110,9 +103,7 @@ public class ConnectProxy implements InvocationHandler {
             for (int j = 0; j < parameterAnnotations[i].length; j++) {
                 Annotation annotation = parameterAnnotations[i][j];
                 if (annotation instanceof Body) {
-                    if (Objects.nonNull(obj)) {
-                        throw new Exception(ErrorEnum.CONNECT_BODY_ERROR);
-                    }
+                    AssertUtil.nonNull(obj, ErrorEnum.CONNECT_BODY_ERROR);
                     obj = args[i];
                 }
             }
