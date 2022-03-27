@@ -20,7 +20,7 @@ import java.util.List;
 @Component
 public class EnvironmentConfig implements EnvironmentAware {
 
-    public static final String EXCLUDE_PATH_KEY = "session.exclude.path.patterns";
+    private static final String EXCLUDE_PATH_KEY = "session.exclude.path.patterns";
 
     @Getter
     private List<String> excludePathPatterns;
