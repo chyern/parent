@@ -12,9 +12,12 @@ import org.springframework.core.type.AnnotationMetadata;
  * @since 2021/9/27
  */
 public class SessionScanRegistrar implements ImportBeanDefinitionRegistrar {
+
+    private static final String SCAN_PACKAGE = "com.github.chyern.session";
+
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
         ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(registry);
-        scanner.scan("com.github.chyern.session");
+        scanner.scan(SCAN_PACKAGE);
     }
 }

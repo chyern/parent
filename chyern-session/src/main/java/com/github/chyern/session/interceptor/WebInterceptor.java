@@ -6,6 +6,7 @@ import com.github.chyern.common.model.Context;
 import com.github.chyern.common.response.Response;
 import com.github.chyern.common.utils.ContextUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -25,7 +26,8 @@ import java.util.UUID;
 @Component
 public class WebInterceptor implements HandlerInterceptor {
 
-    private static final String TOKEN_NAME = "chyern-token";
+    @Value("${token.key}")
+    private String TOKEN_KEY;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -34,7 +36,7 @@ public class WebInterceptor implements HandlerInterceptor {
         String token = getToken(request.getCookies());
         if (StringUtils.isBlank(token)) {
             //从header中获取
-            token = request.getHeader(TOKEN_NAME);
+            token = request.getHeader(TOKEN_KEY);
             if (StringUtils.isBlank(token)) {
                 //生成token
                 token = UUID.randomUUID().toString();
@@ -48,7 +50,7 @@ public class WebInterceptor implements HandlerInterceptor {
 
     private String getToken(Cookie[] cookies) {
         if (cookies != null) {
-            Cookie cookie = Arrays.stream(cookies).filter(item -> TOKEN_NAME.equals(item.getName())).findFirst().orElse(null);
+            Cookie cookie = Arrays.stream(cookies).filter(item -> TOKEN_KEY.equals(item.getName())).findFirst().orElse(null);
             if (cookie != null) {
                 return cookie.getValue();
             }
@@ -58,10 +60,10 @@ public class WebInterceptor implements HandlerInterceptor {
 
     private void setResponse(HttpServletResponse response) {
         String token = ContextUtil.get().getToken();
-        Cookie cookie = new Cookie(TOKEN_NAME, token);
+        Cookie cookie = new Cookie(TOKEN_KEY, token);
         cookie.setPath("/");
         response.addCookie(cookie);
-        response.addHeader(TOKEN_NAME, token);
+        response.addHeader(TOKEN_KEY, token);
     }
 
     @Override
