@@ -1,4 +1,4 @@
-package com.github.chyern.common.model;
+package com.github.chyern.session.context;
 
 import lombok.Data;
 

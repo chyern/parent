@@ -1,6 +1,6 @@
 package com.github.chyern.session.processor;
 
-import com.github.chyern.common.utils.ContextUtil;
+import com.github.chyern.session.utils.ContextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

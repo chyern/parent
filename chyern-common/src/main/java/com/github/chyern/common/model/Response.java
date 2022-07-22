@@ -1,4 +1,4 @@
-package com.github.chyern.common.response;
+package com.github.chyern.common.model;
 
 import com.github.chyern.common.constant.Error;
 import lombok.Data;

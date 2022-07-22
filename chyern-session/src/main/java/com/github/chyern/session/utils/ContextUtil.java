@@ -1,6 +1,6 @@
-package com.github.chyern.common.utils;
+package com.github.chyern.session.utils;
 
-import com.github.chyern.common.model.Context;
+import com.github.chyern.session.context.Context;
 
 /**
  * Description: TODO
