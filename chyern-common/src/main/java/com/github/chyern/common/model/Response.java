@@ -1,6 +1,6 @@
 package com.github.chyern.common.model;
 
-import com.github.chyern.common.constant.Error;
+import com.github.chyern.common.enums.IErrorEnum;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -34,10 +34,10 @@ public class Response<T> implements Serializable {
         return response;
     }
 
-    public static Response buildFailure(Error error) {
+    public static Response buildFailure(IErrorEnum errorEnum) {
         Response response = new Response();
-        response.code = error.getErrorCode();
-        response.msg = error.getErrorMsg();
+        response.code = errorEnum.getErrorCode();
+        response.msg = errorEnum.getErrorMsg();
         response.t = System.currentTimeMillis();
         return response;
     }

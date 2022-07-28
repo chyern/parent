@@ -1,16 +1,12 @@
 package com.github.chyern.common.enums;
 
-import com.github.chyern.common.constant.Error;
-import lombok.Getter;
-
 /**
  * Description: TODO
  *
  * @author Chyern
  * @since 2021/7/19
  */
-@Getter
-public enum ErrorEnum implements Error {
+public enum ErrorEnum implements IErrorEnum {
 
     WITHOUT_LOGIN(1000, "without login"),
     WITHOUT_PERMISSION(1001, "without permission"),
@@ -29,5 +25,15 @@ public enum ErrorEnum implements Error {
     ErrorEnum(Integer errorCode, String errorMsg) {
         this.errorCode = errorCode;
         this.errorMsg = errorMsg;
+    }
+
+    @Override
+    public Integer getErrorCode() {
+        return errorCode;
+    }
+
+    @Override
+    public String getErrorMsg() {
+        return errorMsg;
     }
 }

@@ -1,6 +1,6 @@
 package com.github.chyern.common.exception;
 
-import com.github.chyern.common.constant.Error;
+import com.github.chyern.common.enums.IErrorEnum;
 import lombok.Getter;
 
 /**
@@ -12,10 +12,10 @@ import lombok.Getter;
 @Getter
 public class Exception extends RuntimeException {
 
-    private final Error error;
+    private final IErrorEnum errorEnum;
 
-    public Exception(Error error) {
-        super(error.getErrorMsg());
-        this.error = error;
+    public Exception(IErrorEnum errorEnum) {
+        super(errorEnum.getErrorMsg());
+        this.errorEnum = errorEnum;
     }
 }

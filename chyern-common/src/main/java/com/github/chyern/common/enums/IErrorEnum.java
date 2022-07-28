@@ -1,4 +1,4 @@
-package com.github.chyern.common.constant;
+package com.github.chyern.common.enums;
 
 /**
  * Description: TODO
@@ -6,7 +6,7 @@ package com.github.chyern.common.constant;
  * @author Chyern
  * @since 2021/9/27
  */
-public interface Error {
+public interface IErrorEnum {
 
     Integer getErrorCode();
 
