@@ -1,6 +1,5 @@
 package com.github.chyern.connect.processor;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 
 /**
@@ -11,5 +10,11 @@ import java.lang.reflect.Method;
  */
 public interface IConnectProcessor {
 
-    public Object execute(Object proxy, Method method, Object[] args) throws IOException;
+    public void before(Object proxy, Method method, Object[] args) throws Exception;
+
+    public Object execute(Object proxy, Method method, Object[] args) throws Exception;
+
+    public void after(Object proxy, Method method, Object[] args, Object result) throws Exception;
+
+    public void throwsException(Object proxy, Method method, Object[] args, Exception exception);
 }
