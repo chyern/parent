@@ -1,5 +1,6 @@
 package com.github.chyern.connect;
 
+import com.github.chyern.connect.processor.ConnectProcessor;
 import com.github.chyern.connect.registered.ConnectScanRegistrar;
 import org.springframework.context.annotation.Import;
 
@@ -14,7 +15,7 @@ import java.lang.annotation.*;
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import(ConnectScanRegistrar.class)
+@Import({ConnectScanRegistrar.class, ConnectProcessor.class})
 public @interface EnableConnect {
 
     String[] value() default {};

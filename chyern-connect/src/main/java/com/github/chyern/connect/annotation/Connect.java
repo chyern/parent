@@ -1,7 +1,7 @@
 package com.github.chyern.connect.annotation;
 
-import com.github.chyern.connect.processor.AbstractConnectProcessor;
-import com.github.chyern.connect.processor.DefaultConnectProcessor;
+import com.github.chyern.connect.processor.ConnectProcessor;
+import com.github.chyern.connect.processor.IConnectProcessor;
 
 import java.lang.annotation.*;
 
@@ -18,5 +18,5 @@ public @interface Connect {
 
     String value();
 
-    Class<? extends AbstractConnectProcessor> clazz() default DefaultConnectProcessor.class;
+    Class<? extends IConnectProcessor> clazz() default ConnectProcessor.class;
 }

@@ -16,4 +16,6 @@ public @interface RequestMapping {
     String value();
 
     Method method();
+
+    MediaType mediaType() default MediaType.JSON;
 }
