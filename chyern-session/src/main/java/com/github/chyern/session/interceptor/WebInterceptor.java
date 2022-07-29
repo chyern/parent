@@ -4,8 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.github.chyern.common.exception.Exception;
 import com.github.chyern.common.model.Response;
 import com.github.chyern.common.utils.LambdaUtil;
-import com.github.chyern.session.context.Context;
-import com.github.chyern.session.utils.ContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -32,7 +30,6 @@ public class WebInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        Context context = new Context();
         //从cookie中获取
         String token = getToken(request.getCookies());
         if (StringUtils.isBlank(token)) {
@@ -43,8 +40,7 @@ public class WebInterceptor implements HandlerInterceptor {
                 token = UUID.randomUUID().toString();
             }
         }
-        context.setToken(token);
-        ContextUtil.set(context);
+        TokenThreadLocal.set(token);
         setResponse(response);
         return true;
     }
@@ -60,7 +56,7 @@ public class WebInterceptor implements HandlerInterceptor {
     }
 
     private void setResponse(HttpServletResponse response) {
-        String token = ContextUtil.get().getToken();
+        String token = TokenThreadLocal.get();
         Cookie cookie = new Cookie(TOKEN_KEY, token);
         cookie.setPath("/");
         response.addCookie(cookie);
@@ -77,8 +73,27 @@ public class WebInterceptor implements HandlerInterceptor {
                 response.getWriter().write(JSON.toJSONString(Response.buildFailure(exception.getErrorEnum())));
             }
         } catch (java.lang.Exception ignore) {
+        } finally {
+            TokenThreadLocal.remove();
         }
-        ContextUtil.remove();
+    }
+
+
+    public static class TokenThreadLocal {
+
+        private static ThreadLocal<String> threadLocal = new ThreadLocal<>();
+
+        public static String get() {
+            return threadLocal.get();
+        }
+
+        public static void set(String token) {
+            threadLocal.set(token);
+        }
+
+        public static void remove() {
+            threadLocal.remove();
+        }
     }
 
 }
