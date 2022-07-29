@@ -104,7 +104,7 @@ public class ConnectProcessor extends AbstractConnectProcessor {
     }
 
 
-    private void beforeReturnExecute(Object obj) {
+    protected void beforeReturnExecute(Object obj) {
 
     }
 
