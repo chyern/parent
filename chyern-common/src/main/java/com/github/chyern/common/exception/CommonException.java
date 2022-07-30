@@ -1,7 +1,6 @@
 package com.github.chyern.common.exception;
 
 import com.github.chyern.common.enums.IErrorEnum;
-import lombok.Getter;
 
 import java.text.MessageFormat;
 
@@ -11,10 +10,13 @@ import java.text.MessageFormat;
  * @author Chyern
  * @since 2021/7/19
  */
-@Getter
 public class CommonException extends RuntimeException {
 
     private final IErrorEnum errorEnum;
+
+    public IErrorEnum getErrorEnum() {
+        return errorEnum;
+    }
 
     public CommonException(IErrorEnum errorEnum) {
         super(errorEnum.getErrorMsg());
