@@ -10,7 +10,7 @@ import com.github.chyern.common.enums.IErrorEnum;
  */
 public enum ConnectErrorEnum implements IErrorEnum {
 
-    COULD_NOT_INSTANTIATION_KEY(10001, "{} must be instantiation"),
+    COULD_NOT_INSTANTIATION_KEY(10001, "{0} must be instantiation"),
 
     CONNECT_ERROR(2000, "Connect is unsuccessful"),
     CONNECT_BODY_ERROR(2002, "It is not allowed to define two request types on a single body"),
