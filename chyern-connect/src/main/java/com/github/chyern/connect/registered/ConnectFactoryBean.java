@@ -54,7 +54,7 @@ public class ConnectFactoryBean<T> implements FactoryBean<T>, ApplicationContext
                 newValue = context.getEnvironment().getProperty(newValue);
             }
         }
-        return value;
+        return newValue;
     }
 
     @Override
