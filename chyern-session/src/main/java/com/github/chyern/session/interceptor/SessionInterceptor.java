@@ -1,8 +1,8 @@
 package com.github.chyern.session.interceptor;
 
-import com.github.chyern.common.enums.ErrorEnum;
 import com.github.chyern.common.utils.AssertUtil;
 import com.github.chyern.session.annotation.LoginOut;
+import com.github.chyern.session.exception.SessionErrorEnum;
 import com.github.chyern.session.processor.SessionManagement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,7 +28,7 @@ public class SessionInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         Object session = sessionManagement.getSession();
-        AssertUtil.isNull(session, ErrorEnum.WITHOUT_LOGIN);
+        AssertUtil.isNull(session, SessionErrorEnum.WITHOUT_LOGIN);
         return true;
     }
 

@@ -1,10 +1,10 @@
 package com.github.chyern.connect.processor;
 
-import com.github.chyern.common.enums.ErrorEnum;
 import com.github.chyern.common.utils.AssertUtil;
 import com.github.chyern.connect.annotation.Connect;
 import com.github.chyern.connect.annotation.method.RequestMapping;
 import com.github.chyern.connect.annotation.resource.Path;
+import com.github.chyern.connect.exception.ConnectErrorEnum;
 import com.google.gson.GsonBuilder;
 import okhttp3.*;
 import org.apache.commons.lang3.StringUtils;
@@ -30,7 +30,7 @@ public class ConnectProcessor extends AbstractConnectProcessor {
     private ApplicationContext context;
 
     @Override
-    public Object execute(Object proxy, Method method, Object[] args) throws Exception {
+    public Object execute(Object proxy, Method method, Object[] args) throws Throwable {
         RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
         String url = buildUrl(method, args);
         Map<String, String> headerMap = buildHeader(method, args);
@@ -50,6 +50,7 @@ public class ConnectProcessor extends AbstractConnectProcessor {
         Request request = builder.build();
         Response response = client.newCall(request).execute();
         this.beforeReturnExecute(response);
+        AssertUtil.isTrue(response.isSuccessful(), ConnectErrorEnum.CONNECT_ERROR);
         ResponseBody responseBody = response.body();
         if (Objects.isNull(responseBody)) {
             return null;
@@ -64,20 +65,8 @@ public class ConnectProcessor extends AbstractConnectProcessor {
     }
 
     private String buildUrl(Method method, Object[] args) {
-        String url = "";
-        //取Connect上url
         Connect connect = method.getDeclaringClass().getAnnotation(Connect.class);
-        url += connect.value();
-        if (url.startsWith("${") && url.endsWith("}")) {
-            url = StringUtils.substringBetween(url, "${", "}");
-            String[] split = StringUtils.split(url, ":");
-            AssertUtil.isTrue(split.length <= 2, ErrorEnum.CONNECT_URL_ERROR);
-            if (context.getEnvironment().containsProperty(split[0])) {
-                url = context.getEnvironment().getProperty(split[0]);
-            } else {
-                url = StringUtils.substringAfter(url, ":");
-            }
-        }
+        String url = connect.value();
         //拼接RequestMapping上url
         RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
         String value = requestMapping.value();

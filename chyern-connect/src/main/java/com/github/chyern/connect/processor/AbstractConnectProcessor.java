@@ -1,11 +1,11 @@
 package com.github.chyern.connect.processor;
 
-import com.github.chyern.common.enums.ErrorEnum;
 import com.github.chyern.common.utils.AssertUtil;
 import com.github.chyern.connect.annotation.method.RequestMapping;
 import com.github.chyern.connect.annotation.resource.Body;
 import com.github.chyern.connect.annotation.resource.Header;
 import com.github.chyern.connect.annotation.resource.Query;
+import com.github.chyern.connect.exception.ConnectErrorEnum;
 import com.google.gson.GsonBuilder;
 import org.apache.commons.lang3.StringUtils;
 
@@ -24,12 +24,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class AbstractConnectProcessor implements IConnectProcessor {
 
     @Override
-    public void before(Object proxy, Method method, Object[] args) throws Exception {
+    public void before(Object proxy, Method method, Object[] args) throws Throwable {
 
     }
 
     @Override
-    public void after(Object proxy, Method method, Object[] args, Object result) throws Exception {
+    public void after(Object proxy, Method method, Object[] args, Object result) throws Throwable {
 
     }
 
@@ -77,7 +77,7 @@ public abstract class AbstractConnectProcessor implements IConnectProcessor {
                 }
             });
         });
-        AssertUtil.isTrue(headerAnnotationNum.get() <= 1, ErrorEnum.CONNECT_HEADER_ERROR);
+        AssertUtil.isTrue(headerAnnotationNum.get() <= 1, ConnectErrorEnum.CONNECT_HEADER_ERROR);
         HashMap<String, String> map = new HashMap<>();
         Annotation[][] parameterAnnotations = method.getParameterAnnotations();
         for (int i = 0; i < args.length; i++) {
@@ -86,7 +86,7 @@ public abstract class AbstractConnectProcessor implements IConnectProcessor {
                 continue;
             }
             Object arg = args[i];
-            AssertUtil.isTrue(arg instanceof Map, ErrorEnum.CONNECT_HEADER_TYPE_ERROR);
+            AssertUtil.isTrue(arg instanceof Map, ConnectErrorEnum.CONNECT_HEADER_TYPE_ERROR);
             Map<Object, Object> argMap = (Map) arg;
             for (Map.Entry<Object, Object> entry : argMap.entrySet()) {
                 map.put(entry.getKey().toString(), entry.getValue().toString());
@@ -95,7 +95,7 @@ public abstract class AbstractConnectProcessor implements IConnectProcessor {
         return map;
     }
 
-    protected String buildBody(Method method, Object[] args) throws Exception {
+    protected String buildBody(Method method, Object[] args) throws Throwable {
         String bodyStr = "";
         if (Objects.isNull(args)) {
             return bodyStr;
@@ -108,7 +108,7 @@ public abstract class AbstractConnectProcessor implements IConnectProcessor {
                 }
             });
         });
-        AssertUtil.isTrue(bodyAnnotationNum.get() <= 1, ErrorEnum.CONNECT_BODY_ERROR);
+        AssertUtil.isTrue(bodyAnnotationNum.get() <= 1, ConnectErrorEnum.CONNECT_BODY_ERROR);
         if (bodyAnnotationNum.get() == 0) {
             return bodyStr;
         }

@@ -1,8 +1,8 @@
 package com.github.chyern.permission.aspect;
 
-import com.github.chyern.common.enums.ErrorEnum;
 import com.github.chyern.common.utils.AssertUtil;
 import com.github.chyern.permission.annotation.Permission;
+import com.github.chyern.permission.exception.PermissionErrorEnum;
 import com.github.chyern.permission.processor.IPermissionProcessor;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -33,6 +33,6 @@ public class PermissionAspect {
         Permission annotation = ((MethodSignature) joinPoint.getSignature()).getMethod().getAnnotation(Permission.class);
         String permissionCode = annotation.permissionCode();
         Boolean hasPermission = permissionProcessor.hasPermission(permissionCode);
-        AssertUtil.isTrue(hasPermission, ErrorEnum.WITHOUT_PERMISSION);
+        AssertUtil.isTrue(hasPermission, PermissionErrorEnum.WITHOUT_PERMISSION);
     }
 }

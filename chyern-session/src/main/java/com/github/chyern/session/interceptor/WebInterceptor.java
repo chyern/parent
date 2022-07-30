@@ -1,7 +1,7 @@
 package com.github.chyern.session.interceptor;
 
 import com.alibaba.fastjson.JSON;
-import com.github.chyern.common.exception.Exception;
+import com.github.chyern.common.exception.CommonException;
 import com.github.chyern.common.model.Response;
 import com.github.chyern.common.utils.LambdaUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -66,11 +66,11 @@ public class WebInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, java.lang.Exception ex) throws java.lang.Exception {
         try {
-            if (ex instanceof Exception) {
-                Exception exception = (Exception) ex;
+            if (ex instanceof CommonException) {
+                CommonException commonException = (CommonException) ex;
                 response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
                 response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(JSON.toJSONString(Response.buildFailure(exception.getErrorEnum())));
+                response.getWriter().write(JSON.toJSONString(Response.buildFailure(commonException.getErrorEnum())));
             }
         } catch (java.lang.Exception ignore) {
         } finally {

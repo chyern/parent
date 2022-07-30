@@ -18,5 +18,5 @@ public @interface Connect {
 
     String value();
 
-    Class<? extends IConnectProcessor> clazz() default ConnectProcessor.class;
+    Class<? extends IConnectProcessor> processor() default ConnectProcessor.class;
 }
