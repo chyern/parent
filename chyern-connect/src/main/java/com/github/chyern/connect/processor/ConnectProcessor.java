@@ -16,6 +16,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Description: TODO
@@ -36,7 +37,7 @@ public class ConnectProcessor extends AbstractConnectProcessor {
         Map<String, String> headerMap = buildHeader(method, args);
         String bodyStr = buildBody(method, args);
         //okhttp连接
-        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(10L, TimeUnit.SECONDS).callTimeout(30L, TimeUnit.SECONDS).build();
         MediaType mediaType = MediaType.parse(requestMapping.mediaType().getValue());
         RequestBody body = RequestBody.create(mediaType, bodyStr);
         com.github.chyern.connect.annotation.method.Method requestMethod = requestMapping.method();
@@ -52,16 +53,13 @@ public class ConnectProcessor extends AbstractConnectProcessor {
         this.beforeReturnExecute(response);
         AssertUtil.isTrue(response.isSuccessful(), ConnectErrorEnum.CONNECT_ERROR);
         ResponseBody responseBody = response.body();
-        if (Objects.isNull(responseBody)) {
+        if (Objects.isNull(responseBody) || void.class.equals(method.getReturnType())) {
             return null;
         }
-        String responseStr = responseBody.string();
-        Class<?> returnType = method.getReturnType();
-        if (String.class.equals(returnType)) {
-            return responseStr;
+        if (String.class.equals(method.getReturnType())) {
+            return responseBody.string();
         }
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        return gsonBuilder.create().fromJson(responseStr, returnType);
+        return new GsonBuilder().create().fromJson(responseBody.charStream(), method.getGenericReturnType());
     }
 
     private String buildUrl(Method method, Object[] args) {
