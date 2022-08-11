@@ -14,7 +14,6 @@
         <module>permission</module>
         <module>session</module>
         <module>core</module>
-        <module>all</module>
     </modules>
 
     <properties>
