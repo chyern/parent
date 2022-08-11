@@ -13,7 +13,7 @@ import org.springframework.core.type.AnnotationMetadata;
  */
 public class SessionScanRegistrar implements ImportBeanDefinitionRegistrar {
 
-    private static final String SCAN_PACKAGE = "com.github.chyern.session";
+    private static final String SCAN_PACKAGE = "com.chyern.session";
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {

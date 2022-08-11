@@ -1,10 +1,10 @@
 package com.chyern.connect.processor;
 
-import com.chyern.connect.annotation.method.RequestMapping;
-import com.chyern.core.utils.AssertUtil;
 import com.chyern.connect.annotation.Connect;
+import com.chyern.connect.annotation.method.RequestMapping;
 import com.chyern.connect.annotation.resource.Path;
 import com.chyern.connect.exception.ConnectErrorEnum;
+import com.chyern.core.utils.AssertUtil;
 import com.google.gson.GsonBuilder;
 import okhttp3.*;
 import org.apache.commons.lang3.StringUtils;
@@ -62,9 +62,25 @@ public class ConnectProcessor extends AbstractConnectProcessor {
         return new GsonBuilder().create().fromJson(responseBody.charStream(), method.getGenericReturnType());
     }
 
+    private String replaceValue(String value) {
+        String newValue = value;
+        if (newValue.startsWith("${") && newValue.endsWith("}")) {
+            newValue = StringUtils.substringBetween(newValue, "${", "}");
+            if (newValue.contains(":")) {
+                String substringBefore = StringUtils.substringBefore(newValue, ":");
+                String substringAfter = StringUtils.substringAfter(newValue, ":");
+                newValue = context.getEnvironment().getProperty(substringBefore, substringAfter);
+            } else {
+                AssertUtil.isTrue(context.getEnvironment().containsProperty(newValue), ConnectErrorEnum.COULD_NOT_INSTANTIATION_KEY, value);
+                newValue = context.getEnvironment().getProperty(newValue);
+            }
+        }
+        return newValue;
+    }
+
     private String buildUrl(Method method, Object[] args) {
         Connect connect = method.getDeclaringClass().getAnnotation(Connect.class);
-        String url = connect.value();
+        String url = replaceValue(connect.value());
         //拼接RequestMapping上url
         RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
         String value = requestMapping.value();
