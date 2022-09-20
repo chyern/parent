@@ -11,6 +11,10 @@
 
     <artifactId>connect</artifactId>
 
+    <properties>
+        <okhttp.version>3.14.9</okhttp.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.chyern</groupId>

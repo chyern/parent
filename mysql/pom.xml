@@ -9,37 +9,39 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>session</artifactId>
+    <artifactId>mysql</artifactId>
 
     <properties>
-        <fastjson.version>1.2.76</fastjson.version>
+        <baomidou.version>3.4.2</baomidou.version>
+        <druid.version>1.1.22</druid.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.chyern</groupId>
-            <artifactId>core</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>${baomidou.version}</version>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
             <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${fastjson.version}</version>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${druid.version}</version>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
