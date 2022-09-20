@@ -34,6 +34,9 @@ public class DataSourceConfig {
     @Value("${mapper.locations}")
     private String mapperLocations;
 
+    @Value("${print.sql.log:false}")
+    private boolean printSqlLog;
+
     @Bean
     public CustomizedSqlInjector customizedSqlInjector() {
         return new CustomizedSqlInjector();
@@ -65,7 +68,9 @@ public class DataSourceConfig {
 
         //mybatis配置
         MybatisConfiguration configuration = new MybatisConfiguration();
-        configuration.setLogImpl(org.apache.ibatis.logging.stdout.StdOutImpl.class);
+        if (printSqlLog) {
+            configuration.setLogImpl(org.apache.ibatis.logging.stdout.StdOutImpl.class);
+        }
         configuration.setCacheEnabled(false);
         configuration.setMapUnderscoreToCamelCase(true);
         configuration.setCallSettersOnNulls(true);
