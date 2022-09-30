@@ -26,8 +26,8 @@ public class Response<T> implements Serializable {
 
     private Long t;
 
-    public static <T> Response buildSuccess(T data) {
-        Response response = new Response();
+    public static <T> Response<T> buildSuccess(T data) {
+        Response<T> response = new Response<>();
         response.success = true;
         response.result = data;
         response.t = System.currentTimeMillis();
