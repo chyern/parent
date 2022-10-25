@@ -64,7 +64,7 @@ public class WebInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, java.lang.Exception ex) throws java.lang.Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         try {
             if (ex instanceof CommonException) {
                 CommonException commonException = (CommonException) ex;

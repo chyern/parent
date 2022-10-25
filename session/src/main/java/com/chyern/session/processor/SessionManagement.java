@@ -1,8 +1,9 @@
 package com.chyern.session.processor;
 
 import com.chyern.session.interceptor.WebInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * Description: TODO
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SessionManagement<T> {
 
-    @Autowired
+    @Resource
     private ISessionProcessor<T> sessionProcessor;
 
     public void setSession(T obj) {

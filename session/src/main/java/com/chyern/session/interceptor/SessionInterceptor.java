@@ -2,14 +2,14 @@ package com.chyern.session.interceptor;
 
 import com.chyern.core.utils.AssertUtil;
 import com.chyern.session.annotation.LoginOut;
-import com.chyern.session.processor.SessionManagement;
 import com.chyern.session.exception.SessionErrorEnum;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.chyern.session.processor.SessionManagement;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class SessionInterceptor implements HandlerInterceptor {
 
-    @Autowired
+    @Resource
     private SessionManagement sessionManagement;
 
     @Override

@@ -30,12 +30,7 @@ public class EnvironmentConfig implements EnvironmentAware {
     @Override
     public void setEnvironment(Environment environment) {
         env = environment;
-
         excludePathPatterns = getPropertyList(EXCLUDE_PATH_KEY);
-    }
-
-    private String getProperty(String key) {
-        return env.getProperty(key);
     }
 
     private List<String> getPropertyList(String key) {

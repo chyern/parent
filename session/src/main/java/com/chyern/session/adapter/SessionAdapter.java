@@ -3,10 +3,11 @@ package com.chyern.session.adapter;
 import com.chyern.session.config.EnvironmentConfig;
 import com.chyern.session.interceptor.SessionInterceptor;
 import com.chyern.session.interceptor.WebInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import javax.annotation.Resource;
 
 /**
  * Description: TODO
@@ -17,13 +18,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 public class SessionAdapter extends WebMvcConfigurerAdapter {
 
-    @Autowired
+    @Resource
     private WebInterceptor webInterceptor;
 
-    @Autowired
+    @Resource
     private SessionInterceptor sessionInterceptor;
 
-    @Autowired
+    @Resource
     private EnvironmentConfig environmentConfig;
 
     @Override
