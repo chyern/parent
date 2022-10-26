@@ -9,6 +9,9 @@ import com.chyern.connect.exception.ConnectErrorEnum;
 import com.chyern.core.utils.AssertUtil;
 import com.google.gson.GsonBuilder;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -22,7 +25,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author Chyern
  * @since 2022/7/29 22:39
  */
-public abstract class AbstractConnectProcessor implements IConnectProcessor {
+public abstract class AbstractConnectProcessor implements IConnectProcessor, ApplicationContextAware {
+
+    protected static ApplicationContext applicationContext;
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        AbstractConnectProcessor.applicationContext = applicationContext;
+    }
 
     @Override
     public void before(Object proxy, Method method, Object[] args) throws Throwable {

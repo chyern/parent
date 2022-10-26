@@ -8,10 +8,8 @@ import com.chyern.core.utils.AssertUtil;
 import com.google.gson.GsonBuilder;
 import okhttp3.*;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -26,9 +24,6 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class ConnectProcessor extends AbstractConnectProcessor {
-
-    @Resource
-    private ApplicationContext context;
 
     @Override
     public Object execute(Object proxy, Method method, Object[] args) throws Throwable {
@@ -62,17 +57,17 @@ public class ConnectProcessor extends AbstractConnectProcessor {
         return new GsonBuilder().create().fromJson(responseBody.charStream(), method.getGenericReturnType());
     }
 
-    private String replaceValue(String value) {
+    private static String replaceValue(String value) {
         String newValue = value;
         if (newValue.startsWith("${") && newValue.endsWith("}")) {
             newValue = StringUtils.substringBetween(newValue, "${", "}");
             if (newValue.contains(":")) {
                 String substringBefore = StringUtils.substringBefore(newValue, ":");
                 String substringAfter = StringUtils.substringAfter(newValue, ":");
-                newValue = context.getEnvironment().getProperty(substringBefore, substringAfter);
+                newValue = applicationContext.getEnvironment().getProperty(substringBefore, substringAfter);
             } else {
-                AssertUtil.isTrue(context.getEnvironment().containsProperty(newValue), ConnectErrorEnum.COULD_NOT_INSTANTIATION_KEY, value);
-                newValue = context.getEnvironment().getProperty(newValue);
+                AssertUtil.isTrue(applicationContext.getEnvironment().containsProperty(newValue), ConnectErrorEnum.COULD_NOT_INSTANTIATION_KEY, value);
+                newValue = applicationContext.getEnvironment().getProperty(newValue);
             }
         }
         return newValue;
