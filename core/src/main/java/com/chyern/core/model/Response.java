@@ -34,8 +34,8 @@ public class Response<T> implements Serializable {
         return response;
     }
 
-    public static Response buildFailure(IErrorEnum errorEnum) {
-        Response response = new Response();
+    public static <T> Response<T> buildFailure(IErrorEnum errorEnum) {
+        Response<T> response = new Response<>();
         response.code = errorEnum.getErrorCode();
         response.msg = errorEnum.getErrorMsg();
         response.t = System.currentTimeMillis();
