@@ -18,4 +18,10 @@ public interface BaseMapper<T> extends com.baomidou.mybatisplus.core.mapper.Base
      */
     int insertBatch(@Param("list") List<T> list);
 
+
+    /**
+     * 查询全部
+     */
+    List<T> selectAll();
+
 }

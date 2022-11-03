@@ -16,7 +16,7 @@ public class InsertBatchMethod extends AbstractMethod {
 
     @Override
     public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
-        final String sql = "<script>insert into %s %s values %s</script>";
+        final String sql = "<script>\nINSERT INTO %s %s VALUES %s\n</script>";
         final String fieldSql = prepareFieldSql(tableInfo);
         final String valueSql = prepareValuesSql(tableInfo);
         final String sqlResult = String.format(sql, tableInfo.getTableName(), fieldSql, valueSql);
