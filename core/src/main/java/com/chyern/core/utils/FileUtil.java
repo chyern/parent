@@ -98,9 +98,9 @@ public class FileUtil {
                         read = fileInputStream.read(b);
                     }
                 }
+                fileOutputStream.write(System.lineSeparator().getBytes());
+                fileOutputStream.flush();
             }
-            fileOutputStream.write(System.lineSeparator().getBytes());
-            fileOutputStream.flush();
         }
 
         return outputFile;
