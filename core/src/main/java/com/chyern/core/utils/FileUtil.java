@@ -49,6 +49,30 @@ public class FileUtil {
         writeFile(url, join);
     }
 
+    public static List<File> listFile(String patch) {
+        List<File> result = new ArrayList<>();
+        listFile(result, new File(patch));
+        return result;
+    }
+
+    private static void listFile(List<File> result, File file) {
+        if (!file.exists()) {
+            return;
+        }
+
+        if (file.isFile()) {
+            result.add(file);
+        } else if (file.isDirectory()) {
+            File[] files = file.listFiles();
+
+            if (files != null) {
+                for (File subFile : files) {
+                    listFile(result, subFile);
+                }
+            }
+        }
+    }
+
     public static File mergeFile(String outFilePath, LinkedList<File> files) throws Exception {
         File outputFile = new File(outFilePath);
 
