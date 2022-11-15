@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.*;
 import java.nio.file.FileAlreadyExistsException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -73,7 +72,7 @@ public class FileUtil {
         }
     }
 
-    public static File mergeFile(String outFilePath, LinkedList<File> files) throws Exception {
+    public static File mergeFile(String outFilePath, List<File> files) throws Exception {
         File outputFile = new File(outFilePath);
 
         File outputFileParentFolder = new File(outputFile.getParent());
