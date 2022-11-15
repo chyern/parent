@@ -4,7 +4,6 @@ package com.chyern.core.utils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
-import java.nio.file.FileAlreadyExistsException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,36 +15,49 @@ import java.util.List;
  */
 public class FileUtil {
 
-    public static List<String> readFileByLine(File file) throws Exception {
-        if (!file.exists()) {
-            return new ArrayList<>();
+    public static File createFile(String path) throws Exception {
+        File file = new File(path);
+
+        File parentFile = new File(file.getParent());
+        if (!parentFile.exists()) {
+            parentFile.mkdirs();
         }
-        try (FileReader fileReader = new FileReader(file); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-            List<String> list = new ArrayList<>();
-            String line = bufferedReader.readLine();
-            while (line != null) {
-                list.add(line);
-                line = bufferedReader.readLine();
-            }
-            return list;
+
+        if (file.exists()) {
+            file.delete();
         }
+
+        file.createNewFile();
+        return file;
     }
 
-    public static void writeFile(String url, String content) throws Exception {
-        File file = new File(url);
-        if (file.exists()) {
-            throw new FileAlreadyExistsException(file.getPath());
+    public static List<String> readFileByLine(File file) throws Exception {
+        List<String> result = new ArrayList<>();
+        try (FileReader fileReader = new FileReader(file);
+             BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+            String line = bufferedReader.readLine();
+            while (line != null) {
+                result.add(line);
+                line = bufferedReader.readLine();
+            }
         }
-        file.createNewFile();
-        try (FileOutputStream fileOutputStream = new FileOutputStream(file); OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream); BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter)) {
+        return result;
+    }
+
+    public static void writeFile(String path, String content) throws Exception {
+        File file = createFile(path);
+
+        try (FileOutputStream fileOutputStream = new FileOutputStream(file);
+             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+             BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter)) {
             bufferedWriter.write(content);
             bufferedWriter.flush();
         }
     }
 
-    public static void writeFile(String url, List<String> lines) throws Exception {
-        String join = StringUtils.join(lines, System.lineSeparator());
-        writeFile(url, join);
+    public static void writeFile(String path, List<String> contents) throws Exception {
+        String join = StringUtils.join(contents, System.lineSeparator());
+        writeFile(path, join);
     }
 
     public static List<File> listFile(String patch) {
@@ -54,34 +66,8 @@ public class FileUtil {
         return result;
     }
 
-    private static void listFile(List<File> result, File file) {
-        if (!file.exists()) {
-            return;
-        }
-
-        if (file.isFile()) {
-            result.add(file);
-        } else if (file.isDirectory()) {
-            File[] files = file.listFiles();
-
-            if (files != null) {
-                for (File subFile : files) {
-                    listFile(result, subFile);
-                }
-            }
-        }
-    }
-
     public static File mergeFile(String outFilePath, List<File> files) throws Exception {
-        File outputFile = new File(outFilePath);
-
-        File outputFileParentFolder = new File(outputFile.getParent());
-        if (!outputFileParentFolder.exists()) {
-            outputFileParentFolder.mkdirs();
-        }
-        if (outputFile.exists()) {
-            outputFile.delete();
-        }
+        File outputFile = createFile(outFilePath);
 
         try (FileOutputStream fileOutputStream = new FileOutputStream(outputFile)) {
             for (File file : files) {
@@ -103,6 +89,24 @@ public class FileUtil {
         }
 
         return outputFile;
+    }
+
+    private static void listFile(List<File> result, File file) {
+        if (!file.exists()) {
+            return;
+        }
+
+        if (file.isFile()) {
+            result.add(file);
+        } else if (file.isDirectory()) {
+            File[] files = file.listFiles();
+
+            if (files != null) {
+                for (File subFile : files) {
+                    listFile(result, subFile);
+                }
+            }
+        }
     }
 
 }
