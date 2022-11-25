@@ -2,6 +2,7 @@ package com.chyern.core.utils;
 
 import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.slf4j.MDC;
@@ -17,8 +18,13 @@ import java.util.UUID;
 @Slf4j
 public class LogAspectUtil {
 
+    private static final String TRACK_ID = "trackId";
+
     public static Object excute(ProceedingJoinPoint point) throws Throwable {
-        MDC.put("trackId", UUID.randomUUID().toString());
+        String trackId = MDC.get(TRACK_ID);
+        if (StringUtils.isBlank(trackId)) {
+            MDC.put("trackId", UUID.randomUUID().toString());
+        }
         StringBuilder logStr = new StringBuilder(System.lineSeparator());
         long t = System.currentTimeMillis();
         Object proceed;
