@@ -1,4 +1,4 @@
-package com.chyern.permission.exception;
+package com.chyern.core.exception;
 
 import com.chyern.core.enums.IErrorEnum;
 
@@ -6,17 +6,17 @@ import com.chyern.core.enums.IErrorEnum;
  * Description: TODO
  *
  * @author Chyern
- * @since 2022/7/30 16:35
+ * @since 2022/11/28 11:13
  */
-public enum PermissionErrorEnum implements IErrorEnum {
+public enum CommonExceptionEnum implements IErrorEnum {
+    FILE_EXIST(10001, "file:{0} is exist"),
 
-    WITHOUT_PERMISSION(12001, "Permission to illegal"),
     ;
 
     private final Integer errorCode;
     private final String errorMsg;
 
-    PermissionErrorEnum(Integer errorCode, String errorMsg) {
+    CommonExceptionEnum(Integer errorCode, String errorMsg) {
         this.errorCode = errorCode;
         this.errorMsg = errorMsg;
     }

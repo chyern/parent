@@ -1,6 +1,8 @@
 package com.chyern.core.utils;
 
 
+import com.chyern.core.exception.CommonException;
+import com.chyern.core.exception.CommonExceptionEnum;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
@@ -15,24 +17,44 @@ import java.util.List;
  */
 public class FileUtil {
 
-    public static File createFile(String path) throws Exception {
+    /**
+     * 创建文件
+     *
+     * @param path    文件路径
+     * @param isExist 文件是否存在
+     * @return
+     * @throws CommonException
+     * @throws IOException
+     */
+    public static File createFile(String path, boolean isExist) throws CommonException, IOException {
         File file = new File(path);
 
-        File parentFile = new File(file.getParent());
-        if (!parentFile.exists()) {
-            parentFile.mkdirs();
-        }
-
         if (file.exists()) {
+            if (isExist) {
+                throw new CommonException(CommonExceptionEnum.FILE_EXIST);
+            }
             file.delete();
+            file.createNewFile();
+        } else {
+            String parentPath = file.getParent();
+            File parentFile = new File(parentPath);
+            if (!parentFile.exists()) {
+                parentFile.mkdirs();
+            }
         }
-
-        file.createNewFile();
         return file;
     }
 
-    public static List<String> readFileByLine(File file) throws Exception {
+    /**
+     * 逐行读取文件内容
+     *
+     * @param file 文件
+     * @return
+     * @throws IOException
+     */
+    public static List<String> readFileByLine(File file) throws IOException {
         List<String> result = new ArrayList<>();
+
         try (FileReader fileReader = new FileReader(file);
              BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             String line = bufferedReader.readLine();
@@ -41,11 +63,19 @@ public class FileUtil {
                 line = bufferedReader.readLine();
             }
         }
+
         return result;
     }
 
-    public static void writeFile(String path, String content) throws Exception {
-        File file = createFile(path);
+    /**
+     * 写入文件
+     *
+     * @param path    文件路径
+     * @param content 写入内容
+     * @throws Exception
+     */
+    public static void writeFile(String path, String content) throws IOException {
+        File file = createFile(path, false);
 
         try (FileOutputStream fileOutputStream = new FileOutputStream(file);
              OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
@@ -55,20 +85,27 @@ public class FileUtil {
         }
     }
 
-    public static void writeFile(String path, List<String> contents) throws Exception {
-        String join = StringUtils.join(contents, System.lineSeparator());
-        writeFile(path, join);
+    /**
+     * 换行写入文件
+     *
+     * @param path     文件路径
+     * @param contents 写入内容
+     * @throws Exception
+     */
+    public static void writeFile(String path, List<String> contents) throws IOException {
+        String content = StringUtils.join(contents, System.lineSeparator());
+        writeFile(path, content);
     }
 
-    public static List<File> listFile(String patch) {
-        List<File> result = new ArrayList<>();
-        listFile(result, new File(patch));
-        return result;
-    }
-
-    public static File mergeFile(String outFilePath, List<File> files) throws Exception {
-        File outputFile = createFile(outFilePath);
-
+    /**
+     * 多文件合并
+     *
+     * @param outputFile 待写入文件
+     * @param files      写入文件
+     * @return
+     * @throws Exception
+     */
+    public static void mergeFile(File outputFile, List<File> files) throws IOException {
         try (FileOutputStream fileOutputStream = new FileOutputStream(outputFile)) {
             for (File file : files) {
                 if (!file.exists() || file.isDirectory()) {
@@ -87,8 +124,20 @@ public class FileUtil {
                 fileOutputStream.flush();
             }
         }
+    }
 
-        return outputFile;
+    /**
+     * 递归查询文件
+     *
+     * @param patch 文件路径
+     * @return
+     */
+    public static List<File> listFile(String patch) {
+        List<File> result = new ArrayList<>();
+
+        listFile(result, new File(patch));
+
+        return result;
     }
 
     private static void listFile(List<File> result, File file) {

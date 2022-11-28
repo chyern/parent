@@ -10,7 +10,7 @@ import com.chyern.core.enums.IErrorEnum;
  */
 public enum SessionErrorEnum implements IErrorEnum {
 
-    WITHOUT_LOGIN(30001, "Not logged in,Please login first"),
+    WITHOUT_LOGIN(13001, "Not logged in,Please login first"),
     ;
 
     private final Integer errorCode;
