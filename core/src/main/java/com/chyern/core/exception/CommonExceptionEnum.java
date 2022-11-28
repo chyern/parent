@@ -9,7 +9,11 @@ import com.chyern.core.enums.IErrorEnum;
  * @since 2022/11/28 11:13
  */
 public enum CommonExceptionEnum implements IErrorEnum {
-    FILE_EXIST(10001, "file:{0} is exist"),
+    SYSTEM_ERROR(10001, "System Exception"),
+    CONNECT_ERROR(10002, "The remote interface is abnormal"),
+    URI_NOT_FIND(10003, "The requested page resource does not exist"),
+    FILE_EXIST(10004, "The file already exists:{0}"),
+    FILE_NOT_FIND(10005, "The file resource does not exist:{0}"),
 
     ;
 
