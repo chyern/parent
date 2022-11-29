@@ -1,4 +1,4 @@
-package com.chyern.mysql;
+package com.chyern.mysql.method;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;

@@ -1,4 +1,4 @@
-package com.chyern.mysql;
+package com.chyern.mysql.config;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.baomidou.mybatisplus.annotation.DbType;

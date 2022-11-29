@@ -1,7 +1,9 @@
-package com.chyern.mysql;
+package com.chyern.mysql.config;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
+import com.chyern.mysql.method.InsertBatchMethod;
+import com.chyern.mysql.method.SelectAllMethod;
 
 import java.util.List;
 
