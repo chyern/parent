@@ -22,11 +22,12 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <custom.project.version>1.0.0-SNAPSHOT</custom.project.version>
-        <jaxb.version>2.3.0</jaxb.version>
-        <activation.version>1.1.1</activation.version>
         <spring.boot.version>2.1.3.RELEASE</spring.boot.version>
         <mapstruct.verion>1.2.0.Final</mapstruct.verion>
+        <!--jdk11解决依赖-->
+        <jaxb.version>2.3.0</jaxb.version>
+        <activation.version>1.1.1</activation.version>
+        <!--jdk11解决依赖-->
     </properties>
 
     <dependencyManagement>
@@ -42,27 +43,27 @@
             <dependency>
                 <groupId>com.chyern</groupId>
                 <artifactId>connect</artifactId>
-                <version>${custom.project.version}</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.chyern</groupId>
                 <artifactId>permission</artifactId>
-                <version>${custom.project.version}</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.chyern</groupId>
                 <artifactId>session</artifactId>
-                <version>${custom.project.version}</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.chyern</groupId>
                 <artifactId>core</artifactId>
-                <version>${custom.project.version}</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.chyern</groupId>
                 <artifactId>mysql</artifactId>
-                <version>${custom.project.version}</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
