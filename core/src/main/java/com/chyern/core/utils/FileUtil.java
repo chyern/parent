@@ -5,7 +5,14 @@ import com.chyern.core.exception.CommonException;
 import com.chyern.core.exception.CommonExceptionEnum;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,31 +24,39 @@ import java.util.List;
  */
 public class FileUtil {
 
+
     /**
      * 创建文件
      *
-     * @param path    文件路径
-     * @param isExist 文件是否存在
+     * @param path 文件路径
+     * @return
+     * @throws CommonException
+     */
+    public static File createFile(String path) throws CommonException, IOException {
+        File file = new File(path);
+        if (file.exists()) {
+            throw new CommonException(CommonExceptionEnum.FILE_EXIST);
+        }
+        createParentFile(file);
+        file.createNewFile();
+        return file;
+    }
+
+    /**
+     * 创建文件
+     *
+     * @param path 文件路径
      * @return
      * @throws CommonException
      * @throws IOException
      */
-    public static File createFile(String path, boolean isExist) throws CommonException, IOException {
+    public static File createFileMandatory(String path) throws CommonException, IOException {
         File file = new File(path);
-
+        createParentFile(file);
         if (file.exists()) {
-            if (isExist) {
-                throw new CommonException(CommonExceptionEnum.FILE_EXIST);
-            }
             file.delete();
-            file.createNewFile();
-        } else {
-            String parentPath = file.getParent();
-            File parentFile = new File(parentPath);
-            if (!parentFile.exists()) {
-                parentFile.mkdirs();
-            }
         }
+        file.createNewFile();
         return file;
     }
 
@@ -75,7 +90,7 @@ public class FileUtil {
      * @throws Exception
      */
     public static void writeFile(String path, String content) throws IOException {
-        File file = createFile(path, false);
+        File file = createFileMandatory(path);
 
         try (FileOutputStream fileOutputStream = new FileOutputStream(file);
              OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
@@ -155,6 +170,22 @@ public class FileUtil {
                     listFile(result, subFile);
                 }
             }
+        }
+    }
+
+    /**
+     * 生成父类
+     *
+     * @param file
+     */
+    private static void createParentFile(File file) {
+        if (file == null) {
+            return;
+        }
+        String parent = file.getParent();
+        File parentFile = new File(parent);
+        if (!parentFile.exists()) {
+            parentFile.mkdirs();
         }
     }
 
