@@ -15,7 +15,7 @@ import java.util.Date;
  * @since 2022/11/29 14:57
  */
 @Data
-public class BaseDO implements Serializable {
+public class BaseEntity implements Serializable {
     private static final long serialVersionUID = 8805086841629261002L;
 
     /**
