@@ -7,6 +7,7 @@ import com.chyern.mysql.domain.PageResponse;
 import com.chyern.mysql.util.PageUtil;
 import com.chyern.mysql.util.WrapperUtil;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -34,6 +35,9 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T>, InitializingBean {
 
     @Override
     public int insertBatch(List<T> list) {
+        if (CollectionUtils.isEmpty(list)) {
+            return 0;
+        }
         return mapper.insertBatch(list);
     }
 
