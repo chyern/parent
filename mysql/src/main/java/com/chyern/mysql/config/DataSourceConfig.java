@@ -34,7 +34,7 @@ public class DataSourceConfig {
     @Value("${mapper.locations}")
     private String mapperLocations;
 
-    @Value("${print.sql.log:false}")
+    @Value("${spring.datasource.print.sql:false}")
     private boolean printSqlLog;
 
     @Bean
