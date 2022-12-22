@@ -1,4 +1,4 @@
-package com.chyern.core.enums;
+package com.chyern.spicore.enums;
 
 /**
  * Description: TODO

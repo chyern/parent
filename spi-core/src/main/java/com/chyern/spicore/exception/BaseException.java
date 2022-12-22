@@ -1,6 +1,6 @@
-package com.chyern.core.exception;
+package com.chyern.spicore.exception;
 
-import com.chyern.core.enums.IErrorEnum;
+import com.chyern.spicore.enums.IErrorEnum;
 
 import java.text.MessageFormat;
 
@@ -10,7 +10,7 @@ import java.text.MessageFormat;
  * @author Chyern
  * @since 2021/7/19
  */
-public class CommonException extends RuntimeException {
+public class BaseException extends RuntimeException {
 
     private final IErrorEnum errorEnum;
 
@@ -18,12 +18,12 @@ public class CommonException extends RuntimeException {
         return errorEnum;
     }
 
-    public CommonException(IErrorEnum errorEnum) {
+    public BaseException(IErrorEnum errorEnum) {
         super(errorEnum.getErrorMsg());
         this.errorEnum = errorEnum;
     }
 
-    public CommonException(IErrorEnum errorEnum, Object... objects) {
+    public BaseException(IErrorEnum errorEnum, Object... objects) {
         super(MessageFormat.format(errorEnum.getErrorMsg(), objects));
         this.errorEnum = errorEnum;
     }

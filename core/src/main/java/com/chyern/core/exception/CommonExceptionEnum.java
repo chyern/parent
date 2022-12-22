@@ -1,6 +1,6 @@
 package com.chyern.core.exception;
 
-import com.chyern.core.enums.IErrorEnum;
+import com.chyern.spicore.enums.IErrorEnum;
 
 /**
  * Description: TODO

@@ -1,4 +1,4 @@
-package com.chyern.core.enums;
+package com.chyern.spicore.enums;
 
 /**
  * Description: TODO
@@ -6,9 +6,9 @@ package com.chyern.core.enums;
  * @author Chyern
  * @since 2022/7/28 12:02
  */
-public interface IIntegerEnum {
+public interface IStringEnum {
 
-    Integer getCode();
+    String getCode();
 
     String getDesc();
 }

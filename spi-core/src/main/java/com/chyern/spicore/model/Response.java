@@ -1,6 +1,6 @@
-package com.chyern.core.model;
+package com.chyern.spicore.model;
 
-import com.chyern.core.enums.IErrorEnum;
+import com.chyern.spicore.enums.IErrorEnum;
 import lombok.Data;
 
 import java.io.Serializable;

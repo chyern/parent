@@ -1,8 +1,8 @@
 package com.chyern.core.utils;
 
 
-import com.chyern.core.exception.CommonException;
 import com.chyern.core.exception.CommonExceptionEnum;
+import com.chyern.spicore.exception.BaseException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedReader;
@@ -30,12 +30,12 @@ public class FileUtil {
      *
      * @param path 文件路径
      * @return
-     * @throws CommonException
+     * @throws BaseException
      */
-    public static File createFile(String path) throws CommonException, IOException {
+    public static File createFile(String path) throws BaseException, IOException {
         File file = new File(path);
         if (file.exists()) {
-            throw new CommonException(CommonExceptionEnum.FILE_EXIST);
+            throw new BaseException(CommonExceptionEnum.FILE_EXIST);
         }
         createParentFile(file);
         file.createNewFile();
@@ -47,10 +47,10 @@ public class FileUtil {
      *
      * @param path 文件路径
      * @return
-     * @throws CommonException
+     * @throws BaseException
      * @throws IOException
      */
-    public static File createFileMandatory(String path) throws CommonException, IOException {
+    public static File createFileMandatory(String path) throws BaseException, IOException {
         File file = new File(path);
         createParentFile(file);
         if (file.exists()) {

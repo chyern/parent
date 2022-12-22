@@ -1,9 +1,9 @@
 package com.chyern.session.interceptor;
 
 import com.alibaba.fastjson.JSON;
-import com.chyern.core.exception.CommonException;
-import com.chyern.core.model.Response;
 import com.chyern.core.utils.LambdaUtil;
+import com.chyern.spicore.exception.BaseException;
+import com.chyern.spicore.model.Response;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -66,8 +66,8 @@ public class WebInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         try {
-            if (ex instanceof CommonException) {
-                CommonException commonException = (CommonException) ex;
+            if (ex instanceof BaseException) {
+                BaseException commonException = (BaseException) ex;
                 response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().write(JSON.toJSONString(Response.buildFailure(commonException.getErrorEnum())));

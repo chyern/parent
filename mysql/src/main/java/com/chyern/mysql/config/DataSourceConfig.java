@@ -48,7 +48,7 @@ public class DataSourceConfig {
         return DruidDataSourceBuilder.create().build();
     }
 
-    @Bean(name = "dataSourceTransactionManager")
+    @Bean(name = "transactionManager")
     public DataSourceTransactionManager dataSourceTransactionManager() {
         return new DataSourceTransactionManager(dataSource());
     }
