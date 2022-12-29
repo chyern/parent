@@ -14,33 +14,21 @@ import java.util.Collection;
  */
 public class AssertUtil {
 
-    public static void isTrue(boolean b, IErrorEnum errorEnum) {
-        if (!b) {
-            throw new BaseException(errorEnum);
-        }
-    }
-
     public static void isTrue(boolean b, IErrorEnum errorEnum, Object... objects) {
         if (!b) {
             throw new BaseException(errorEnum, objects);
         }
     }
 
-    public static void isNull(Object obj, IErrorEnum errorEnum) {
+    public static void isNull(Object obj, IErrorEnum errorEnum, Object... objects) {
         if (obj == null) {
-            throw new BaseException(errorEnum);
+            throw new BaseException(errorEnum, objects);
         }
     }
 
-    public static void nonNull(Object obj, IErrorEnum errorEnum) {
-        if (obj != null) {
-            throw new BaseException(errorEnum);
-        }
-    }
-
-    public static <T> void isEmpty(Collection<?> collection, IErrorEnum errorEnum) {
+    public static <T> void isEmpty(Collection<?> collection, IErrorEnum errorEnum, Object... objects) {
         if (CollectionUtils.isEmpty(collection)) {
-            throw new BaseException(errorEnum);
+            throw new BaseException(errorEnum, objects);
         }
     }
 }
