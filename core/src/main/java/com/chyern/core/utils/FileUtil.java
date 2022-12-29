@@ -1,7 +1,7 @@
 package com.chyern.core.utils;
 
 
-import com.chyern.core.exception.CommonExceptionEnum;
+import com.chyern.core.exception.CoreExceptionEnum;
 import com.chyern.spicore.exception.BaseException;
 import org.apache.commons.lang3.StringUtils;
 
@@ -35,7 +35,7 @@ public class FileUtil {
     public static File createFile(String path) throws BaseException, IOException {
         File file = new File(path);
         if (file.exists()) {
-            throw new BaseException(CommonExceptionEnum.FILE_EXIST);
+            throw new BaseException(CoreExceptionEnum.FILE_EXIST);
         }
         createParentFile(file);
         file.createNewFile();
