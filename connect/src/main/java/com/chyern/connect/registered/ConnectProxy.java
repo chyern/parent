@@ -1,9 +1,9 @@
 package com.chyern.connect.registered;
 
-import com.chyern.connect.processor.IConnectProcessor;
 import com.chyern.connect.annotation.Connect;
 import com.chyern.connect.exception.ConnectErrorEnum;
-import com.chyern.connect.exception.ConnectException;
+import com.chyern.connect.processor.IConnectProcessor;
+import com.chyern.spicore.exception.BaseException;
 import org.springframework.context.ApplicationContext;
 
 import java.lang.reflect.InvocationHandler;
@@ -34,7 +34,7 @@ public class ConnectProxy implements InvocationHandler {
             return execute;
         } catch (Exception exception) {
             connectProcessor.throwsException(proxy, method, args, exception);
-            throw new ConnectException(ConnectErrorEnum.CONNECT_ERROR);
+            throw new BaseException(ConnectErrorEnum.CONNECT_ERROR);
         }
     }
 
