@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class SpringMessage implements Serializable {
     private static final long serialVersionUID = -7834523415736280989L;
 
-    private Boolean sync = false;
+    private Boolean sync = true;
 
     private Boolean translation = false;
 

@@ -10,6 +10,7 @@ import org.springframework.context.event.EventListener;
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * Description: TODO
@@ -42,7 +43,16 @@ public abstract class AbstractSpringMessageConsumerHandle<T extends SpringMessag
 
     @EventListener
     public void consume(T t) {
-        this.handle(t);
+        Boolean sync = t.getSync();
+        Boolean afterCommit = t.getAfterCommit();
+        Boolean translation = t.getTranslation();
+        ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) context.getBean("springMessageThreadPool");
+
+        if (sync) {
+            this.handle(t);
+        } else {
+            threadPoolExecutor.execute(() -> this.handle(t));
+        }
     }
 
     protected abstract void handle(T t);
