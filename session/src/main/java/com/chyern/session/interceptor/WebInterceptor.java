@@ -1,9 +1,9 @@
 package com.chyern.session.interceptor;
 
-import com.alibaba.fastjson.JSON;
 import com.chyern.core.utils.LambdaUtil;
 import com.chyern.spicore.exception.BaseException;
 import com.chyern.spicore.model.Response;
+import com.google.gson.GsonBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -70,7 +70,9 @@ public class WebInterceptor implements HandlerInterceptor {
                 BaseException commonException = (BaseException) ex;
                 response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
                 response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(JSON.toJSONString(Response.buildFailure(commonException.getErrorEnum())));
+                Response<Object> failureResponse = Response.buildFailure(commonException.getErrorEnum());
+                String json = new GsonBuilder().create().toJson(failureResponse);
+                response.getWriter().write(json);
             }
         } catch (java.lang.Exception ignore) {
         } finally {
