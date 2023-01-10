@@ -42,7 +42,7 @@ public abstract class AbstractSpringMessageConsumerHandle<T extends SpringMessag
 
     @EventListener
     public void consume(T t) {
-        this.handle(t);
+        handle(t);
     }
 
     protected abstract void handle(T t);
