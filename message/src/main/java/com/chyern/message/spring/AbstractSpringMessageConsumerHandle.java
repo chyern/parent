@@ -1,5 +1,6 @@
 package com.chyern.message.spring;
 
+import com.chyern.message.spring.domain.SpringMessage;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
@@ -16,7 +17,7 @@ import java.util.Map;
  * @author Chyern
  * @since 2023/1/10 12:22
  */
-public abstract class AbstractSpringMessageConsumerHandle<T> implements ApplicationContextAware, InitializingBean, ISpringMessageConsumer<T> {
+public abstract class AbstractSpringMessageConsumerHandle<T extends SpringMessage> implements ApplicationContextAware, InitializingBean {
 
     private ApplicationContext context = null;
     private static Map<Class, AbstractSpringMessageConsumerHandle> handleMap = new HashMap<>();
@@ -43,6 +44,8 @@ public abstract class AbstractSpringMessageConsumerHandle<T> implements Applicat
     public void consume(T t) {
         this.handle(t);
     }
+
+    protected abstract void handle(T t);
 
     private Class<T> getActualType() {
         ParameterizedType parameterizedType = (ParameterizedType) this.getClass().getGenericSuperclass();

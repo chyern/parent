@@ -1,6 +1,7 @@
 package com.chyern.message.utils;
 
 import com.chyern.message.spring.AbstractSpringMessageConsumerHandle;
+import com.chyern.message.spring.domain.SpringMessage;
 import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,16 +14,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MessageUtil {
 
-    public static void pushSpringMessage(Object object) {
-        if (object == null) {
+    public static <T extends SpringMessage> void pushSpringMessage(T t) {
+        if (t == null) {
             return;
         }
 
-        log.info("发送消息spring消息:{}", new GsonBuilder().create().toJson(object));
-        Class aClass = object.getClass();
-        AbstractSpringMessageConsumerHandle handleMap = AbstractSpringMessageConsumerHandle.getHandleMap(aClass);
+        log.info("发送消息spring消息:{}", new GsonBuilder().create().toJson(t));
+        Class aClass = t.getClass();
+        AbstractSpringMessageConsumerHandle<T> handleMap = AbstractSpringMessageConsumerHandle.getHandleMap(aClass);
         if (handleMap != null) {
-            handleMap.product(object);
+            handleMap.product(t);
         }
     }
 }
