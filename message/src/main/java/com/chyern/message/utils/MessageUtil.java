@@ -13,12 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MessageUtil {
 
-    public static void push(Object object) {
+    public static void pushSpringMessage(Object object) {
         if (object == null) {
             return;
         }
 
-        String s = new GsonBuilder().create().toJson(object);
+        log.info("发送消息spring消息:{}", new GsonBuilder().create().toJson(object));
         Class aClass = object.getClass();
         AbstractSpringMessageConsumerHandle handleMap = AbstractSpringMessageConsumerHandle.getHandleMap(aClass);
         if (handleMap != null) {
