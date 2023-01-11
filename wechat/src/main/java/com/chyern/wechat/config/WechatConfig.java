@@ -1,7 +1,7 @@
 package com.chyern.wechat.config;
 
 import com.chyern.connect.EnableConnect;
-import com.chyern.wechat.connect.process.WechatConnectProcessor;
+import com.chyern.wechat.connect.common.process.WechatConnectProcessor;
 import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
 

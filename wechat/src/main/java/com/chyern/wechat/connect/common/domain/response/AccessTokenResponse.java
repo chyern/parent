@@ -1,4 +1,4 @@
-package com.chyern.wechat.domain.response;
+package com.chyern.wechat.connect.common.domain.response;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;

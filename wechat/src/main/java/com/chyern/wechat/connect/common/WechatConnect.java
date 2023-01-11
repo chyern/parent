@@ -1,14 +1,12 @@
-package com.chyern.wechat.connect;
+package com.chyern.wechat.connect.common;
 
 import com.chyern.connect.annotation.Connect;
 import com.chyern.connect.annotation.method.Method;
 import com.chyern.connect.annotation.method.RequestMapping;
-import com.chyern.connect.annotation.resource.Body;
 import com.chyern.connect.annotation.resource.Query;
-import com.chyern.wechat.connect.process.WechatConnectProcessor;
-import com.chyern.wechat.domain.request.SendMessageRequest;
-import com.chyern.wechat.domain.response.AccessTokenResponse;
-import com.chyern.wechat.domain.response.SendMessageResponse;
+import com.chyern.wechat.connect.common.domain.response.AccessTokenResponse;
+import com.chyern.wechat.connect.common.domain.response.ApiDomainIpResponse;
+import com.chyern.wechat.connect.common.process.WechatConnectProcessor;
 
 /**
  * Description: TODO
@@ -30,12 +28,11 @@ public interface WechatConnect {
     AccessTokenResponse getAccessToken(@Query("corpid") String corpid, @Query("corpsecret") String corpsecret);
 
     /**
-     * 发送消息
+     * 获取企业微信API域名IP段
      *
-     * @param access_token
-     * @param request
+     * @param access_token 调用接口凭证
      * @return
      */
-    @RequestMapping(value = "/cgi-bin/message/send", method = Method.POST)
-    <T extends SendMessageRequest> SendMessageResponse sendMessage(@Query("access_token") String access_token, @Body T request);
+    @RequestMapping(value = "/cgi-bin/get_api_domain_ip", method = Method.GET)
+    ApiDomainIpResponse getApiDomainIps(@Query("access_token") String access_token);
 }
