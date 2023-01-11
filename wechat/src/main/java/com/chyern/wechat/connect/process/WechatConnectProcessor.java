@@ -1,7 +1,7 @@
 package com.chyern.wechat.connect.process;
 
 import com.chyern.connect.processor.AbstractConnectProcessor;
-import com.chyern.wechat.domain.AccessTokenResponse;
+import com.chyern.wechat.domain.response.AccessTokenResponse;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.apache.commons.lang3.StringUtils;
