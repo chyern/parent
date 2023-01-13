@@ -16,18 +16,17 @@
             <groupId>com.chyern</groupId>
             <artifactId>core</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.chyern</groupId>
-            <artifactId>spi-core</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-annotations-api</artifactId>
