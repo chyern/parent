@@ -1,18 +1,18 @@
 package com.chyern.session.interceptor;
 
 import com.chyern.core.utils.LambdaUtil;
-import com.chyern.spicore.exception.BaseException;
-import com.chyern.spicore.model.Response;
-import com.google.gson.GsonBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -25,8 +25,11 @@ import java.util.UUID;
 @Component
 public class WebInterceptor implements HandlerInterceptor {
 
-    @Value("${token.key}")
+    @Value("${session.token-key}")
     private String TOKEN_KEY;
+
+    @Value("${session.call-back-url}")
+    private String CALL_BACK_URL;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -64,20 +67,8 @@ public class WebInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        try {
-            if (ex instanceof BaseException) {
-                BaseException commonException = (BaseException) ex;
-                response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
-                response.setCharacterEncoding("UTF-8");
-                Response<Object> failureResponse = Response.buildFailure(commonException.getErrorEnum());
-                String json = new GsonBuilder().create().toJson(failureResponse);
-                response.getWriter().write(json);
-            }
-        } catch (java.lang.Exception ignore) {
-        } finally {
-            TokenThreadLocal.remove();
-        }
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        TokenThreadLocal.remove();
     }
 
 
@@ -96,6 +87,16 @@ public class WebInterceptor implements HandlerInterceptor {
         public static void remove() {
             threadLocal.remove();
         }
+    }
+
+    // byte转为char
+    private static char[] byteToChar(byte[] bytes) {
+        Charset charset = StandardCharsets.ISO_8859_1;
+        ByteBuffer byteBuffer = ByteBuffer.allocate(bytes.length);
+        byteBuffer.put(bytes);
+        byteBuffer.flip();
+        CharBuffer charBuffer = charset.decode(byteBuffer);
+        return charBuffer.array();
     }
 
 }
