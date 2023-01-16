@@ -2,7 +2,7 @@ package com.chyern.core.utils;
 
 import com.chyern.spicore.enums.IErrorEnum;
 import com.chyern.spicore.exception.BaseException;
-import org.springframework.util.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collection;
 

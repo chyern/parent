@@ -1,7 +1,7 @@
 package com.chyern.core.utils;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
+import org.apache.commons.beanutils.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.List;
