@@ -28,9 +28,6 @@ public class WebInterceptor implements HandlerInterceptor {
     @Value("${session.token-key}")
     private String TOKEN_KEY;
 
-    @Value("${session.call-back-url}")
-    private String CALL_BACK_URL;
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         //从cookie中获取
