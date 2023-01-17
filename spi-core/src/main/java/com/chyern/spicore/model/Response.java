@@ -47,7 +47,6 @@ public class Response<T> implements Serializable {
     public static <T,R extends BaseException> Response<T> buildFailure(R baseException) {
         Response<T> response = new Response<>();
         response.success = false;
-        IErrorEnum errorEnum = baseException.getErrorEnum();
         response.code = baseException.getErrorCode();
         response.msg = baseException.getErrorMsg();
         response.t = System.currentTimeMillis();
