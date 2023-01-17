@@ -1,9 +1,9 @@
 package com.chyern.wechat.connect.message.domain.response;
 
+import com.chyern.wechat.connect.common.domain.response.BaseResponse;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
-
-import java.io.Serializable;
+import lombok.EqualsAndHashCode;
 
 /**
  * Description: TODO
@@ -11,20 +11,11 @@ import java.io.Serializable;
  * @author Chyern
  * @since 2023/1/11 17:35
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class SendMessageResponse implements Serializable {
+public class SendMessageResponse extends BaseResponse {
     private static final long serialVersionUID = 8401553052986450728L;
 
-    /**
-     * 返回码
-     */
-    @SerializedName("errcode")
-    private Integer errcode;
-    /**
-     * 对返回码的文本描述内容
-     */
-    @SerializedName("errmsg")
-    private String errmsg;
     /**
      * 不合法的userid，不区分大小写，统一转为小写
      */

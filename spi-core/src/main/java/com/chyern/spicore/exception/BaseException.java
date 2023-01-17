@@ -16,8 +16,6 @@ public class BaseException extends RuntimeException {
 
     private final String errorMsg;
 
-    private final IErrorEnum errorEnum;
-
     public Integer getErrorCode() {
         return errorCode;
     }
@@ -26,22 +24,28 @@ public class BaseException extends RuntimeException {
         return errorMsg;
     }
 
-    public IErrorEnum getErrorEnum() {
-        return errorEnum;
+    public BaseException(Integer errorCode, String errorMsg) {
+        super(errorMsg);
+        this.errorCode = errorCode;
+        this.errorMsg = errorMsg;
+    }
+
+    public BaseException(Integer errorCode, String errorMsg, Object... objects) {
+        super(MessageFormat.format(errorMsg, objects));
+        this.errorCode = errorCode;
+        this.errorMsg = MessageFormat.format(errorMsg, objects);
     }
 
     public BaseException(IErrorEnum errorEnum) {
         super(errorEnum.getErrorMsg());
         this.errorCode = errorEnum.getErrorCode();
         this.errorMsg = errorEnum.getErrorMsg();
-        this.errorEnum = errorEnum;
     }
 
     public BaseException(IErrorEnum errorEnum, Object... objects) {
         super(MessageFormat.format(errorEnum.getErrorMsg(), objects));
         this.errorCode = errorEnum.getErrorCode();
         this.errorMsg = MessageFormat.format(errorEnum.getErrorMsg(), objects);
-        this.errorEnum = errorEnum;
     }
 
 }
