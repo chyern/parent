@@ -1,6 +1,7 @@
 package com.chyern.spicore.model;
 
 import com.chyern.spicore.enums.IErrorEnum;
+import com.chyern.spicore.exception.BaseException;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -37,6 +38,16 @@ public class Response<T> implements Serializable {
     public static <T> Response<T> buildFailure(IErrorEnum errorEnum) {
         Response<T> response = new Response<>();
         response.success = false;
+        response.code = errorEnum.getErrorCode();
+        response.msg = errorEnum.getErrorMsg();
+        response.t = System.currentTimeMillis();
+        return response;
+    }
+
+    public static <T,R extends BaseException> Response<T> buildFailure(R baseException) {
+        Response<T> response = new Response<>();
+        response.success = false;
+        IErrorEnum errorEnum = baseException.getErrorEnum();
         response.code = errorEnum.getErrorCode();
         response.msg = errorEnum.getErrorMsg();
         response.t = System.currentTimeMillis();
