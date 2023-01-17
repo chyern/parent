@@ -9,7 +9,7 @@ import com.chyern.wechat.connect.common.domain.response.BaseResponse;
  * @author Chyern
  * @since 2023/1/17 18:59
  */
-public class CheckResponseUtil {
+public class WechatResponseUtl {
 
     public static <T extends BaseResponse> void check(T response) {
         Integer errcode = response.getErrcode();
