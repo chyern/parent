@@ -48,8 +48,8 @@ public class Response<T> implements Serializable {
         Response<T> response = new Response<>();
         response.success = false;
         IErrorEnum errorEnum = baseException.getErrorEnum();
-        response.code = errorEnum.getErrorCode();
-        response.msg = errorEnum.getErrorMsg();
+        response.code = baseException.getErrorCode();
+        response.msg = baseException.getErrorMsg();
         response.t = System.currentTimeMillis();
         return response;
     }
