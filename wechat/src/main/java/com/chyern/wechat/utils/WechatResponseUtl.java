@@ -14,7 +14,7 @@ public class WechatResponseUtl {
     public static <T extends BaseResponse> void check(T response) {
         Integer errcode = response.getErrcode();
         String errmsg = response.getErrmsg();
-        if (errmsg != null) {
+        if (errcode != null && errcode != 0) {
             throw new BaseException(errcode, errmsg);
         }
     }
