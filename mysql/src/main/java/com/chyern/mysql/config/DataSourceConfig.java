@@ -11,13 +11,12 @@ import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.JdbcType;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
@@ -34,13 +33,10 @@ import java.util.List;
 @AutoConfigureBefore(DruidDataSourceAutoConfigure.class)
 public class DataSourceConfig {
 
-    @Value("${mapper.locations}")
-    private String mapperLocations;
-
-    @Value("${spring.datasource.print.sql:false}")
+    @Value("${mybatis.print-sql:false}")
     private boolean printSqlLog;
 
-    @Bean
+    @Bean(name = "customizedSqlInjector")
     public CustomizedSqlInjector customizedSqlInjector() {
         return new CustomizedSqlInjector();
     }
@@ -52,21 +48,20 @@ public class DataSourceConfig {
     }
 
     @Bean(name = "transactionManager")
-    public DataSourceTransactionManager dataSourceTransactionManager() {
-        return new DataSourceTransactionManager(dataSource());
+    public DataSourceTransactionManager dataSourceTransactionManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
     }
 
     @Bean(name = "sqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactory(@Qualifier("dataSource") DataSource dataSource) throws Exception {
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource, CustomizedSqlInjector customizedSqlInjector, MybatisProperties mybatisProperties) throws Exception {
         MybatisSqlSessionFactoryBean mybatisSqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
         mybatisSqlSessionFactoryBean.setDataSource(dataSource);
-        mybatisSqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapperLocations));
+        mybatisSqlSessionFactoryBean.setMapperLocations(mybatisProperties.resolveMapperLocations());
+
 
         //mybatis全局配置
         GlobalConfig globalConfig = new GlobalConfig();
-        globalConfig.setBanner(true);
-        globalConfig.setSqlInjector(this.customizedSqlInjector());
-        globalConfig.setDbConfig(new GlobalConfig.DbConfig());
+        globalConfig.setSqlInjector(customizedSqlInjector);
         mybatisSqlSessionFactoryBean.setGlobalConfig(globalConfig);
 
         //mybatis配置

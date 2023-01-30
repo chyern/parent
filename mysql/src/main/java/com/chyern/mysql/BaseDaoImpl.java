@@ -22,11 +22,11 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T>, InitializingBean {
     private BaseMapper<T> mapper;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         mapper = initMapper();
     }
 
-    public abstract BaseMapper<T> initMapper();
+    public abstract <R extends BaseMapper<T>> R initMapper();
 
     @Override
     public int insert(T t) {

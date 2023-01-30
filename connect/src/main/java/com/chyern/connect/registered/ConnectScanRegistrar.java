@@ -1,6 +1,6 @@
 package com.chyern.connect.registered;
 
-import com.chyern.connect.EnableConnect;
+import com.chyern.connect.ConnectScan;
 import com.chyern.connect.annotation.Connect;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
@@ -33,7 +33,7 @@ public class ConnectScanRegistrar implements ImportBeanDefinitionRegistrar {
 
     private Set<String> getPackagesToScan(AnnotationMetadata metadata) {
         AnnotationAttributes attributes = AnnotationAttributes.fromMap(
-                metadata.getAnnotationAttributes(EnableConnect.class.getName()));
+                metadata.getAnnotationAttributes(ConnectScan.class.getName()));
         String[] basePackages = attributes.getStringArray("basePackages");
         Class<?>[] basePackageClasses = attributes.getClassArray("basePackageClasses");
         String[] value = attributes.getStringArray("value");
