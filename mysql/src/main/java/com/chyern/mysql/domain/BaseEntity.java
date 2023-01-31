@@ -43,5 +43,5 @@ public class BaseEntity implements Serializable {
      * 是否删除(0表示未删除)
      */
     @TableLogic(value = "0", delval = "1")
-    private Integer isDelete;
+    private Integer isDelete = 0;
 }
