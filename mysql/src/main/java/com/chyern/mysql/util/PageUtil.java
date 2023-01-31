@@ -29,4 +29,17 @@ public class PageUtil {
         return response;
     }
 
+    public static <T, E extends PageResponse<R>, R> PageResponse<T> buildPageResponse(E e, Function<R, T> function) {
+        PageResponse<T> response = new PageResponse<T>();
+        response.setPageNo(e.getPageNo());
+        response.setPageSize(e.getPageSize());
+        response.setTotal(e.getTotal());
+        List<R> records = e.getList();
+        if (!CollectionUtils.isEmpty(records)) {
+            List<T> list = records.stream().map(function).collect(Collectors.toList());
+            response.setList(list);
+        }
+        return response;
+    }
+
 }
