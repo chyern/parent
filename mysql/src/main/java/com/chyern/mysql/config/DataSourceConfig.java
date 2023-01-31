@@ -11,12 +11,12 @@ import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.JdbcType;
-import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
@@ -32,6 +32,9 @@ import java.util.List;
 @Configuration
 @AutoConfigureBefore(DruidDataSourceAutoConfigure.class)
 public class DataSourceConfig {
+
+    @Value("${mybatis.mapper-locations}")
+    private String mapperLocations;
 
     @Value("${mybatis.print-sql:false}")
     private boolean printSqlLog;
@@ -53,10 +56,10 @@ public class DataSourceConfig {
     }
 
     @Bean(name = "sqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource, CustomizedSqlInjector customizedSqlInjector, MybatisProperties mybatisProperties) throws Exception {
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource, CustomizedSqlInjector customizedSqlInjector) throws Exception {
         MybatisSqlSessionFactoryBean mybatisSqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
         mybatisSqlSessionFactoryBean.setDataSource(dataSource);
-        mybatisSqlSessionFactoryBean.setMapperLocations(mybatisProperties.resolveMapperLocations());
+        mybatisSqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapperLocations));
 
 
         //mybatis全局配置

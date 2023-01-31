@@ -28,10 +28,6 @@
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <mapstruct.verion>1.2.0.Final</mapstruct.verion>
-        <!--jdk11解决依赖-->
-        <jaxb.version>2.3.0</jaxb.version>
-        <activation.version>1.1.1</activation.version>
-        <!--jdk11解决依赖-->
     </properties>
 
     <dependencyManagement>
@@ -81,31 +77,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <dependencies>
-        <!-- JDK11解决包 -->
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>${jaxb.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>${jaxb.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-core</artifactId>
-            <version>${jaxb.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.activation</groupId>
-            <artifactId>activation</artifactId>
-            <version>${activation.version}</version>
-        </dependency>
-        <!-- JDK11解决包 -->
-    </dependencies>
 
     <build>
         <plugins>
