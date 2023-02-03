@@ -11,6 +11,12 @@
 
     <artifactId>core</artifactId>
 
+    <properties>
+        <commons-collections4.version>4.4</commons-collections4.version>
+        <commons-beanutils.version>1.9.4</commons-beanutils.version>
+        <mapstruct.verion>1.2.0.Final</mapstruct.verion>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.chyern</groupId>
