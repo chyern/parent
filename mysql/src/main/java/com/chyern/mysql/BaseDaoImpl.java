@@ -67,8 +67,8 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T>, InitializingBean {
     public PageResponse<T> selectPage(Long pageNo, Long pageSize, T t) {
         IPage<T> iPage = new Page<>(pageNo, pageSize);
         QueryWrapper<T> tQueryWrapper = WrapperUtil.buildQueryWrapper(t);
-        IPage<T> page = mapper.selectPage(iPage, tQueryWrapper);
-        return PageUtil.buildPageResponse(page, item -> item);
+        mapper.selectPage(iPage, tQueryWrapper);
+        return PageUtil.buildPageResponse(iPage, item -> item);
     }
 
     @Override

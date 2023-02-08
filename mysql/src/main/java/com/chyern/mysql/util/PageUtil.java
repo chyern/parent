@@ -18,7 +18,7 @@ public class PageUtil {
 
     public static <T, E extends IPage<R>, R> PageResponse<T> buildPageResponse(E e, Function<R, T> function) {
         PageResponse<T> response = new PageResponse<T>();
-        response.setPageNo(e.getPages());
+        response.setPageNo(e.getCurrent());
         response.setPageSize(e.getSize());
         response.setTotal(e.getTotal());
         List<R> records = e.getRecords();
