@@ -13,8 +13,7 @@ import java.util.List;
 public interface BaseMapper<T> extends com.baomidou.mybatisplus.core.mapper.BaseMapper<T> {
 
     /**
-     * 自定义批量插入
-     * 如果要自动填充，@Param(xx) xx参数名必须是 list/collection/array 3个的其中之一
+     * 批量插入
      */
     int insertBatch(@Param("list") List<T> list);
 
