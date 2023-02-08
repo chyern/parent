@@ -2,18 +2,14 @@ package com.chyern.mysql.config;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
-import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
-import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.chyern.mysql.injector.SqlInjector;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.JdbcType;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -33,17 +29,20 @@ import javax.sql.DataSource;
 @AutoConfigureBefore(DruidDataSourceAutoConfigure.class)
 public class DataSourceConfig {
 
+    @ConditionalOnMissingBean
     @ConfigurationProperties("spring.datasource.druid")
     @Bean(name = "dataSource")
     public DataSource dataSource() {
         return DruidDataSourceBuilder.create().build();
     }
 
+    @ConditionalOnMissingBean
     @Bean(name = "transactionManager")
     public DataSourceTransactionManager dataSourceTransactionManager(DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 
+    @ConditionalOnMissingBean
     @Bean(name = "sqlSessionFactory")
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource, MybatisConfigProperties mybatisConfigProperties) throws Exception {
         MybatisSqlSessionFactoryBean mybatisSqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
@@ -68,15 +67,8 @@ public class DataSourceConfig {
         mybatisSqlSessionFactoryBean.setConfiguration(configuration);
 
         //mybatis拦截器
-        Interceptor[] interceptors = ArrayUtils.add(mybatisConfigProperties.resolveInterceptor(), mybatisPlusInterceptor());
-        mybatisSqlSessionFactoryBean.setPlugins(interceptors);
+        mybatisSqlSessionFactoryBean.setPlugins(mybatisConfigProperties.resolveInterceptor());
         return mybatisSqlSessionFactoryBean.getObject();
-    }
-
-    private MybatisPlusInterceptor mybatisPlusInterceptor() {
-        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
-        return interceptor;
     }
 
 }
