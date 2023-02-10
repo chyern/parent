@@ -1,9 +1,9 @@
 package com.chyern.wechat.connect.common;
 
 import com.chyern.connect.annotation.Connect;
-import com.chyern.connect.annotation.method.Method;
 import com.chyern.connect.annotation.method.RequestMapping;
 import com.chyern.connect.annotation.resource.Query;
+import com.chyern.connect.constant.Method;
 import com.chyern.wechat.connect.common.domain.response.AccessTokenResponse;
 import com.chyern.wechat.connect.common.domain.response.ApiDomainIpResponse;
 import com.chyern.wechat.connect.common.process.WechatConnectProcessor;

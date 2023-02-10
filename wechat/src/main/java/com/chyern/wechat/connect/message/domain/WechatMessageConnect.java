@@ -1,10 +1,10 @@
 package com.chyern.wechat.connect.message.domain;
 
 import com.chyern.connect.annotation.Connect;
-import com.chyern.connect.annotation.method.Method;
 import com.chyern.connect.annotation.method.RequestMapping;
 import com.chyern.connect.annotation.resource.Body;
 import com.chyern.connect.annotation.resource.Query;
+import com.chyern.connect.constant.Method;
 import com.chyern.wechat.connect.message.domain.request.SendMessageRequest;
 import com.chyern.wechat.connect.message.domain.response.SendMessageResponse;
 

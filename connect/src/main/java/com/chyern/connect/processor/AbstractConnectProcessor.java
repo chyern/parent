@@ -1,12 +1,12 @@
 package com.chyern.connect.processor;
 
 import com.chyern.connect.annotation.Connect;
-import com.chyern.connect.annotation.method.MediaType;
 import com.chyern.connect.annotation.method.RequestMapping;
 import com.chyern.connect.annotation.resource.Body;
 import com.chyern.connect.annotation.resource.Header;
 import com.chyern.connect.annotation.resource.Path;
 import com.chyern.connect.annotation.resource.Query;
+import com.chyern.connect.constant.MediaType;
 import com.chyern.core.utils.AssertUtil;
 import com.chyern.spicore.exception.ConnectErrorEnum;
 import com.google.gson.GsonBuilder;
@@ -62,8 +62,8 @@ public abstract class AbstractConnectProcessor implements IConnectProcessor, App
         OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(10L, TimeUnit.SECONDS).callTimeout(30L, TimeUnit.SECONDS).build();
         okhttp3.MediaType mediaType = okhttp3.MediaType.parse(requestMapping.mediaType().getValue());
         RequestBody body = RequestBody.create(mediaType, bodyStr);
-        com.chyern.connect.annotation.method.Method requestMethod = requestMapping.method();
-        if (com.chyern.connect.annotation.method.Method.GET.equals(requestMethod)) {
+        com.chyern.connect.constant.Method requestMethod = requestMapping.method();
+        if (com.chyern.connect.constant.Method.GET.equals(requestMethod)) {
             body = null;
         }
         Request.Builder builder = new Request.Builder().url(url).method(requestMapping.method().toString(), body);

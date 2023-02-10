@@ -1,4 +1,4 @@
-package com.chyern.connect.annotation.method;
+package com.chyern.connect.constant;
 
 /**
  * Description: TODO
