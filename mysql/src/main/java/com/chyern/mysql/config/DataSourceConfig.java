@@ -57,9 +57,7 @@ public class DataSourceConfig {
 
         //mybatis配置
         MybatisConfiguration configuration = new MybatisConfiguration();
-        if (mybatisConfigProperties.isPrintSqlLog()) {
-            configuration.setLogImpl(org.apache.ibatis.logging.stdout.StdOutImpl.class);
-        }
+        configuration.setLogImpl(mybatisConfigProperties.getLogImpl());
         configuration.setCacheEnabled(false);
         configuration.setMapUnderscoreToCamelCase(true);
         configuration.setCallSettersOnNulls(true);
