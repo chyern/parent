@@ -38,6 +38,36 @@ public interface CoreConstant {
      */
     String N = "N";
 
+    /**
+     * 等号
+     */
+    String EQUAL_SIGN = "=";
+
+    /**
+     * 问号
+     */
+    String QUESTION_MARK = "?";
+
+    /**
+     * $
+     */
+    String $ = "$";
+
+    /**
+     * open brace
+     */
+    String OPEN_BRACE = "{";
+
+    /**
+     * close brace
+     */
+    String CLOSE_BRACE = "}";
+
+    /**
+     * 斜杆
+     */
+    String OBLIQUE = "/";
+
 
 
 }

@@ -18,11 +18,10 @@ public class SpringMessageThreadPoolConfig {
 
     @Bean("springMessageThreadPool")
     public ThreadPoolExecutor springMessageThreadPool() {
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(5,
+        return new ThreadPoolExecutor(5,
                 10,
                 10L,
                 TimeUnit.SECONDS,
                 new ArrayBlockingQueue<>(500));
-        return threadPoolExecutor;
     }
 }
