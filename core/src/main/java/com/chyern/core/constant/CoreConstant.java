@@ -54,6 +54,11 @@ public interface CoreConstant {
     String $ = "$";
 
     /**
+     * ampersand
+     */
+    String AMPERSAND = "&";
+
+    /**
      * open brace
      */
     String OPEN_BRACE = "{";

@@ -41,6 +41,6 @@ public class ResourceAnalysis {
             paramList.add(key + CoreConstant.EQUAL_SIGN + value);
         }
 
-        return StringUtils.join(paramList, CoreConstant.$);
+        return StringUtils.join(paramList, CoreConstant.AMPERSAND);
     }
 }

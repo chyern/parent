@@ -24,6 +24,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -85,35 +86,29 @@ public class ConnectUtil implements ApplicationContextAware {
 
         Map<String, String> headMap = new HashMap<>();
         Map<String, String> pathMap = new HashMap<>();
-        Map<String, Object> paramMap = new HashMap<>();
+        LinkedHashMap<String, Object> paramMap = new LinkedHashMap<>();
 
         Annotation[][] parameterAnnotations = method.getParameterAnnotations();
         for (int i = 0; i < args.length; i++) {
             Object arg = args[i];
-            //head
             for (Annotation annotation : parameterAnnotations[i]) {
+                //head
                 if (annotation instanceof Header) {
                     AssertUtil.isTrue(arg instanceof Map, ConnectErrorEnum.CONNECT_HEADER_TYPE_ERROR);
                     Map<String, String> map = (Map<String, String>) arg;
                     headMap.putAll(map);
                 }
-            }
-            //path
-            for (Annotation annotation : parameterAnnotations[i]) {
+                //path
                 if (annotation instanceof Path) {
                     Path path = (Path) annotation;
                     pathMap.put(path.value(), arg.toString());
                 }
-            }
-            //param
-            for (Annotation annotation : parameterAnnotations[i]) {
+                //param
                 if (annotation instanceof Query) {
                     Query query = (Query) annotation;
                     paramMap.put(query.value(), arg);
                 }
-            }
-            //body
-            for (Annotation annotation : parameterAnnotations[i]) {
+                //body
                 if (annotation instanceof Body) {
                     AssertUtil.isTrue(resourceAnalysis.getBody() == null, ConnectErrorEnum.CONNECT_HEADER_TYPE_ERROR);
                     resourceAnalysis.setBody(arg);
