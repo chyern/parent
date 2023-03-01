@@ -12,7 +12,7 @@ public enum MediaType {
     JSON("application/json; charset=UTF-8"),
     ;
 
-    private String value;
+    private final String value;
 
     public String getValue() {
         return value;
