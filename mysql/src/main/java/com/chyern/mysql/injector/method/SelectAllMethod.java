@@ -14,6 +14,16 @@ import org.apache.ibatis.mapping.SqlSource;
  */
 public class SelectAllMethod extends AbstractMethod {
 
+    private static final String METHOD_NAME = "selectAll";
+
+    protected SelectAllMethod(String methodName) {
+        super(methodName);
+    }
+
+    public SelectAllMethod() {
+        super(METHOD_NAME);
+    }
+
     @Override
     public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
         final String sqlMethod = "<script>\nSELECT * FROM %s WHERE %s\n</script>";
@@ -27,7 +37,7 @@ public class SelectAllMethod extends AbstractMethod {
             sql = String.format(sqlMethod, tableInfo.getTableName(), "1=1");
         }
         SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
-        return this.addSelectMappedStatementForTable(mapperClass, "selectAll", sqlSource, tableInfo);
+        return this.addSelectMappedStatementForTable(mapperClass, METHOD_NAME, sqlSource, tableInfo);
 
     }
 }

@@ -2,6 +2,7 @@ package com.chyern.mysql.injector;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
+import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.chyern.mysql.injector.method.InsertBatchMethod;
 import com.chyern.mysql.injector.method.SelectAllMethod;
 
@@ -16,8 +17,8 @@ import java.util.List;
 public class SqlInjector extends DefaultSqlInjector {
 
     @Override
-    public List<AbstractMethod> getMethodList(Class<?> mapperClass) {
-        List<AbstractMethod> methodList = super.getMethodList(mapperClass);
+    public List<AbstractMethod> getMethodList(Class<?> mapperClass, TableInfo tableInfo) {
+        List<AbstractMethod> methodList = super.getMethodList(mapperClass, tableInfo);
         methodList.add(new InsertBatchMethod());
         methodList.add(new SelectAllMethod());
         return methodList;

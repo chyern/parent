@@ -72,7 +72,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T>, InitializingBean {
     }
 
     @Override
-    public Integer selectCount(T t) {
+    public Long selectCount(T t) {
         return mapper.selectCount(WrapperUtil.buildQueryWrapper(t));
     }
 }

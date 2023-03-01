@@ -21,6 +21,16 @@ import java.util.stream.Collectors;
  */
 public class InsertBatchMethod extends AbstractMethod {
 
+    private static final String METHOD_NAME = "insertBatch";
+
+    protected InsertBatchMethod(String methodName) {
+        super(methodName);
+    }
+
+    public InsertBatchMethod() {
+        super(METHOD_NAME);
+    }
+
     @Override
     public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
         final String sql = "<script>\nINSERT INTO %s %s VALUES %s\n</script>";
@@ -30,7 +40,7 @@ public class InsertBatchMethod extends AbstractMethod {
         final String valueSql = prepareValuesSql(tableFieldMap);
         final String sqlResult = String.format(sql, tableInfo.getTableName(), fieldSql, valueSql);
         SqlSource sqlSource = languageDriver.createSqlSource(configuration, sqlResult, modelClass);
-        return this.addInsertMappedStatement(mapperClass, modelClass, "insertBatch", sqlSource, new NoKeyGenerator(), null, null);
+        return this.addInsertMappedStatement(mapperClass, modelClass, METHOD_NAME, sqlSource, new NoKeyGenerator(), null, null);
     }
 
     private LinkedHashMap<String, String> getTableFieldMap(TableInfo tableInfo) {

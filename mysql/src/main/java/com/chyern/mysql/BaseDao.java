@@ -26,5 +26,5 @@ public interface BaseDao<T> {
 
     PageResponse<T> selectPage(Long pageNo, Long pageSize, T t);
 
-    Integer selectCount(T t);
+    Long selectCount(T t);
 }

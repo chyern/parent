@@ -12,7 +12,7 @@
     <artifactId>mysql</artifactId>
 
     <properties>
-        <baomidou.version>3.4.2</baomidou.version>
+        <baomidou.version>3.5.3.1</baomidou.version>
         <druid.version>1.1.22</druid.version>
     </properties>
 
