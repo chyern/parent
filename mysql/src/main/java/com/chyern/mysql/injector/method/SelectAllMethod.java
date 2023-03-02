@@ -3,6 +3,7 @@ package com.chyern.mysql.injector.method;
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
+import com.chyern.mysql.injector.constants.SqlMethod;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlSource;
 
@@ -14,30 +15,26 @@ import org.apache.ibatis.mapping.SqlSource;
  */
 public class SelectAllMethod extends AbstractMethod {
 
-    private static final String METHOD_NAME = "selectAll";
-
-    protected SelectAllMethod(String methodName) {
-        super(methodName);
+    public SelectAllMethod() {
+        super(SqlMethod.SELECT_ALL.getName());
     }
 
-    public SelectAllMethod() {
-        super(METHOD_NAME);
+    public SelectAllMethod(String methodName) {
+        super(methodName);
     }
 
     @Override
     public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
-        final String sqlMethod = "<script>\nSELECT * FROM %s WHERE %s\n</script>";
-        String sql;
+        SqlMethod sqlMethod = SqlMethod.SELECT_ALL;
+        String sql = sqlMethod.getSql();
+        String whereFormat = "1=1";
         if (tableInfo.isWithLogicDelete()) {
             TableFieldInfo logicDeleteFieldInfo = tableInfo.getLogicDeleteFieldInfo();
-            String column = logicDeleteFieldInfo.getColumn();
-            String logicNotDeleteValue = logicDeleteFieldInfo.getLogicNotDeleteValue();
-            sql = String.format(sqlMethod, tableInfo.getTableName(), String.format("%s=#{%s}", column, logicNotDeleteValue));
-        } else {
-            sql = String.format(sqlMethod, tableInfo.getTableName(), "1=1");
+            whereFormat = String.format("%s=#{%s}", logicDeleteFieldInfo.getColumn(), logicDeleteFieldInfo.getLogicNotDeleteValue());
         }
+        sql = String.format(sql, tableInfo.getTableName(), whereFormat);
         SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
-        return this.addSelectMappedStatementForTable(mapperClass, METHOD_NAME, sqlSource, tableInfo);
+        return this.addSelectMappedStatementForTable(mapperClass, sqlMethod.getName(), sqlSource, tableInfo);
 
     }
 }
