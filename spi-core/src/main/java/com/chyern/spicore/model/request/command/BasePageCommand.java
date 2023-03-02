@@ -13,8 +13,6 @@ import lombok.EqualsAndHashCode;
 @Data
 public class BasePageCommand extends BaseCommand {
 
-    private static final long serialVersionUID = 1102714325131353521L;
-
     /**
      * 页数
      */
