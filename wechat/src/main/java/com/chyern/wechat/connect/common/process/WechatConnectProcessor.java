@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class WechatConnectProcessor extends AbstractConnectProcessor {
 
-    private static Cache<String, AccessTokenResponse> cache = Caffeine.newBuilder().expireAfterAccess(7200, TimeUnit.SECONDS).build();
+    private static final Cache<String, AccessTokenResponse> cache = Caffeine.newBuilder().expireAfterAccess(7200, TimeUnit.SECONDS).build();
 
     @Override
     public Object execute(Object proxy, Method method, Object[] args) throws Throwable {
