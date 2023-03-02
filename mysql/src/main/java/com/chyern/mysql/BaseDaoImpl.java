@@ -75,4 +75,9 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T>, InitializingBean {
     public Long selectCount(T t) {
         return mapper.selectCount(WrapperUtil.buildQueryWrapper(t));
     }
+
+    @Override
+    public boolean exists(T t) {
+        return mapper.exists(WrapperUtil.buildQueryWrapper(t));
+    }
 }
