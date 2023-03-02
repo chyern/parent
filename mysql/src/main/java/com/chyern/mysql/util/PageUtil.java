@@ -16,20 +16,22 @@ import java.util.stream.Collectors;
  */
 public class PageUtil {
 
-    public static <T, E extends IPage<R>, R> PageResponse<T> buildPageResponse(E e, Function<R, T> function) {
+    /**
+     * IPage<T> -> PageResponse<T>
+     */
+    public static <T, E extends IPage<T>> PageResponse<T> buildPageResponse(E e) {
         PageResponse<T> response = new PageResponse<T>();
         response.setPageNo(e.getCurrent());
         response.setPageSize(e.getSize());
         response.setTotal(e.getTotal());
-        List<R> records = e.getRecords();
-        if (!CollectionUtils.isEmpty(records)) {
-            List<T> list = records.stream().map(function).collect(Collectors.toList());
-            response.setList(list);
-        }
+        response.setList(e.getRecords());
         return response;
     }
 
-    public static <T, E extends PageResponse<R>, R> PageResponse<T> buildPageResponse(E e, Function<R, T> function) {
+    /**
+     * PageResponse<R> -> PageResponse<T>
+     */
+    public static <T, R, E extends PageResponse<R>> PageResponse<T> buildPageResponse(E e, Function<R, T> function) {
         PageResponse<T> response = new PageResponse<T>();
         response.setPageNo(e.getPageNo());
         response.setPageSize(e.getPageSize());
@@ -40,6 +42,14 @@ public class PageUtil {
             response.setList(list);
         }
         return response;
+    }
+
+    /**
+     * IPage<R> -> PageResponse<T>
+     */
+    public static <T, R, E extends IPage<R>> PageResponse<T> buildPageResponse(E e, Function<R, T> function) {
+        PageResponse<R> rPageResponse = buildPageResponse(e);
+        return buildPageResponse(rPageResponse, function);
     }
 
 }

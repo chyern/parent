@@ -3,6 +3,7 @@ package com.chyern.mysql;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.chyern.mysql.domain.PageRequest;
 import com.chyern.mysql.domain.PageResponse;
 import com.chyern.mysql.util.PageUtil;
 import com.chyern.mysql.util.WrapperUtil;
@@ -64,11 +65,11 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T>, InitializingBean {
     }
 
     @Override
-    public PageResponse<T> selectPage(Long pageNo, Long pageSize, T t) {
-        IPage<T> iPage = new Page<>(pageNo, pageSize);
-        QueryWrapper<T> tQueryWrapper = WrapperUtil.buildQueryWrapper(t);
+    public PageResponse<T> selectPage(PageRequest<T> pageRequest) {
+        IPage<T> iPage = new Page<>(pageRequest.getPageNo(), pageRequest.getPageSize());
+        QueryWrapper<T> tQueryWrapper = WrapperUtil.buildQueryWrapper(pageRequest.getData());
         mapper.selectPage(iPage, tQueryWrapper);
-        return PageUtil.buildPageResponse(iPage, item -> item);
+        return PageUtil.buildPageResponse(iPage);
     }
 
     @Override

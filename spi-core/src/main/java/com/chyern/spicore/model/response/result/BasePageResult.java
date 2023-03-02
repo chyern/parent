@@ -1,8 +1,8 @@
-package com.chyern.spicore.model;
+package com.chyern.spicore.model.response.result;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,14 +11,9 @@ import java.util.List;
  * @author Chyern
  * @since 2023/2/2 14:47
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class BasePageResult<T> implements Serializable {
-    private static final long serialVersionUID = 6823851364026718111L;
-
-    /**
-     * 请求id
-     */
-    private String requestId;
+public class BasePageResult<T> extends BaseResult {
 
     /**
      * 页数

@@ -1,4 +1,4 @@
-package com.chyern.spicore.model;
+package com.chyern.spicore.model.request.command;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

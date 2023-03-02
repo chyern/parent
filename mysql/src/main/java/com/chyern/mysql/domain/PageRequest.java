@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @since 2022/12/12 14:14
  */
 @Data
-public class PageRequest implements Serializable {
+public class PageRequest<T> implements Serializable {
 
     private static final long serialVersionUID = -166132025153260715L;
 
@@ -24,4 +24,9 @@ public class PageRequest implements Serializable {
      * 页大小
      */
     private Long pageSize = 10L;
+
+    /**
+     * 查询对象
+     */
+    private T data;
 }

@@ -1,5 +1,6 @@
 package com.chyern.mysql;
 
+import com.chyern.mysql.domain.PageRequest;
 import com.chyern.mysql.domain.PageResponse;
 
 import java.util.List;
@@ -55,11 +56,9 @@ public interface BaseDao<T> {
     /**
      * 分页查询
      *
-     * @param pageNo   页数
-     * @param pageSize 页大小
-     * @param t        实体对象
+     * @param pageRequest 实体对象
      */
-    PageResponse<T> selectPage(Long pageNo, Long pageSize, T t);
+    PageResponse<T> selectPage(PageRequest<T> pageRequest);
 
     /**
      * 统计数量
@@ -70,6 +69,7 @@ public interface BaseDao<T> {
 
     /**
      * 是否存在
+     *
      * @param t 实体对象
      */
     boolean exists(T t);

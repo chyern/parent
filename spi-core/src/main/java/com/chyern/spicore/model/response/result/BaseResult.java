@@ -1,9 +1,8 @@
-package com.chyern.spicore.model;
+package com.chyern.spicore.model.response.result;
 
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Description: TODO
@@ -21,12 +20,13 @@ public class BaseResult implements Serializable {
     private String requestId;
 
     /**
-     * 创建时间
+     * 语言
      */
-    private Date createTime;
+    private String lang;
 
     /**
-     * 更新时间
+     * 租户ID
      */
-    private Date updateTime;
+    private String tenantId;
+
 }

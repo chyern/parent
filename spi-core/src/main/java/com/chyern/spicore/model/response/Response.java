@@ -1,4 +1,4 @@
-package com.chyern.spicore.model;
+package com.chyern.spicore.model.response;
 
 import com.chyern.spicore.enums.IErrorEnum;
 import com.chyern.spicore.exception.BaseException;
