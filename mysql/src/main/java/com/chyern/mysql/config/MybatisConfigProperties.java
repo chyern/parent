@@ -29,7 +29,7 @@ public class MybatisConfigProperties {
     /**
      * mapper文件扫描路径
      */
-    private String[] mapperLocations = new String[]{"classpath*:/mapper/**/*.xml"};
+    private String[] mapperLocations = new String[]{"classpath*:/mapper/**/*Mapper.xml"};
 
     /**
      * sql拦截器
