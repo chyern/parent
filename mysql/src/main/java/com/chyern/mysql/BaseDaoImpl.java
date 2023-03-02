@@ -7,8 +7,8 @@ import com.chyern.mysql.domain.PageRequest;
 import com.chyern.mysql.domain.PageResponse;
 import com.chyern.mysql.util.PageUtil;
 import com.chyern.mysql.util.WrapperUtil;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 

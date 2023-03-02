@@ -2,7 +2,7 @@ package com.chyern.mysql.util;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.chyern.mysql.domain.PageResponse;
-import org.springframework.util.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
 import java.util.function.Function;
@@ -37,7 +37,7 @@ public class PageUtil {
         response.setPageSize(e.getPageSize());
         response.setTotal(e.getTotal());
         List<R> records = e.getList();
-        if (!CollectionUtils.isEmpty(records)) {
+        if (CollectionUtils.isNotEmpty(records)) {
             List<T> list = records.stream().map(function).collect(Collectors.toList());
             response.setList(list);
         }
