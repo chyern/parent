@@ -1,9 +1,7 @@
 package com.chyern.connect.processor;
 
-import com.chyern.connect.analysis.MethodAnalysis;
-import com.chyern.connect.analysis.ResourceAnalysis;
 import com.chyern.connect.annotation.Connect;
-import com.chyern.connect.annotation.method.RequestMapping;
+import com.chyern.connect.domain.ConnectModel;
 import com.chyern.connect.utils.ConnectUtil;
 import com.chyern.core.constant.CoreConstant;
 import com.chyern.core.utils.AssertUtil;
@@ -30,14 +28,11 @@ import java.util.concurrent.TimeUnit;
  */
 public abstract class AbstractConnectProcessor implements IConnectProcessor {
 
-    protected MethodAnalysis methodAnalysis;
-
-    protected ResourceAnalysis resourceAnalysis;
+    protected ConnectModel connectModel;
 
     @Override
     public void before(Object proxy, Method method, Object[] args) throws Throwable {
-        methodAnalysis = ConnectUtil.buildMethodAnalysis(method.getAnnotation(RequestMapping.class));
-        resourceAnalysis = ConnectUtil.buildResourceAnalysis(method, args);
+        connectModel = ConnectUtil.buildBy(method, args);
     }
 
     @Override
@@ -45,28 +40,21 @@ public abstract class AbstractConnectProcessor implements IConnectProcessor {
         String connectUrl = ConnectUtil.buildConnectUrl(method.getDeclaringClass().getAnnotation(Connect.class));
 
         //okhttp连接
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .connectTimeout(10L, TimeUnit.SECONDS)
-                .callTimeout(30L, TimeUnit.SECONDS)
-                .build();
+        OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(10L, TimeUnit.SECONDS).callTimeout(30L, TimeUnit.SECONDS).build();
 
         //请求体
         RequestBody body = null;
-        String bodyStr = ConnectUtil.buildBodyStr(methodAnalysis.getMediaType(), resourceAnalysis.getBody());
+        String bodyStr = ConnectUtil.buildBodyStr(connectModel.getMediaType(), connectModel.getBody());
         if (bodyStr != null) {
-            body = RequestBody.create(okhttp3.MediaType.parse(methodAnalysis.getMediaType().getValue()), bodyStr);
+            body = RequestBody.create(okhttp3.MediaType.parse(connectModel.getMediaType().getValue()), bodyStr);
         }
 
-        //url
-        String url = buildUrl(connectUrl, methodAnalysis, resourceAnalysis);
-
         //构建请求
-        Request.Builder builder = new Request.Builder()
-                .url(url)
-                .method(methodAnalysis.getMethod().name(), body);
+        String url = buildUrl(connectUrl, connectModel);
+        Request.Builder builder = new Request.Builder().url(url).method(connectModel.getMethod().name(), body);
 
         //请求头
-        Map<String, String> heads = resourceAnalysis.getHeads();
+        Map<String, String> heads = connectModel.getHeads();
         if (heads != null) {
             for (Map.Entry<String, String> entry : heads.entrySet()) {
                 builder = builder.addHeader(entry.getKey(), entry.getValue());
@@ -101,10 +89,10 @@ public abstract class AbstractConnectProcessor implements IConnectProcessor {
 
     }
 
-    private String buildUrl(String connectUrl, MethodAnalysis methodAnalysis, ResourceAnalysis resourceAnalysis) {
+    private String buildUrl(String connectUrl, ConnectModel connectModel) {
         String url = connectUrl;
-        String pathUrl = buildPathUrl(methodAnalysis.getUrl(), resourceAnalysis.getPaths());
-        String paramsUrl = resourceAnalysis.getParamsUrl();
+        String pathUrl = buildPathUrl(connectModel.getUrl(), connectModel.getPaths());
+        String paramsUrl = connectModel.getParamsUrl();
 
         if (url.endsWith(CoreConstant.OBLIQUE)) {
             url = StringUtils.substringBeforeLast(url, CoreConstant.OBLIQUE);

@@ -1,7 +1,5 @@
 package com.chyern.connect.utils;
 
-import com.chyern.connect.analysis.MethodAnalysis;
-import com.chyern.connect.analysis.ResourceAnalysis;
 import com.chyern.connect.annotation.Connect;
 import com.chyern.connect.annotation.method.RequestMapping;
 import com.chyern.connect.annotation.resource.Body;
@@ -9,6 +7,7 @@ import com.chyern.connect.annotation.resource.Header;
 import com.chyern.connect.annotation.resource.Path;
 import com.chyern.connect.annotation.resource.Query;
 import com.chyern.connect.constant.MediaType;
+import com.chyern.connect.domain.ConnectModel;
 import com.chyern.core.constant.CoreConstant;
 import com.chyern.core.utils.AssertUtil;
 import com.chyern.spicore.exception.ConnectErrorEnum;
@@ -21,7 +20,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -49,17 +47,7 @@ public class ConnectUtil implements ApplicationContextAware {
         return analysisProperty(connect.value());
     }
 
-    public static MethodAnalysis buildMethodAnalysis(RequestMapping requestMapping) {
-        return new MethodAnalysis(requestMapping.value(), requestMapping.method(), requestMapping.mediaType());
-    }
-
-    public static ResourceAnalysis buildResourceAnalysis(Method method, Object[] args) {
-        ResourceAnalysis resourceAnalysis = new ResourceAnalysis();
-        buildResourceAnalysis(resourceAnalysis, method, args);
-        return resourceAnalysis;
-    }
-
-    public static String buildBodyStr(MediaType mediaType, Object body) throws InvocationTargetException, IllegalAccessException {
+    public static String buildBodyStr(MediaType mediaType, Object body) {
         String bodyStr = null;
         if (body == null) {
             return bodyStr;
@@ -78,11 +66,20 @@ public class ConnectUtil implements ApplicationContextAware {
         return bodyStr;
     }
 
-
-    private static void buildResourceAnalysis(ResourceAnalysis resourceAnalysis, Method method, Object[] args) {
+    /**
+     * 构建ConnectModel对象
+     *
+     * @param method 方法
+     * @param args   参数
+     */
+    public static ConnectModel buildBy(Method method, Object[] args) {
+        ConnectModel connectModel = new ConnectModel();
         if (args == null) {
-            return;
+            return connectModel;
         }
+
+        RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
+        buildBy(connectModel, requestMapping);
 
         Map<String, String> headMap = new HashMap<>();
         Map<String, String> pathMap = new HashMap<>();
@@ -110,14 +107,21 @@ public class ConnectUtil implements ApplicationContextAware {
                 }
                 //body
                 if (annotation instanceof Body) {
-                    AssertUtil.isTrue(resourceAnalysis.getBody() == null, ConnectErrorEnum.CONNECT_HEADER_TYPE_ERROR);
-                    resourceAnalysis.setBody(arg);
+                    AssertUtil.isTrue(connectModel.getBody() == null, ConnectErrorEnum.CONNECT_HEADER_TYPE_ERROR);
+                    connectModel.setBody(arg);
                 }
             }
         }
-        resourceAnalysis.setHeads(headMap);
-        resourceAnalysis.setPaths(pathMap);
-        resourceAnalysis.setParams(paramMap);
+        connectModel.setHeads(headMap);
+        connectModel.setPaths(pathMap);
+        connectModel.setParams(paramMap);
+        return connectModel;
+    }
+
+    private static void buildBy(ConnectModel connectModel, RequestMapping requestMapping) {
+        connectModel.setUrl(requestMapping.value());
+        connectModel.setMethod(requestMapping.method());
+        connectModel.setMediaType(requestMapping.mediaType());
     }
 
 
