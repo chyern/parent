@@ -6,13 +6,10 @@ import com.chyern.connect.annotation.resource.Body;
 import com.chyern.connect.annotation.resource.Header;
 import com.chyern.connect.annotation.resource.Path;
 import com.chyern.connect.annotation.resource.Query;
-import com.chyern.connect.constant.MediaType;
 import com.chyern.connect.domain.ConnectModel;
 import com.chyern.core.constant.CoreConstant;
 import com.chyern.core.utils.AssertUtil;
 import com.chyern.spicore.exception.ConnectErrorEnum;
-import com.google.gson.GsonBuilder;
-import org.apache.commons.beanutils.BeanMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -23,9 +20,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Description: TODO
@@ -43,29 +38,6 @@ public class ConnectUtil implements ApplicationContextAware {
         ConnectUtil.applicationContext = applicationContext;
     }
 
-    public static String buildConnectUrl(Connect connect) {
-        return analysisProperty(connect.value());
-    }
-
-    public static String buildBodyStr(MediaType mediaType, Object body) {
-        String bodyStr = null;
-        if (body == null) {
-            return bodyStr;
-        }
-        if (MediaType.X_WWW_FORM_URLENCODED.equals(mediaType)) {
-            BeanMap beanMap = new BeanMap(body);
-            List<String> collect = beanMap.entrySet().stream().map(entry -> {
-                Object key = entry.getKey();
-                Object value = entry.getValue();
-                return key + CoreConstant.EQUAL_SIGN + value;
-            }).collect(Collectors.toList());
-            bodyStr = StringUtils.join(collect, "&");
-        } else {
-            bodyStr = new GsonBuilder().create().toJson(body);
-        }
-        return bodyStr;
-    }
-
     /**
      * 构建ConnectModel对象
      *
@@ -78,9 +50,12 @@ public class ConnectUtil implements ApplicationContextAware {
             return connectModel;
         }
 
+        //解析方法上注解
+        Connect connect = method.getDeclaringClass().getAnnotation(Connect.class);
         RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
-        buildBy(connectModel, requestMapping);
+        buildBy(connectModel, connect, requestMapping);
 
+        //解析参数上注解
         Map<String, String> headMap = new HashMap<>();
         Map<String, String> pathMap = new HashMap<>();
         LinkedHashMap<String, Object> paramMap = new LinkedHashMap<>();
@@ -118,8 +93,20 @@ public class ConnectUtil implements ApplicationContextAware {
         return connectModel;
     }
 
-    private static void buildBy(ConnectModel connectModel, RequestMapping requestMapping) {
-        connectModel.setUrl(requestMapping.value());
+    private static void buildBy(ConnectModel connectModel, Connect connect, RequestMapping requestMapping) {
+        String url = analysisProperty(connect.value());
+        String requestUrl = requestMapping.value();
+
+        if (url.endsWith(CoreConstant.OBLIQUE)) {
+            url = StringUtils.substringBeforeLast(url, CoreConstant.OBLIQUE);
+        }
+        if (requestUrl.startsWith(CoreConstant.OBLIQUE)) {
+            url = url + requestUrl;
+        } else {
+            url = url + CoreConstant.OBLIQUE + requestUrl;
+        }
+
+        connectModel.setUrl(url);
         connectModel.setMethod(requestMapping.method());
         connectModel.setMediaType(requestMapping.mediaType());
     }

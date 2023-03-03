@@ -1,6 +1,5 @@
 package com.chyern.connect.processor;
 
-import com.chyern.connect.annotation.Connect;
 import com.chyern.connect.domain.ConnectModel;
 import com.chyern.connect.utils.ConnectUtil;
 import com.chyern.core.constant.CoreConstant;
@@ -37,20 +36,18 @@ public abstract class AbstractConnectProcessor implements IConnectProcessor {
 
     @Override
     public Object execute(Object proxy, Method method, Object[] args) throws Throwable {
-        String connectUrl = ConnectUtil.buildConnectUrl(method.getDeclaringClass().getAnnotation(Connect.class));
-
         //okhttp连接
         OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(10L, TimeUnit.SECONDS).callTimeout(30L, TimeUnit.SECONDS).build();
 
         //请求体
         RequestBody body = null;
-        String bodyStr = ConnectUtil.buildBodyStr(connectModel.getMediaType(), connectModel.getBody());
+        String bodyStr = connectModel.getBodyStr();
         if (bodyStr != null) {
             body = RequestBody.create(okhttp3.MediaType.parse(connectModel.getMediaType().getValue()), bodyStr);
         }
 
         //构建请求
-        String url = buildUrl(connectUrl, connectModel);
+        String url = buildUrl(connectModel);
         Request.Builder builder = new Request.Builder().url(url).method(connectModel.getMethod().name(), body);
 
         //请求头
@@ -89,19 +86,10 @@ public abstract class AbstractConnectProcessor implements IConnectProcessor {
 
     }
 
-    private String buildUrl(String connectUrl, ConnectModel connectModel) {
-        String url = connectUrl;
-        String pathUrl = buildPathUrl(connectModel.getUrl(), connectModel.getPaths());
+    private String buildUrl(ConnectModel connectModel) {
+        String url = buildPathUrl(connectModel.getUrl(), connectModel.getPaths());
         String paramsUrl = connectModel.getParamsUrl();
 
-        if (url.endsWith(CoreConstant.OBLIQUE)) {
-            url = StringUtils.substringBeforeLast(url, CoreConstant.OBLIQUE);
-        }
-        if (pathUrl.startsWith(CoreConstant.OBLIQUE)) {
-            url = url + pathUrl;
-        } else {
-            url = url + CoreConstant.OBLIQUE + pathUrl;
-        }
         if (StringUtils.isNotBlank(paramsUrl)) {
             url = url + CoreConstant.QUESTION_MARK + paramsUrl;
         }

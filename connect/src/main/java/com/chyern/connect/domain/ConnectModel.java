@@ -3,13 +3,16 @@ package com.chyern.connect.domain;
 import com.chyern.connect.constant.MediaType;
 import com.chyern.connect.constant.Method;
 import com.chyern.core.constant.CoreConstant;
+import com.google.gson.GsonBuilder;
 import lombok.Data;
+import org.apache.commons.beanutils.BeanMap;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 /**
  * Description: TODO
@@ -57,6 +60,10 @@ public class ConnectModel {
      */
     private Object body;
 
+    /**
+     * 解析param参数为url
+     * ?a=xxx&b=xxx
+     */
     public String getParamsUrl() {
         if (params == null) {
             return StringUtils.EMPTY;
@@ -73,5 +80,27 @@ public class ConnectModel {
         }
 
         return StringUtils.join(paramList, CoreConstant.AMPERSAND);
+    }
+
+    /**
+     * 获取body的字符串
+     */
+    public String getBodyStr() {
+        String bodyStr = null;
+        if (body == null) {
+            return bodyStr;
+        }
+        if (MediaType.X_WWW_FORM_URLENCODED.equals(mediaType)) {
+            BeanMap beanMap = new BeanMap(body);
+            List<String> collect = beanMap.entrySet().stream().map(entry -> {
+                Object key = entry.getKey();
+                Object value = entry.getValue();
+                return key + CoreConstant.EQUAL_SIGN + value;
+            }).collect(Collectors.toList());
+            bodyStr = StringUtils.join(collect, "&");
+        } else {
+            bodyStr = new GsonBuilder().create().toJson(body);
+        }
+        return bodyStr;
     }
 }
