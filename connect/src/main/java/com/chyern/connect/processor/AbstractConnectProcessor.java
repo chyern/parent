@@ -4,7 +4,7 @@ import com.chyern.connect.domain.ConnectModel;
 import com.chyern.connect.utils.ConnectUtil;
 import com.chyern.core.constant.CoreConstant;
 import com.chyern.core.utils.AssertUtil;
-import com.chyern.spicore.exception.ConnectErrorEnum;
+import com.chyern.spicore.exception.enums.ConnectErrorEnum;
 import com.google.gson.GsonBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

@@ -1,4 +1,4 @@
-package com.chyern.spicore.exception;
+package com.chyern.spicore.exception.enums;
 
 import com.chyern.spicore.enums.IErrorEnum;
 

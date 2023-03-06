@@ -3,7 +3,7 @@ package com.chyern.connect.registered;
 import com.chyern.connect.annotation.Connect;
 import com.chyern.connect.processor.IConnectProcessor;
 import com.chyern.spicore.exception.BaseException;
-import com.chyern.spicore.exception.ConnectErrorEnum;
+import com.chyern.spicore.exception.enums.ConnectErrorEnum;
 import org.springframework.context.ApplicationContext;
 
 import java.lang.reflect.InvocationHandler;

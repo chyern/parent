@@ -2,7 +2,7 @@ package com.chyern.core.utils;
 
 
 import com.chyern.spicore.exception.BaseException;
-import com.chyern.spicore.exception.CoreExceptionEnum;
+import com.chyern.spicore.exception.enums.CoreExceptionEnum;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedReader;
