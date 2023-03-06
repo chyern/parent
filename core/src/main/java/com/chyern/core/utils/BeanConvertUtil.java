@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description: TODO
+ * Description: 对象转换工具类,beanutil实现
  *
  * @author Chyern
  * @since 2021/4/20
  */
 @Slf4j
-public class SimpleConvertUtil {
+public class BeanConvertUtil {
 
     public static <T> T convert(Object org, Class<T> clazz) {
         T dest = null;

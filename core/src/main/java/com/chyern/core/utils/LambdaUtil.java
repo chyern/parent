@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * Description: TODO
+ * Description: lambda工具类
  *
  * @author Chyern
  * @since 2022/3/27 21:29

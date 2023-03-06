@@ -4,17 +4,22 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
 /**
- * Description: TODO
+ * Description: sha256工具类
  *
  * @author Chyern
  * @since 2021/4/12
  */
 public class Sha256Util {
 
-    public static String getSHA256StrJava(String str) throws Exception {
+    /**
+     * String 转256
+     *
+     * @param string
+     */
+    public static String getSHA256(String string) throws Exception {
         MessageDigest messageDigest;
         messageDigest = MessageDigest.getInstance("SHA-256");
-        messageDigest.update(str.getBytes(StandardCharsets.UTF_8));
+        messageDigest.update(string.getBytes(StandardCharsets.UTF_8));
         return byte2Hex(messageDigest.digest());
     }
 

@@ -4,7 +4,7 @@ import com.chyern.spicore.enums.IIntegerEnum;
 import com.chyern.spicore.enums.IStringEnum;
 
 /**
- * Description: TODO
+ * Description: 通用convert
  *
  * @author Chyern
  * @since 2023/1/31 17:20

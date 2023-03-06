@@ -1,7 +1,7 @@
 package com.chyern.core.constant;
 
 /**
- * Description: TODO
+ * Description: 常量
  *
  * @author Chyern
  * @since 2023/1/31 15:11
@@ -54,17 +54,17 @@ public interface CoreConstant {
     String $ = "$";
 
     /**
-     * ampersand
+     * &
      */
     String AMPERSAND = "&";
 
     /**
-     * open brace
+     * 左大括号
      */
     String OPEN_BRACE = "{";
 
     /**
-     * close brace
+     * 右大括号
      */
     String CLOSE_BRACE = "}";
 
@@ -72,7 +72,6 @@ public interface CoreConstant {
      * 斜杆
      */
     String OBLIQUE = "/";
-
 
 
 }

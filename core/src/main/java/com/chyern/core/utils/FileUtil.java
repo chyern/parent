@@ -27,10 +27,9 @@ public class FileUtil {
 
     /**
      * 创建文件
+     * 文件存在时报错
      *
      * @param path 文件路径
-     * @return
-     * @throws BaseException
      */
     public static File createFile(String path) throws BaseException, IOException {
         File file = new File(path);
@@ -44,11 +43,9 @@ public class FileUtil {
 
     /**
      * 创建文件
+     * 文件存在时删除
      *
      * @param path 文件路径
-     * @return
-     * @throws BaseException
-     * @throws IOException
      */
     public static File createFileMandatory(String path) throws BaseException, IOException {
         File file = new File(path);
@@ -64,8 +61,6 @@ public class FileUtil {
      * 逐行读取文件内容
      *
      * @param file 文件
-     * @return
-     * @throws IOException
      */
     public static List<String> readFileByLine(File file) throws IOException {
         List<String> result = new ArrayList<>();
@@ -87,7 +82,6 @@ public class FileUtil {
      *
      * @param path    文件路径
      * @param content 写入内容
-     * @throws Exception
      */
     public static void writeFile(String path, String content) throws IOException {
         File file = createFileMandatory(path);
@@ -105,7 +99,6 @@ public class FileUtil {
      *
      * @param path     文件路径
      * @param contents 写入内容
-     * @throws Exception
      */
     public static void writeFile(String path, List<String> contents) throws IOException {
         String content = StringUtils.join(contents, System.lineSeparator());
@@ -117,8 +110,6 @@ public class FileUtil {
      *
      * @param outputFile 待写入文件
      * @param files      写入文件
-     * @return
-     * @throws Exception
      */
     public static void mergeFile(File outputFile, List<File> files) throws IOException {
         try (FileOutputStream fileOutputStream = new FileOutputStream(outputFile)) {
@@ -145,7 +136,6 @@ public class FileUtil {
      * 递归查询文件
      *
      * @param patch 文件路径
-     * @return
      */
     public static List<File> listFile(String patch) {
         List<File> result = new ArrayList<>();
@@ -174,7 +164,7 @@ public class FileUtil {
     }
 
     /**
-     * 生成父类
+     * 生成父文件路径
      *
      * @param file
      */

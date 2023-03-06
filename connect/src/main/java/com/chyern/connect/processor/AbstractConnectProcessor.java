@@ -29,6 +29,12 @@ public abstract class AbstractConnectProcessor implements IConnectProcessor {
 
     protected ConnectModel connectModel;
 
+    private static final OkHttpClient httpClient = new OkHttpClient()
+            .newBuilder()
+            .connectTimeout(10L, TimeUnit.SECONDS)
+            .callTimeout(30L, TimeUnit.SECONDS)
+            .build();
+
     @Override
     public void before(Object proxy, Method method, Object[] args) throws Throwable {
         connectModel = ConnectUtil.buildBy(method, args);
@@ -36,8 +42,6 @@ public abstract class AbstractConnectProcessor implements IConnectProcessor {
 
     @Override
     public Object execute(Object proxy, Method method, Object[] args) throws Throwable {
-        //okhttp连接
-        OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(10L, TimeUnit.SECONDS).callTimeout(30L, TimeUnit.SECONDS).build();
 
         //请求体
         RequestBody body = null;
@@ -59,7 +63,7 @@ public abstract class AbstractConnectProcessor implements IConnectProcessor {
         }
 
         //调用
-        Response response = client.newCall(builder.build()).execute();
+        Response response = httpClient.newCall(builder.build()).execute();
         this.beforeReturnExecute(response);
         AssertUtil.isTrue(response.isSuccessful(), ConnectErrorEnum.CONNECT_ERROR);
         ResponseBody responseBody = response.body();
