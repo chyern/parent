@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.chyern.session.config.SessionScanRegistrar
+  com.chyern.session.config.SessionConfig

@@ -1,4 +1,4 @@
-package com.chyern.session.config;
+package com.chyern.session.registrar;
 
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;

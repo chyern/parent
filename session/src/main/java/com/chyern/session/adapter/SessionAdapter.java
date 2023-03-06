@@ -1,9 +1,9 @@
 package com.chyern.session.adapter;
 
-import com.chyern.session.config.EnvironmentConfig;
+import com.chyern.session.config.SessionConfigProperties;
 import com.chyern.session.interceptor.SessionInterceptor;
 import com.chyern.session.interceptor.WebInterceptor;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @author Chyern
  * @since 2021/4/20
  */
-@Configuration
+@Component
 public class SessionAdapter extends WebMvcConfigurerAdapter {
 
     @Resource
@@ -25,7 +25,8 @@ public class SessionAdapter extends WebMvcConfigurerAdapter {
     private SessionInterceptor sessionInterceptor;
 
     @Resource
-    private EnvironmentConfig environmentConfig;
+    private SessionConfigProperties sessionConfigProperties;
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -33,7 +34,7 @@ public class SessionAdapter extends WebMvcConfigurerAdapter {
                 .addPathPatterns("/**");
         registry.addInterceptor(sessionInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns(environmentConfig.getExcludePathPatterns());
+                .excludePathPatterns(sessionConfigProperties.getExcludePathPatterns());
     }
 
 }

@@ -1,18 +1,15 @@
 package com.chyern.session.interceptor;
 
 import com.chyern.core.utils.LambdaUtil;
+import com.chyern.session.config.SessionConfigProperties;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -25,8 +22,8 @@ import java.util.UUID;
 @Component
 public class WebInterceptor implements HandlerInterceptor {
 
-    @Value("${session.token-key}")
-    private String TOKEN_KEY;
+    @Resource
+    private SessionConfigProperties sessionConfigProperties;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -34,7 +31,7 @@ public class WebInterceptor implements HandlerInterceptor {
         String token = getToken(request.getCookies());
         if (StringUtils.isBlank(token)) {
             //从header中获取
-            token = request.getHeader(TOKEN_KEY);
+            token = request.getHeader(sessionConfigProperties.getTokenKey());
             if (StringUtils.isBlank(token)) {
                 //生成token
                 token = UUID.randomUUID().toString();
@@ -47,7 +44,7 @@ public class WebInterceptor implements HandlerInterceptor {
 
     private String getToken(Cookie[] cookies) {
         if (cookies != null) {
-            Cookie cookie = LambdaUtil.findFirst(Arrays.asList(cookies), item -> TOKEN_KEY.equals(item.getName()));
+            Cookie cookie = LambdaUtil.findFirst(Arrays.asList(cookies), item -> sessionConfigProperties.getTokenKey().equals(item.getName()));
             if (cookie != null) {
                 return cookie.getValue();
             }
@@ -57,10 +54,10 @@ public class WebInterceptor implements HandlerInterceptor {
 
     private void setResponse(HttpServletResponse response) {
         String token = TokenThreadLocal.get();
-        Cookie cookie = new Cookie(TOKEN_KEY, token);
+        Cookie cookie = new Cookie(sessionConfigProperties.getTokenKey(), token);
         cookie.setPath("/");
         response.addCookie(cookie);
-        response.addHeader(TOKEN_KEY, token);
+        response.addHeader(sessionConfigProperties.getTokenKey(), token);
     }
 
     @Override
@@ -84,16 +81,6 @@ public class WebInterceptor implements HandlerInterceptor {
         public static void remove() {
             threadLocal.remove();
         }
-    }
-
-    // byte转为char
-    private static char[] byteToChar(byte[] bytes) {
-        Charset charset = StandardCharsets.ISO_8859_1;
-        ByteBuffer byteBuffer = ByteBuffer.allocate(bytes.length);
-        byteBuffer.put(bytes);
-        byteBuffer.flip();
-        CharBuffer charBuffer = charset.decode(byteBuffer);
-        return charBuffer.array();
     }
 
 }
