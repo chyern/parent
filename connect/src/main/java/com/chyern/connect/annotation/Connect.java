@@ -10,7 +10,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Description: TODO
+ * Description: 被注解的接口能自动代理远程调用请求
  *
  * @author Chyern
  * @since 2021/4/22
