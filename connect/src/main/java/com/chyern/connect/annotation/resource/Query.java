@@ -1,9 +1,14 @@
 package com.chyern.connect.annotation.resource;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Description: TODO
+ * Description: 请求参数
+ * ?a=xxx&b=xxx
  *
  * @author Chyern
  * @since 2021/4/22
