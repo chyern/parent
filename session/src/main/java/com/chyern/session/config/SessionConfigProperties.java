@@ -18,8 +18,13 @@ import java.util.List;
 @ConfigurationProperties(prefix = "session")
 public class SessionConfigProperties {
 
+    /**
+     * token标识
+     */
     private String tokenKey;
 
-
+    /**
+     * 过滤拦截的路径
+     */
     private List<String> excludePathPatterns = new ArrayList<>();
 }
