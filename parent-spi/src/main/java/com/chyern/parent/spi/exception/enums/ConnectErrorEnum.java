@@ -14,7 +14,6 @@ public enum ConnectErrorEnum implements IErrorEnum {
 
     CONNECT_ERROR(11002, "Connect is unsuccessful"),
     CONNECT_BODY_ERROR(11003, "It is not allowed to define two request types on a single body"),
-    CONNECT_HEADER_ERROR(11004, "It is not allowed to define two request types on a single header"),
     CONNECT_HEADER_TYPE_ERROR(11005, "The header type must be map"),
 
 

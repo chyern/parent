@@ -63,6 +63,8 @@ public class FileUtil {
      * @param file 文件
      */
     public static List<String> readFileByLine(File file) throws IOException {
+        AssertUtil.isTrue(file.exists(), CoreExceptionEnum.FILE_NOT_FIND);
+
         List<String> result = new ArrayList<>();
 
         try (FileReader fileReader = new FileReader(file);

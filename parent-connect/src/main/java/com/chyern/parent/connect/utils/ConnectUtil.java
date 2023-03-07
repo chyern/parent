@@ -82,7 +82,7 @@ public class ConnectUtil implements ApplicationContextAware {
                 }
                 //body
                 if (annotation instanceof Body) {
-                    AssertUtil.isTrue(connectModel.getBody() == null, ConnectErrorEnum.CONNECT_HEADER_TYPE_ERROR);
+                    AssertUtil.isTrue(connectModel.getBody() == null, ConnectErrorEnum.CONNECT_BODY_ERROR);
                     connectModel.setBody(arg);
                 }
             }
