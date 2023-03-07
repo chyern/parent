@@ -29,12 +29,12 @@ public class ConnectModel {
     private String url;
 
     /**
-     * 请求方式
+     * 方法类型
      */
     private Method method;
 
     /**
-     * 请求格式
+     * 请求类型
      */
     private MediaType mediaType;
 

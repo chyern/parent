@@ -6,6 +6,7 @@ import com.chyern.core.constant.CoreConstant;
 import com.chyern.core.utils.AssertUtil;
 import com.chyern.spicore.exception.enums.ConnectErrorEnum;
 import com.google.gson.GsonBuilder;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -25,6 +26,7 @@ import java.util.concurrent.TimeUnit;
  * @author Chyern
  * @since 2022/7/29 22:39
  */
+@Slf4j
 public abstract class AbstractConnectProcessor implements IConnectProcessor {
 
     protected ConnectModel connectModel;
@@ -83,7 +85,7 @@ public abstract class AbstractConnectProcessor implements IConnectProcessor {
 
     @Override
     public void throwsException(Object proxy, Method method, Object[] args, Exception exception) {
-
+        log.error("connect throw exception.", exception);
     }
 
     protected void beforeReturnExecute(Object obj) {

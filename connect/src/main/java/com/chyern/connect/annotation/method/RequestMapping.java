@@ -26,9 +26,12 @@ public @interface RequestMapping {
     String value();
 
     /**
-     * 请求类型
+     * 方法类型
      */
     Method method();
 
+    /**
+     * 请求类型
+     */
     MediaType mediaType() default MediaType.JSON;
 }

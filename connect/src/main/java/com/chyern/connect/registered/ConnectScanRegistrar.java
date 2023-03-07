@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Description: TODO
@@ -32,19 +33,21 @@ public class ConnectScanRegistrar implements ImportBeanDefinitionRegistrar {
     }
 
     private Set<String> getPackagesToScan(AnnotationMetadata metadata) {
-        AnnotationAttributes attributes = AnnotationAttributes.fromMap(
-                metadata.getAnnotationAttributes(ConnectScan.class.getName()));
+        AnnotationAttributes attributes = AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ConnectScan.class.getName()));
+
+        String[] value = attributes.getStringArray("value");
         String[] basePackages = attributes.getStringArray("basePackages");
         Class<?>[] basePackageClasses = attributes.getClassArray("basePackageClasses");
-        String[] value = attributes.getStringArray("value");
-        Set<String> packagesToScan = new LinkedHashSet<>(Arrays.asList(value));
+
+        Set<String> packagesToScan = new LinkedHashSet<>();
+        packagesToScan.addAll(Arrays.asList(value));
         packagesToScan.addAll(Arrays.asList(basePackages));
-        for (Class<?> basePackageClass : basePackageClasses) {
-            packagesToScan.add(ClassUtils.getPackageName(basePackageClass));
-        }
+        packagesToScan.addAll(Arrays.stream(basePackageClasses).map(ClassUtils::getPackageName).collect(Collectors.toList()));
+
         if (packagesToScan.isEmpty()) {
             packagesToScan = Collections.singleton(ClassUtils.getPackageName(metadata.getClassName()));
         }
+
         return packagesToScan;
     }
 }

@@ -17,7 +17,7 @@ import java.lang.reflect.Method;
  */
 public class ConnectProxy implements InvocationHandler {
 
-    private ApplicationContext context;
+    private final ApplicationContext context;
 
     public ConnectProxy(ApplicationContext applicationContext) {
         context = applicationContext;
