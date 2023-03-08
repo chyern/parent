@@ -28,4 +28,8 @@ public class LambdaUtil {
     public static <T> boolean allMatch(List<T> list, Predicate<? super T> predicate) {
         return list.stream().allMatch(predicate);
     }
+
+    public static <T> List<T> filter(List<T> list, Predicate<? super T> predicate) {
+        return list.stream().filter(predicate).collect(Collectors.toList());
+    }
 }
