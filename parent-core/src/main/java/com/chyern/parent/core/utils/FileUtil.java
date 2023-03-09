@@ -58,6 +58,21 @@ public class FileUtil {
     }
 
     /**
+     * 删除文件
+     * @param file 需要删除的文件
+     */
+    public static void deleteFile(File file) {
+        File[] files = file.listFiles();
+        if (files == null || files.length == 0) {
+            file.delete();
+            return;
+        }
+        for (File subFile : files) {
+            deleteFile(subFile);
+        }
+    }
+
+    /**
      * 逐行读取文件内容
      *
      * @param file 文件
