@@ -63,13 +63,13 @@ public class FileUtil {
      */
     public static void deleteFile(File file) {
         File[] files = file.listFiles();
-        if (files == null || files.length == 0) {
-            file.delete();
-            return;
+        if (files != null) {
+            for (File subFile : files) {
+                deleteFile(subFile);
+            }
         }
-        for (File subFile : files) {
-            deleteFile(subFile);
-        }
+        file.delete();
+
     }
 
     /**
