@@ -33,9 +33,7 @@ public class FileUtil {
      */
     public static File createFile(String path) throws BaseException, IOException {
         File file = new File(path);
-        if (file.exists()) {
-            throw new BaseException(CoreExceptionEnum.FILE_EXIST);
-        }
+        AssertUtil.isTrue(!file.exists(), CoreExceptionEnum.FILE_EXIST);
         createParentFile(file);
         file.createNewFile();
         return file;
@@ -50,26 +48,24 @@ public class FileUtil {
     public static File createFileMandatory(String path) throws BaseException, IOException {
         File file = new File(path);
         createParentFile(file);
-        if (file.exists()) {
-            file.delete();
-        }
+        deleteFile(file);
         file.createNewFile();
         return file;
     }
 
     /**
      * 删除文件
+     *
      * @param file 需要删除的文件
      */
-    public static void deleteFile(File file) {
+    public static boolean deleteFile(File file) {
         File[] files = file.listFiles();
         if (files != null) {
             for (File subFile : files) {
                 deleteFile(subFile);
             }
         }
-        file.delete();
-
+        return file.delete();
     }
 
     /**
@@ -135,7 +131,7 @@ public class FileUtil {
                     continue;
                 }
                 try (FileInputStream fileInputStream = new FileInputStream(file)) {
-                    byte b[] = new byte[10240];
+                    byte b[] = new byte[1024];
                     int read = fileInputStream.read(b);
                     while (read > 0) {
                         fileOutputStream.write(b, 0, read);
@@ -185,15 +181,15 @@ public class FileUtil {
      *
      * @param file
      */
-    private static void createParentFile(File file) {
+    private static boolean createParentFile(File file) {
         if (file == null) {
-            return;
+            return false;
         }
-        String parent = file.getParent();
-        File parentFile = new File(parent);
+        File parentFile = new File(file.getParent());
         if (!parentFile.exists()) {
-            parentFile.mkdirs();
+            return parentFile.mkdirs();
         }
+        return false;
     }
 
 }
