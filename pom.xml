@@ -9,12 +9,12 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <modules>
-        <module>parent-connect</module>
-        <module>parent-session</module>
-        <module>parent-core</module>
-        <module>parent-mysql</module>
         <module>parent-api</module>
+        <module>parent-connect</module>
+        <module>parent-core</module>
         <module>parent-message</module>
+        <module>parent-mysql</module>
+        <module>parent-session</module>
         <module>parent-wechat</module>
     </modules>
 
