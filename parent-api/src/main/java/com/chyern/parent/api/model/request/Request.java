@@ -1,4 +1,4 @@
-package com.chyern.parent.spi.model.request;
+package com.chyern.parent.api.model.request;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.chyern.parent.wechat.utils;
 
-import com.chyern.parent.spi.exception.BaseException;
+import com.chyern.parent.api.exception.BaseException;
 import com.chyern.parent.wechat.connect.common.domain.response.BaseResponse;
 
 /**

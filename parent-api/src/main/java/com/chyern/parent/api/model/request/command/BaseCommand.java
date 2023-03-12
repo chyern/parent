@@ -1,6 +1,6 @@
-package com.chyern.parent.spi.model.request.command;
+package com.chyern.parent.api.model.request.command;
 
-import com.chyern.parent.spi.model.request.Request;
+import com.chyern.parent.api.model.request.Request;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -2,8 +2,8 @@ package com.chyern.parent.connect.registered;
 
 import com.chyern.parent.connect.annotation.Connect;
 import com.chyern.parent.connect.processor.IConnectProcessor;
-import com.chyern.parent.spi.exception.BaseException;
-import com.chyern.parent.spi.exception.enums.ConnectErrorEnum;
+import com.chyern.parent.api.exception.BaseException;
+import com.chyern.parent.api.exception.enums.ConnectErrorEnum;
 import org.springframework.context.ApplicationContext;
 
 import java.lang.reflect.InvocationHandler;

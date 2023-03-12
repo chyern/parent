@@ -1,7 +1,7 @@
 package com.chyern.parent.core.utils;
 
-import com.chyern.parent.spi.enums.IErrorEnum;
-import com.chyern.parent.spi.exception.BaseException;
+import com.chyern.parent.api.enums.IErrorEnum;
+import com.chyern.parent.api.exception.BaseException;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collection;

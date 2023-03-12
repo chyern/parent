@@ -1,7 +1,7 @@
-package com.chyern.parent.spi.model.response;
+package com.chyern.parent.api.model.response;
 
-import com.chyern.parent.spi.enums.IErrorEnum;
-import com.chyern.parent.spi.exception.BaseException;
+import com.chyern.parent.api.enums.IErrorEnum;
+import com.chyern.parent.api.exception.BaseException;
 import lombok.Data;
 
 import java.io.Serializable;

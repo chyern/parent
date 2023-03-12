@@ -1,4 +1,4 @@
-package com.chyern.parent.spi.enums;
+package com.chyern.parent.api.enums;
 
 /**
  * Description: TODO
@@ -6,9 +6,9 @@ package com.chyern.parent.spi.enums;
  * @author Chyern
  * @since 2022/7/28 12:02
  */
-public interface IIntegerEnum {
+public interface ILongEnum {
 
-    Integer getCode();
+    Long getCode();
 
     String getDesc();
 }

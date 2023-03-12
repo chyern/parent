@@ -1,4 +1,4 @@
-package com.chyern.parent.spi.enums;
+package com.chyern.parent.api.enums;
 
 /**
  * Description: TODO

@@ -9,7 +9,7 @@ import com.chyern.parent.connect.annotation.resource.Query;
 import com.chyern.parent.connect.domain.ConnectModel;
 import com.chyern.parent.core.constant.CoreConstant;
 import com.chyern.parent.core.utils.AssertUtil;
-import com.chyern.parent.spi.exception.enums.ConnectErrorEnum;
+import com.chyern.parent.api.exception.enums.ConnectErrorEnum;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

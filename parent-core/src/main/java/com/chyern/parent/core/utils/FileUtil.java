@@ -1,18 +1,16 @@
 package com.chyern.parent.core.utils;
 
 
-import com.chyern.parent.spi.exception.BaseException;
-import com.chyern.parent.spi.exception.enums.CoreExceptionEnum;
+import com.chyern.parent.api.exception.BaseException;
+import com.chyern.parent.api.exception.enums.CoreExceptionEnum;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +52,22 @@ public class FileUtil {
     }
 
     /**
+     * 生成父文件路径
+     *
+     * @param file 文件
+     */
+    private static boolean createParentFile(File file) {
+        if (file == null) {
+            return false;
+        }
+        File parentFile = new File(file.getParent());
+        if (parentFile.exists()) {
+            return true;
+        }
+        return parentFile.mkdirs();
+    }
+
+    /**
      * 删除文件
      *
      * @param file 需要删除的文件
@@ -91,20 +105,42 @@ public class FileUtil {
     }
 
     /**
+     * 读取文件
+     *
+     * @param file 文件
+     */
+    public static byte[] readFile(File file) throws IOException {
+        AssertUtil.isTrue(file.exists(), CoreExceptionEnum.FILE_NOT_FIND);
+        try (FileInputStream fileInputStream = new FileInputStream(file)) {
+            return fileInputStream.readAllBytes();
+        }
+    }
+
+    /**
+     * 写入文件
+     *
+     * @param path  文件路径
+     * @param bytes 写入内容
+     */
+    public static File writeFile(String path, byte[] bytes) throws IOException {
+        File file = createFileMandatory(path);
+
+        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+            fileOutputStream.write(bytes);
+            fileOutputStream.flush();
+        }
+
+        return file;
+    }
+
+    /**
      * 写入文件
      *
      * @param path    文件路径
      * @param content 写入内容
      */
-    public static void writeFile(String path, String content) throws IOException {
-        File file = createFileMandatory(path);
-
-        try (FileOutputStream fileOutputStream = new FileOutputStream(file);
-             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
-             BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter)) {
-            bufferedWriter.write(content);
-            bufferedWriter.flush();
-        }
+    public static File writeFile(String path, String content) throws IOException {
+        return writeFile(path, content.getBytes());
     }
 
     /**
@@ -113,9 +149,9 @@ public class FileUtil {
      * @param path     文件路径
      * @param contents 写入内容
      */
-    public static void writeFile(String path, List<String> contents) throws IOException {
+    public static File writeFile(String path, List<String> contents) throws IOException {
         String content = StringUtils.join(contents, System.lineSeparator());
-        writeFile(path, content);
+        return writeFile(path, content);
     }
 
     /**
@@ -174,22 +210,6 @@ public class FileUtil {
                 }
             }
         }
-    }
-
-    /**
-     * 生成父文件路径
-     *
-     * @param file
-     */
-    private static boolean createParentFile(File file) {
-        if (file == null) {
-            return false;
-        }
-        File parentFile = new File(file.getParent());
-        if (!parentFile.exists()) {
-            return parentFile.mkdirs();
-        }
-        return false;
     }
 
 }

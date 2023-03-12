@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>com.chyern</groupId>
-            <artifactId>parent-spi</artifactId>
+            <artifactId>parent-api</artifactId>
         </dependency>
 
         <dependency>

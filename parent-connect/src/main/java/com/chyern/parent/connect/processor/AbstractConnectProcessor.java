@@ -4,7 +4,7 @@ import com.chyern.parent.connect.domain.ConnectModel;
 import com.chyern.parent.connect.utils.ConnectUtil;
 import com.chyern.parent.core.constant.CoreConstant;
 import com.chyern.parent.core.utils.AssertUtil;
-import com.chyern.parent.spi.exception.enums.ConnectErrorEnum;
+import com.chyern.parent.api.exception.enums.ConnectErrorEnum;
 import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;

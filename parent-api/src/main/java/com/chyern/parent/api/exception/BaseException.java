@@ -1,6 +1,6 @@
-package com.chyern.parent.spi.exception;
+package com.chyern.parent.api.exception;
 
-import com.chyern.parent.spi.enums.IErrorEnum;
+import com.chyern.parent.api.enums.IErrorEnum;
 
 import java.text.MessageFormat;
 

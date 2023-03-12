@@ -1,7 +1,7 @@
 package com.chyern.parent.core.convert;
 
-import com.chyern.parent.spi.enums.IIntegerEnum;
-import com.chyern.parent.spi.enums.IStringEnum;
+import com.chyern.parent.api.enums.IIntegerEnum;
+import com.chyern.parent.api.enums.IStringEnum;
 
 /**
  * Description: 通用convert

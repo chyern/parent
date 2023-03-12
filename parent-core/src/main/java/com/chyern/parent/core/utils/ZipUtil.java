@@ -1,5 +1,6 @@
 package com.chyern.parent.core.utils;
 
+import com.chyern.parent.api.exception.enums.CoreExceptionEnum;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedInputStream;
@@ -18,22 +19,21 @@ import java.util.zip.ZipOutputStream;
  */
 public class ZipUtil {
 
-    public static void compressZip(String compressPath, String outPath) throws IOException {
-        File compressFile = new File(compressPath);
-        if (!compressFile.exists()) {
-            return;
-        }
-
-        File outPathFile = new File(outPath);
-        if (!outPathFile.exists()) {
-            outPathFile.mkdirs();
-        }
+    /**
+     * 压缩目录为zip
+     *
+     * @param compressFile 被压缩的目录
+     * @param outPath      输出目录
+     */
+    public static void compressZip(File compressFile, String outPath) throws IOException {
+        checkCompressFile(compressFile);
 
         String compressFileName = compressFile.getName();
         File outFile = new File(outPath + File.separator + compressFileName + ".zip");
+        FileUtil.createFileMandatory(outFile.getPath());
 
-        try (FileOutputStream out = new FileOutputStream(outFile);
-             ZipOutputStream zipOutputStream = new ZipOutputStream(out)) {
+        try (FileOutputStream fileOutputStream = new FileOutputStream(outFile);
+             ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream)) {
             compressZip(zipOutputStream, compressFile, StringUtils.EMPTY);
             zipOutputStream.closeEntry();
         } catch (IOException exception) {
@@ -42,40 +42,66 @@ public class ZipUtil {
         }
     }
 
-    private static void compressZip(ZipOutputStream zipOutput, File file, String suffixPath) throws IOException {
-        File[] listFiles = file.listFiles();
-        if (listFiles == null) {
+    /**
+     * 校验被压缩文件
+     *
+     * @param compressFile 被压缩文件
+     */
+    private static void checkCompressFile(File compressFile) {
+        String path = compressFile.getPath();
+        AssertUtil.isTrue(compressFile.exists(), CoreExceptionEnum.FILE_NOT_FIND, path);
+        AssertUtil.isTrue(compressFile.isDirectory(), CoreExceptionEnum.FILE_NOT_IS_DIRECTORY, path);
+        AssertUtil.isTrue(compressFile.listFiles() != null, CoreExceptionEnum.DIRECTORY_IS_EMPTY);
+    }
+
+    /**
+     * 压缩目录
+     *
+     * @param zipOutputStream 压缩文件流
+     * @param compressFile    被压缩文件
+     * @param suffixPath      压缩文件中的路径
+     */
+    private static void compressZip(ZipOutputStream zipOutputStream, File compressFile, String suffixPath) throws IOException {
+        File[] files = compressFile.listFiles();
+        if (files == null) {
             return;
         }
 
-        for (File fi : listFiles) {
-            if (fi.isDirectory()) {
+        for (File file : files) {
+            if (file.isDirectory()) {
                 if (StringUtils.EMPTY.equals(suffixPath)) {
-                    compressZip(zipOutput, fi, fi.getName());
+                    compressZip(zipOutputStream, file, file.getName());
                 } else {
-                    compressZip(zipOutput, fi, suffixPath + File.separator + fi.getName());
+                    compressZip(zipOutputStream, file, suffixPath + File.separator + file.getName());
                 }
             } else {
-                zip(zipOutput, fi, suffixPath);
+                zip(zipOutputStream, file, suffixPath);
             }
         }
     }
 
-    private static void zip(ZipOutputStream zipOutput, File file, String suffixPath) throws IOException {
+    /**
+     * 压缩文件
+     *
+     * @param zipOutputStream 压缩文件流
+     * @param compressFile    被压缩文件
+     * @param suffixPath      压缩文件中的路径
+     */
+    private static void zip(ZipOutputStream zipOutputStream, File compressFile, String suffixPath) throws IOException {
         ZipEntry zEntry;
         if (StringUtils.EMPTY.equals(suffixPath)) {
-            zEntry = new ZipEntry(file.getName());
+            zEntry = new ZipEntry(compressFile.getName());
         } else {
-            zEntry = new ZipEntry(suffixPath + File.separator + file.getName());
+            zEntry = new ZipEntry(suffixPath + File.separator + compressFile.getName());
         }
-        zipOutput.putNextEntry(zEntry);
+        zipOutputStream.putNextEntry(zEntry);
 
-        try (FileInputStream in = new FileInputStream(file);
-             BufferedInputStream bis = new BufferedInputStream(in);) {
+        try (FileInputStream fileInputStream = new FileInputStream(compressFile);
+             BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);) {
             byte[] buffer = new byte[1024];
             int read;
-            while ((read = bis.read(buffer)) != -1) {
-                zipOutput.write(buffer, 0, read);
+            while ((read = bufferedInputStream.read(buffer)) != -1) {
+                zipOutputStream.write(buffer, 0, read);
             }
         }
     }

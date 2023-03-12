@@ -13,7 +13,7 @@
         <module>parent-session</module>
         <module>parent-core</module>
         <module>parent-mysql</module>
-        <module>parent-spi</module>
+        <module>parent-api</module>
         <module>parent-message</module>
         <module>parent-wechat</module>
     </modules>
@@ -58,7 +58,7 @@
             </dependency>
             <dependency>
                 <groupId>com.chyern</groupId>
-                <artifactId>parent-spi</artifactId>
+                <artifactId>parent-api</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>

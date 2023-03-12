@@ -1,4 +1,4 @@
-package com.chyern.parent.spi.model.request.command;
+package com.chyern.parent.api.model.request.command;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

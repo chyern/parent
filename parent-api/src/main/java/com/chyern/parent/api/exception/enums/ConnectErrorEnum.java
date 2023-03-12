@@ -1,6 +1,6 @@
-package com.chyern.parent.spi.exception.enums;
+package com.chyern.parent.api.exception.enums;
 
-import com.chyern.parent.spi.enums.IErrorEnum;
+import com.chyern.parent.api.enums.IErrorEnum;
 
 /**
  * Description: TODO
