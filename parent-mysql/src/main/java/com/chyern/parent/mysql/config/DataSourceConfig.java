@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.chyern.parent.mysql.injector.SqlInjector;
+import com.chyern.parent.mysql.properties.MybatisConfigProperties;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.JdbcType;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -15,6 +16,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
@@ -25,6 +27,7 @@ import javax.sql.DataSource;
  * @since 2022/7/18 16:13
  */
 @Configuration
+@EnableTransactionManagement
 @EnableConfigurationProperties({MybatisConfigProperties.class})
 @AutoConfigureBefore(DruidDataSourceAutoConfigure.class)
 public class DataSourceConfig {

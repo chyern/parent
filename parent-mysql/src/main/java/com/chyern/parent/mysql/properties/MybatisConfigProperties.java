@@ -1,4 +1,4 @@
-package com.chyern.parent.mysql.config;
+package com.chyern.parent.mysql.properties;
 
 import com.chyern.parent.mysql.interceptor.DefaultInterceptor;
 import com.chyern.parent.mysql.interceptor.Interceptor;
