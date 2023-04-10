@@ -1,15 +1,14 @@
-package com.chyern.parent.connect.core.registered;
+package com.chyern.parent.connect.registered;
 
+import com.chyern.parent.connect.processor.IConnectProcessor;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.config.ConstructorArgumentValues;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.context.annotation.ScannedGenericBeanDefinition;
-import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 
-import java.lang.annotation.Annotation;
 import java.util.Set;
 
 /**
@@ -20,11 +19,11 @@ import java.util.Set;
  */
 public class ConnectBeanDefinitionScanner extends ClassPathBeanDefinitionScanner {
 
-    private final AnnotationAttributes annotationAttributes;
+    private final Class<? extends IConnectProcessor> processor;
 
-    public ConnectBeanDefinitionScanner(BeanDefinitionRegistry registry, AnnotationAttributes annotationAttributes) {
+    public ConnectBeanDefinitionScanner(BeanDefinitionRegistry registry, Class<? extends IConnectProcessor> processor) {
         super(registry);
-        this.annotationAttributes = annotationAttributes;
+        this.processor = processor;
     }
 
     @Override
@@ -38,19 +37,9 @@ public class ConnectBeanDefinitionScanner extends ClassPathBeanDefinitionScanner
         Set<BeanDefinitionHolder> beanDefinitionHolders = super.doScan(basePackages);
         for (BeanDefinitionHolder beanDefinitionHolder : beanDefinitionHolders) {
             ScannedGenericBeanDefinition beanDefinition = (ScannedGenericBeanDefinition) beanDefinitionHolder.getBeanDefinition();
-
             ConstructorArgumentValues constructorArgumentValues = beanDefinition.getConstructorArgumentValues();
             constructorArgumentValues.addGenericArgumentValue(beanDefinition.getBeanClassName());
-
-            Class<? extends Annotation>[] annotations = (Class<? extends Annotation>[]) annotationAttributes.getClassArray("annotations");
-            Set<String> annotationTypes = beanDefinition.getMetadata().getAnnotationTypes();
-            for (Class<? extends Annotation> annotation : annotations) {
-                String annotationName = annotation.getName();
-                if (annotationTypes.contains(annotationName)) {
-                    constructorArgumentValues.addGenericArgumentValue(annotation);
-                    break;
-                }
-            }
+            constructorArgumentValues.addGenericArgumentValue(processor);
             beanDefinition.setBeanClass(ConnectFactoryBean.class);
         }
         return beanDefinitionHolders;

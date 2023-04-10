@@ -1,6 +1,6 @@
-package com.chyern.parent.connect.core.registered;
+package com.chyern.parent.connect.registered;
 
-import com.chyern.parent.connect.core.processor.IConnectProcessor;
+import com.chyern.parent.connect.processor.IConnectProcessor;
 import org.springframework.cglib.proxy.InvocationHandler;
 
 import java.lang.reflect.Method;

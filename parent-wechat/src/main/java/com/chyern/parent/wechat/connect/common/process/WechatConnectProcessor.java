@@ -1,6 +1,6 @@
 package com.chyern.parent.wechat.connect.common.process;
 
-import com.chyern.parent.connect.processor.AbstractConnectProcessor;
+import com.chyern.parent.connect.processor.connect.AbstractConnectProcessor;
 import com.chyern.parent.wechat.connect.common.domain.response.AccessTokenResponse;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;

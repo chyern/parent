@@ -1,4 +1,4 @@
-package com.chyern.parent.connect.core.processor;
+package com.chyern.parent.connect.processor;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
