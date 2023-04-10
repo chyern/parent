@@ -39,37 +39,37 @@
             <dependency>
                 <groupId>com.chyern</groupId>
                 <artifactId>parent-connect</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.chyern</groupId>
                 <artifactId>parent-session</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.chyern</groupId>
                 <artifactId>parent-core</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.chyern</groupId>
                 <artifactId>parent-mysql</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.chyern</groupId>
                 <artifactId>parent-api</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.chyern</groupId>
                 <artifactId>parent-message</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.chyern</groupId>
                 <artifactId>parent-wechat</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
