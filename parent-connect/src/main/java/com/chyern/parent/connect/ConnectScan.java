@@ -1,7 +1,6 @@
 package com.chyern.parent.connect;
 
 import com.chyern.parent.connect.processor.IConnectProcessor;
-import com.chyern.parent.connect.processor.connect.config.ConnectConfig;
 import com.chyern.parent.connect.registered.ConnectScanRegistrar;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -23,7 +22,7 @@ import java.lang.annotation.Target;
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import({ConnectConfig.class, ConnectScanRegistrar.class})
+@Import({ConnectScanRegistrar.class})
 public @interface ConnectScan {
 
     String[] value() default {};
