@@ -1,6 +1,5 @@
 package com.chyern.parent.connect.processor;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 /**
@@ -10,8 +9,6 @@ import java.lang.reflect.Method;
  * @since 2022/7/29 15:41
  */
 public interface IConnectProcessor {
-
-    public Class<? extends Annotation> getProcessorAnnotation();
 
     /**
      * 执行前置操作
