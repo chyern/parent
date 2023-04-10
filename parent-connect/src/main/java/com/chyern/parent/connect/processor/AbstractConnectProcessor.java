@@ -1,5 +1,6 @@
 package com.chyern.parent.connect.processor;
 
+import com.chyern.parent.connect.core.processor.IConnectProcessor;
 import com.chyern.parent.connect.domain.ConnectModel;
 import com.chyern.parent.connect.utils.ConnectUtil;
 import com.chyern.parent.core.constant.CoreConstant;

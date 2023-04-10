@@ -1,4 +1,4 @@
-package com.chyern.parent.connect.processor;
+package com.chyern.parent.connect.core.processor;
 
 import java.lang.reflect.Method;
 
@@ -9,6 +9,8 @@ import java.lang.reflect.Method;
  * @since 2022/7/29 15:41
  */
 public interface IConnectProcessor {
+
+
 
     /**
      * 执行前置操作

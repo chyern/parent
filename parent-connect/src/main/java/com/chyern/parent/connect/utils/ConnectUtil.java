@@ -1,5 +1,6 @@
 package com.chyern.parent.connect.utils;
 
+import com.chyern.parent.api.exception.enums.ConnectErrorEnum;
 import com.chyern.parent.connect.annotation.Connect;
 import com.chyern.parent.connect.annotation.method.RequestMapping;
 import com.chyern.parent.connect.annotation.resource.Body;
@@ -9,12 +10,12 @@ import com.chyern.parent.connect.annotation.resource.Query;
 import com.chyern.parent.connect.domain.ConnectModel;
 import com.chyern.parent.core.constant.CoreConstant;
 import com.chyern.parent.core.utils.AssertUtil;
-import com.chyern.parent.api.exception.enums.ConnectErrorEnum;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -34,7 +35,7 @@ public class ConnectUtil implements ApplicationContextAware {
     private static ApplicationContext applicationContext;
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(@RequestParam ApplicationContext applicationContext) throws BeansException {
         ConnectUtil.applicationContext = applicationContext;
     }
 

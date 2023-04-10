@@ -6,7 +6,7 @@
 
     <groupId>com.chyern</groupId>
     <artifactId>parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <modules>
         <module>parent-api</module>
@@ -39,37 +39,37 @@
             <dependency>
                 <groupId>com.chyern</groupId>
                 <artifactId>parent-connect</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.chyern</groupId>
                 <artifactId>parent-session</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.chyern</groupId>
                 <artifactId>parent-core</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.chyern</groupId>
                 <artifactId>parent-mysql</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.chyern</groupId>
                 <artifactId>parent-api</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.chyern</groupId>
                 <artifactId>parent-message</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.chyern</groupId>
                 <artifactId>parent-wechat</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

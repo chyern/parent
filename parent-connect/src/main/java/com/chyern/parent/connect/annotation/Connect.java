@@ -1,7 +1,7 @@
 package com.chyern.parent.connect.annotation;
 
 import com.chyern.parent.connect.processor.ConnectProcessor;
-import com.chyern.parent.connect.processor.IConnectProcessor;
+import com.chyern.parent.connect.core.processor.IConnectProcessor;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

@@ -1,12 +1,10 @@
-package com.chyern.parent.connect.registered;
+package com.chyern.parent.connect.core.registered;
 
-import com.chyern.parent.connect.annotation.Connect;
-import com.chyern.parent.connect.processor.IConnectProcessor;
 import com.chyern.parent.api.exception.BaseException;
 import com.chyern.parent.api.exception.enums.ConnectErrorEnum;
-import org.springframework.context.ApplicationContext;
+import com.chyern.parent.connect.core.processor.IConnectProcessor;
+import org.springframework.cglib.proxy.InvocationHandler;
 
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 /**
@@ -16,17 +14,14 @@ import java.lang.reflect.Method;
  * @since 2021/4/24
  */
 public class ConnectProxy implements InvocationHandler {
+    private final IConnectProcessor connectProcessor;
 
-    private final ApplicationContext context;
-
-    public ConnectProxy(ApplicationContext applicationContext) {
-        context = applicationContext;
+    public ConnectProxy(IConnectProcessor connectProcessor) {
+        this.connectProcessor = connectProcessor;
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        Connect connect = method.getDeclaringClass().getAnnotation(Connect.class);
-        IConnectProcessor connectProcessor = context.getBean(connect.processor());
         try {
             connectProcessor.before(proxy, method, args);
             Object execute = connectProcessor.execute(proxy, method, args);
