@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @author Chyern
  * @since 2023/1/11 15:16
  */
-@ConnectScan(value = {"com.chyern.wechat.connect"}, annotations = Connect.class, connectProcessor = ConnectProcessor.class)
+@ConnectScan(value = {"com.chyern.wechat.connect"}, annotation = Connect.class, connectProcessor = ConnectProcessor.class)
 @Import({WechatConnectProcessor.class})
 @Component
 public class WechatConfig {
