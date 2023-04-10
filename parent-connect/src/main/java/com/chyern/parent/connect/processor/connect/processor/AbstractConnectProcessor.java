@@ -1,7 +1,6 @@
 package com.chyern.parent.connect.processor.connect.processor;
 
 import com.chyern.parent.api.exception.enums.ConnectErrorEnum;
-import com.chyern.parent.connect.processor.IConnectProcessor;
 import com.chyern.parent.connect.processor.connect.domain.ConnectModel;
 import com.chyern.parent.connect.processor.connect.utils.ConnectUtil;
 import com.chyern.parent.core.constant.CoreConstant;
@@ -28,7 +27,7 @@ import java.util.concurrent.TimeUnit;
  * @since 2022/7/29 22:39
  */
 @Slf4j
-public abstract class AbstractConnectProcessor implements IConnectProcessor {
+public abstract class AbstractConnectProcessor {
 
     protected ConnectModel connectModel;
 
@@ -38,12 +37,10 @@ public abstract class AbstractConnectProcessor implements IConnectProcessor {
             .callTimeout(30L, TimeUnit.SECONDS)
             .build();
 
-    @Override
     public void before(Object proxy, Method method, Object[] args) throws Throwable {
         connectModel = ConnectUtil.buildBy(method, args);
     }
 
-    @Override
     public Object execute(Object proxy, Method method, Object[] args) throws Throwable {
 
         //请求体
@@ -79,12 +76,10 @@ public abstract class AbstractConnectProcessor implements IConnectProcessor {
         return new GsonBuilder().create().fromJson(responseBody.charStream(), method.getGenericReturnType());
     }
 
-    @Override
     public void after(Object proxy, Method method, Object[] args, Object result) throws Throwable {
 
     }
 
-    @Override
     public void throwsException(Object proxy, Method method, Object[] args, Exception exception) {
         log.error("connect throw exception.", exception);
     }

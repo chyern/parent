@@ -1,7 +1,7 @@
 package com.chyern.parent.connect.processor.connect.utils;
 
 import com.chyern.parent.api.exception.enums.ConnectErrorEnum;
-import com.chyern.parent.connect.processor.connect.annotation.Connect;
+import com.chyern.parent.connect.processor.connect.Connect;
 import com.chyern.parent.connect.processor.connect.annotation.method.RequestMapping;
 import com.chyern.parent.connect.processor.connect.annotation.resource.Body;
 import com.chyern.parent.connect.processor.connect.annotation.resource.Header;

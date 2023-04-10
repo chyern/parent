@@ -1,6 +1,6 @@
 package com.chyern.parent.wechat.connect.message.domain;
 
-import com.chyern.parent.connect.processor.connect.annotation.Connect;
+import com.chyern.parent.connect.processor.connect.Connect;
 import com.chyern.parent.connect.processor.connect.annotation.method.RequestMapping;
 import com.chyern.parent.connect.processor.connect.annotation.resource.Body;
 import com.chyern.parent.connect.processor.connect.annotation.resource.Query;

@@ -1,7 +1,7 @@
-package com.chyern.parent.connect.processor.connect.annotation;
+package com.chyern.parent.connect.processor.connect;
 
-import com.chyern.parent.connect.processor.IConnectProcessor;
-import com.chyern.parent.connect.processor.connect.processor.ConnectProcessor;
+import com.chyern.parent.connect.processor.connect.processor.AbstractConnectProcessor;
+import com.chyern.parent.connect.processor.connect.processor.DefaultConnectProcessor;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -26,5 +26,5 @@ public @interface Connect {
      */
     String value();
 
-    Class<? extends IConnectProcessor> processor() default ConnectProcessor.class;
+    Class<? extends AbstractConnectProcessor> processor() default DefaultConnectProcessor.class;
 }
