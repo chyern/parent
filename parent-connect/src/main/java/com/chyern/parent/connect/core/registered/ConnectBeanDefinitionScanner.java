@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ScannedGenericBeanDefinition;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 
+import java.lang.annotation.Annotation;
 import java.util.Set;
 
 /**
@@ -37,19 +38,20 @@ public class ConnectBeanDefinitionScanner extends ClassPathBeanDefinitionScanner
         Set<BeanDefinitionHolder> beanDefinitionHolders = super.doScan(basePackages);
         for (BeanDefinitionHolder beanDefinitionHolder : beanDefinitionHolders) {
             ScannedGenericBeanDefinition beanDefinition = (ScannedGenericBeanDefinition) beanDefinitionHolder.getBeanDefinition();
+
             ConstructorArgumentValues constructorArgumentValues = beanDefinition.getConstructorArgumentValues();
-            beanDefinition.setBeanClass(ConnectFactoryBean.class);
             constructorArgumentValues.addGenericArgumentValue(beanDefinition.getBeanClassName());
 
-            //Class<? extends Annotation>[] annotations = (Class<? extends Annotation>[]) annotationAttributes.getClassArray("annotations");
-            //Set<String> annotationTypes = beanDefinition.getMetadata().getAnnotationTypes();
-            //for (Class<? extends Annotation> annotation : annotations) {
-            //    String annotationName = annotation.getName();
-            //    if (annotationTypes.contains(annotationName)) {
-            //        constructorArgumentValues.addGenericArgumentValue(annotation);
-            //        break;
-            //    }
-            //}
+            Class<? extends Annotation>[] annotations = (Class<? extends Annotation>[]) annotationAttributes.getClassArray("annotations");
+            Set<String> annotationTypes = beanDefinition.getMetadata().getAnnotationTypes();
+            for (Class<? extends Annotation> annotation : annotations) {
+                String annotationName = annotation.getName();
+                if (annotationTypes.contains(annotationName)) {
+                    constructorArgumentValues.addGenericArgumentValue(annotation);
+                    break;
+                }
+            }
+            beanDefinition.setBeanClass(ConnectFactoryBean.class);
         }
         return beanDefinitionHolders;
     }

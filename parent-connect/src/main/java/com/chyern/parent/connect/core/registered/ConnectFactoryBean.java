@@ -1,5 +1,6 @@
 package com.chyern.parent.connect.core.registered;
 
+import com.chyern.parent.connect.core.processor.IConnectProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
@@ -8,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 import java.lang.annotation.Annotation;
+import java.util.Collection;
 
 /**
  * Description: TODO
@@ -23,11 +25,8 @@ public class ConnectFactoryBean<T> implements FactoryBean<T>, ApplicationContext
     private final Class<T> interfaceType;
     private Class<? extends Annotation> annotationClass;
 
-    public ConnectFactoryBean(Class<T> interfaceType) {
-        this.interfaceType = interfaceType;
-    }
 
-    public ConnectFactoryBean(Class<T> interfaceType, Class<? extends Annotation> annotationClass) {
+    public ConnectFactoryBean(Class<? extends Annotation> annotationClass, Class<T> interfaceType) {
         this.interfaceType = interfaceType;
         this.annotationClass = annotationClass;
     }
@@ -49,17 +48,15 @@ public class ConnectFactoryBean<T> implements FactoryBean<T>, ApplicationContext
 
     @Override
     public T getObject() {
-        return (T) Proxy.newProxyInstance(interfaceType.getClassLoader(), new Class[]{interfaceType}, new ConnectProxy(null));
-
-        //Collection<IConnectProcessor> connectProcessors = applicationContext.getBeansOfType(IConnectProcessor.class).values();
-        //for (IConnectProcessor connectProcessor : connectProcessors) {
-        //    Class<? extends Annotation> processorAnnotation = connectProcessor.getProcessorAnnotation();
-        //    if (annotationClass.getName().equals(processorAnnotation.getName())) {
-        //        log.info("{} is init by {}", interfaceType.getName(), connectProcessors.getClass().getName());
-        //        return (T) Proxy.newProxyInstance(interfaceType.getClassLoader(), new Class[]{interfaceType}, new ConnectProxy(connectProcessor));
-        //    }
-        //}
-        //throw new RuntimeException(interfaceType.getName() + "could not find a connectProcessor");
+        Collection<IConnectProcessor> connectProcessors = applicationContext.getBeansOfType(IConnectProcessor.class).values();
+        for (IConnectProcessor connectProcessor : connectProcessors) {
+            Class<? extends Annotation> processorAnnotation = connectProcessor.getProcessorAnnotation();
+            if (annotationClass.getName().equals(processorAnnotation.getName())) {
+                log.info("{} is init by {}", interfaceType.getName(), connectProcessor.getClass().getName());
+                return (T) Proxy.newProxyInstance(interfaceType.getClassLoader(), new Class[]{interfaceType}, new ConnectProxy(connectProcessor));
+            }
+        }
+        throw new RuntimeException(interfaceType.getName() + "could not find a connectProcessor");
 
     }
 }
