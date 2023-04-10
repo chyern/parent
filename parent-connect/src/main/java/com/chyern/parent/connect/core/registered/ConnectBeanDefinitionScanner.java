@@ -1,11 +1,11 @@
 package com.chyern.parent.connect.core.registered;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
+import org.springframework.beans.factory.config.ConstructorArgumentValues;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
+import org.springframework.context.annotation.ScannedGenericBeanDefinition;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 
@@ -17,7 +17,6 @@ import java.util.Set;
  * @author Chyern
  * @since 2021/4/23
  */
-@Slf4j
 public class ConnectBeanDefinitionScanner extends ClassPathBeanDefinitionScanner {
 
     private final AnnotationAttributes annotationAttributes;
@@ -37,10 +36,20 @@ public class ConnectBeanDefinitionScanner extends ClassPathBeanDefinitionScanner
     public Set<BeanDefinitionHolder> doScan(String... basePackages) {
         Set<BeanDefinitionHolder> beanDefinitionHolders = super.doScan(basePackages);
         for (BeanDefinitionHolder beanDefinitionHolder : beanDefinitionHolders) {
-            GenericBeanDefinition beanDefinition = (GenericBeanDefinition) beanDefinitionHolder.getBeanDefinition();
-            beanDefinition.getConstructorArgumentValues().addGenericArgumentValue(beanDefinition.getBeanClassName());
-            beanDefinition.getConstructorArgumentValues().addGenericArgumentValue(annotationAttributes);
+            ScannedGenericBeanDefinition beanDefinition = (ScannedGenericBeanDefinition) beanDefinitionHolder.getBeanDefinition();
+            ConstructorArgumentValues constructorArgumentValues = beanDefinition.getConstructorArgumentValues();
             beanDefinition.setBeanClass(ConnectFactoryBean.class);
+            constructorArgumentValues.addGenericArgumentValue(beanDefinition.getBeanClassName());
+
+            //Class<? extends Annotation>[] annotations = (Class<? extends Annotation>[]) annotationAttributes.getClassArray("annotations");
+            //Set<String> annotationTypes = beanDefinition.getMetadata().getAnnotationTypes();
+            //for (Class<? extends Annotation> annotation : annotations) {
+            //    String annotationName = annotation.getName();
+            //    if (annotationTypes.contains(annotationName)) {
+            //        constructorArgumentValues.addGenericArgumentValue(annotation);
+            //        break;
+            //    }
+            //}
         }
         return beanDefinitionHolders;
     }

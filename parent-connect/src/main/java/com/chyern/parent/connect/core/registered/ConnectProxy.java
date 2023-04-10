@@ -1,7 +1,5 @@
 package com.chyern.parent.connect.core.registered;
 
-import com.chyern.parent.api.exception.BaseException;
-import com.chyern.parent.api.exception.enums.ConnectErrorEnum;
 import com.chyern.parent.connect.core.processor.IConnectProcessor;
 import org.springframework.cglib.proxy.InvocationHandler;
 
@@ -29,7 +27,7 @@ public class ConnectProxy implements InvocationHandler {
             return execute;
         } catch (Exception exception) {
             connectProcessor.throwsException(proxy, method, args, exception);
-            throw new BaseException(ConnectErrorEnum.CONNECT_ERROR);
+            throw exception;
         }
     }
 

@@ -1,5 +1,9 @@
 package com.chyern.parent.connect.processor;
 
+import com.chyern.parent.connect.annotation.Connect;
+
+import java.lang.annotation.Annotation;
+
 /**
  * Description: TODO
  *
@@ -8,4 +12,8 @@ package com.chyern.parent.connect.processor;
  */
 public class ConnectProcessor extends AbstractConnectProcessor {
 
+    @Override
+    public Class<? extends Annotation> getProcessorAnnotation() {
+        return Connect.class;
+    }
 }
