@@ -29,36 +29,26 @@ public class Response<T> implements Serializable {
 
     public static <T> Response<T> buildSuccess(T data) {
         Response<T> response = new Response<>();
+        response.t = System.currentTimeMillis();
         response.success = true;
         response.result = data;
-        response.t = System.currentTimeMillis();
-        return response;
-    }
-
-    public static <T> Response<T> buildFailure(IErrorEnum errorEnum) {
-        Response<T> response = new Response<>();
-        response.success = false;
-        response.code = errorEnum.getErrorCode();
-        response.msg = errorEnum.getErrorMsg();
-        response.t = System.currentTimeMillis();
-        return response;
-    }
-
-    public static <T,R extends BaseException> Response<T> buildFailure(R baseException) {
-        Response<T> response = new Response<>();
-        response.success = false;
-        response.code = baseException.getErrorCode();
-        response.msg = baseException.getErrorMsg();
-        response.t = System.currentTimeMillis();
         return response;
     }
 
     public static <T> Response<T> buildFailure(Integer errorCode, String errorMsg) {
         Response<T> response = new Response<>();
+        response.t = System.currentTimeMillis();
         response.success = false;
         response.code = errorCode;
         response.msg = errorMsg;
-        response.t = System.currentTimeMillis();
         return response;
+    }
+
+    public static <T> Response<T> buildFailure(IErrorEnum errorEnum) {
+        return buildFailure(errorEnum.getErrorCode(), errorEnum.getErrorMsg());
+    }
+
+    public static <T, R extends BaseException> Response<T> buildFailure(R baseException) {
+        return buildFailure(baseException.getErrorCode(), baseException.getErrorMsg());
     }
 }
