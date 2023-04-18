@@ -1,7 +1,7 @@
-package com.chyern.parent.mysql.util;
+package com.chyern.parent.mysql.mybatis.util;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.chyern.parent.mysql.domain.PageResponse;
+import com.chyern.parent.mysql.mybatis.domain.PageResponse;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;

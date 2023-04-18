@@ -1,9 +1,9 @@
-package com.chyern.parent.mysql.injector.method;
+package com.chyern.parent.mysql.mybatis.injector.method;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
-import com.chyern.parent.mysql.injector.constants.SqlMethod;
+import com.chyern.parent.mysql.mybatis.injector.constants.SqlMethod;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlSource;
 

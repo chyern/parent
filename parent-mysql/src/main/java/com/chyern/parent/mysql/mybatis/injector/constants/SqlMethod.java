@@ -1,4 +1,4 @@
-package com.chyern.parent.mysql.injector.constants;
+package com.chyern.parent.mysql.mybatis.injector.constants;
 
 import lombok.Getter;
 

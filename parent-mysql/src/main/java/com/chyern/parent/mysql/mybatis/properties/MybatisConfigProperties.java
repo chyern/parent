@@ -1,7 +1,7 @@
-package com.chyern.parent.mysql.properties;
+package com.chyern.parent.mysql.mybatis.properties;
 
-import com.chyern.parent.mysql.interceptor.DefaultInterceptor;
-import com.chyern.parent.mysql.interceptor.Interceptor;
+import com.chyern.parent.mysql.mybatis.interceptor.DefaultInterceptor;
+import com.chyern.parent.mysql.mybatis.interceptor.Interceptor;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.apache.ibatis.logging.Log;

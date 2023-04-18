@@ -1,4 +1,4 @@
-package com.chyern.parent.mysql.util;
+package com.chyern.parent.mysql.mybatis.util;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.SneakyThrows;

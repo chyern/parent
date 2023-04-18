@@ -1,7 +1,7 @@
-package com.chyern.parent.mysql;
+package com.chyern.parent.mysql.mybatis;
 
-import com.chyern.parent.mysql.domain.PageRequest;
-import com.chyern.parent.mysql.domain.PageResponse;
+import com.chyern.parent.mysql.mybatis.domain.PageRequest;
+import com.chyern.parent.mysql.mybatis.domain.PageResponse;
 
 import java.util.List;
 

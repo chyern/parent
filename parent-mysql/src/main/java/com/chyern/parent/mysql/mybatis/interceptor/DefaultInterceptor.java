@@ -1,4 +1,4 @@
-package com.chyern.parent.mysql.interceptor;
+package com.chyern.parent.mysql.mybatis.interceptor;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;

@@ -1,4 +1,4 @@
-package com.chyern.parent.mysql.domain;
+package com.chyern.parent.mysql.mybatis.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

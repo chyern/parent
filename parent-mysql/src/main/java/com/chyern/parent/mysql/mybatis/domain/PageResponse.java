@@ -1,4 +1,4 @@
-package com.chyern.parent.mysql.domain;
+package com.chyern.parent.mysql.mybatis.domain;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.chyern.parent.mysql.interceptor;
+package com.chyern.parent.mysql.mybatis.interceptor;
 
 /**
  * Description: TODO

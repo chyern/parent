@@ -1,10 +1,10 @@
-package com.chyern.parent.mysql.injector;
+package com.chyern.parent.mysql.mybatis.injector;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
-import com.chyern.parent.mysql.injector.method.InsertBatchMethod;
-import com.chyern.parent.mysql.injector.method.SelectAllMethod;
+import com.chyern.parent.mysql.mybatis.injector.method.InsertBatchMethod;
+import com.chyern.parent.mysql.mybatis.injector.method.SelectAllMethod;
 
 import java.util.List;
 

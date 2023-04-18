@@ -1,24 +1,26 @@
-package com.chyern.parent.mysql.config;
+package com.chyern.parent.mysql;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
-import com.chyern.parent.mysql.injector.SqlInjector;
-import com.chyern.parent.mysql.properties.MybatisConfigProperties;
+import com.chyern.parent.mysql.datasource.RoutingDataSource;
+import com.chyern.parent.mysql.mybatis.injector.SqlInjector;
+import com.chyern.parent.mysql.mybatis.properties.MybatisConfigProperties;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.type.JdbcType;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.util.Map;
 
 /**
  * Description: TODO
@@ -28,28 +30,31 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableTransactionManagement
-@EnableConfigurationProperties({MybatisConfigProperties.class})
 @AutoConfigureBefore(DruidDataSourceAutoConfigure.class)
-public class DataSourceConfig {
+@EnableConfigurationProperties({MybatisConfigProperties.class})
+public class MysqlConfig {
 
-    @ConditionalOnMissingBean
+    @Primary
     @ConfigurationProperties("spring.datasource.druid")
-    @Bean(name = "dataSource")
-    public DataSource dataSource() {
+    @Bean(name = "defaultDataSource")
+    public DataSource defaultDataSource() {
         return DruidDataSourceBuilder.create().build();
     }
 
-    @ConditionalOnMissingBean
-    @Bean(name = "transactionManager")
-    public DataSourceTransactionManager dataSourceTransactionManager(DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
+    @Bean(name = "routingDataSource")
+    public RoutingDataSource routingDataSource(DataSource dataSource, Map<String, DataSource> dataSourceMap) {
+        return new RoutingDataSource(dataSource, dataSourceMap);
     }
 
-    @ConditionalOnMissingBean
+    @Bean(name = "transactionManager")
+    public DataSourceTransactionManager dataSourceTransactionManager(RoutingDataSource routingDataSource) {
+        return new DataSourceTransactionManager(routingDataSource);
+    }
+
     @Bean(name = "sqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource, MybatisConfigProperties mybatisConfigProperties) throws Exception {
+    public SqlSessionFactory sqlSessionFactory(RoutingDataSource routingDataSource, MybatisConfigProperties mybatisConfigProperties) throws Exception {
         MybatisSqlSessionFactoryBean mybatisSqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
-        mybatisSqlSessionFactoryBean.setDataSource(dataSource);
+        mybatisSqlSessionFactoryBean.setDataSource(routingDataSource);
         mybatisSqlSessionFactoryBean.setMapperLocations(mybatisConfigProperties.resolveMapperLocations());
 
 
@@ -73,3 +78,4 @@ public class DataSourceConfig {
     }
 
 }
+

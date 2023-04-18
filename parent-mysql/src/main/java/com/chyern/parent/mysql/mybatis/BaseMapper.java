@@ -1,4 +1,4 @@
-package com.chyern.parent.mysql;
+package com.chyern.parent.mysql.mybatis;
 
 import org.apache.ibatis.annotations.Param;
 

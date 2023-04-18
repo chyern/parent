@@ -1,12 +1,12 @@
-package com.chyern.parent.mysql;
+package com.chyern.parent.mysql.mybatis;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.chyern.parent.mysql.domain.PageRequest;
-import com.chyern.parent.mysql.domain.PageResponse;
-import com.chyern.parent.mysql.util.PageUtil;
-import com.chyern.parent.mysql.util.WrapperUtil;
+import com.chyern.parent.mysql.mybatis.domain.PageRequest;
+import com.chyern.parent.mysql.mybatis.domain.PageResponse;
+import com.chyern.parent.mysql.mybatis.util.PageUtil;
+import com.chyern.parent.mysql.mybatis.util.WrapperUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.InitializingBean;
 
