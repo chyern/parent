@@ -6,6 +6,7 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.AnnotationUtils;
 
 /**
@@ -27,7 +28,15 @@ public class DataSourceSwitchAspect {
     public Object around(ProceedingJoinPoint point) throws Throwable {
         try {
             Signature signature = point.getSignature();
-            DataSourceSwitch dataSourceSwitch = AnnotationUtils.findAnnotation(signature.getDeclaringType(), DataSourceSwitch.class);
+            DataSourceSwitch dataSourceSwitch = AnnotationUtils.findAnnotation(((MethodSignature) signature).getMethod(), DataSourceSwitch.class);
+            if (dataSourceSwitch == null) {
+                dataSourceSwitch = AnnotationUtils.findAnnotation(signature.getDeclaringType(), DataSourceSwitch.class);
+            }
+
+            if (dataSourceSwitch != null) {
+                DataSourceContextHolder.setLookupKey(dataSourceSwitch.value());
+            }
+
             return point.proceed();
         } finally {
             DataSourceContextHolder.remove();

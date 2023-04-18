@@ -5,6 +5,7 @@ import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import com.chyern.parent.mysql.datasource.DataSourceSwitchAspect;
 import com.chyern.parent.mysql.datasource.RoutingDataSource;
 import com.chyern.parent.mysql.mybatis.injector.SqlInjector;
 import com.chyern.parent.mysql.mybatis.properties.MybatisConfigProperties;
@@ -15,6 +16,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -32,6 +34,7 @@ import java.util.Map;
 @EnableTransactionManagement
 @AutoConfigureBefore(DruidDataSourceAutoConfigure.class)
 @EnableConfigurationProperties({MybatisConfigProperties.class})
+@Import({DataSourceSwitchAspect.class})
 public class MysqlConfig {
 
     @Primary
