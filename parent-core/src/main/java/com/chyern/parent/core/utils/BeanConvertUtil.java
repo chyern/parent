@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description: 对象转换工具类,beanutil实现
+ * Description: 对象转换工具类
+ * @see org.apache.commons.beanutils.BeanUtils
  *
  * @author Chyern
  * @since 2021/4/20
