@@ -2,29 +2,53 @@ package com.chyern.parent.api.model.response;
 
 import com.chyern.parent.api.enums.IErrorEnum;
 import com.chyern.parent.api.exception.BaseException;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
 
 /**
- * Description: TODO
+ * Description: 返回
  *
  * @author Chyern
  * @since 2021/9/27
  */
+@ApiModel(description = "Description: 返回")
 @Data
 public class Response<T> implements Serializable {
 
+    @ApiModelProperty(hidden = true)
     private static final long serialVersionUID = 7022238929369223121L;
 
+    /**
+     * 是否成功
+     */
+    @ApiModelProperty("是否成功")
     private Boolean success;
 
+    /**
+     * 错误码
+     */
+    @ApiModelProperty("错误码")
     private Integer code;
 
+    /**
+     * 错误信息
+     */
+    @ApiModelProperty("错误信息")
     private String msg;
 
+    /**
+     * 结果
+     */
+    @ApiModelProperty("结果")
     private T result;
 
+    /**
+     * 时间
+     */
+    @ApiModelProperty("时间")
     private Long t;
 
     public static <T> Response<T> buildSuccess(T data) {
