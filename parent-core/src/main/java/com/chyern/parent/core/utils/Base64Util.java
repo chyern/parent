@@ -57,7 +57,7 @@ public class Base64Util {
     /**
      * 将输入类转换成Base64
      */
-    private static String inputStreamToBase64(InputStream inputStream) throws IOException {
+    public static String inputStreamToBase64(InputStream inputStream) throws IOException {
         try (inputStream; ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             // 将内容读取内存中
             byte[] buffer = new byte[1024];
