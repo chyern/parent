@@ -71,7 +71,7 @@ public class HttpUtil {
         if (params != null && !params.isEmpty()) {
             List<String> paramList = params.entrySet().stream().map(entry -> entry.getKey() + "=" + entry.getValue()).collect(Collectors.toList());
             String paramsStr = StringUtils.join(paramList, "&");
-            actualUrl = actualUrl + paramsStr;
+            actualUrl = actualUrl + "?" + paramsStr;
         }
         log.info("http请求地址:{}", actualUrl);
         return actualUrl;
