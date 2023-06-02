@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.chyern.parent.connect.processor.connect.config.ConnectConfig
+  com.chenyudan.parent.connect.processor.connect.config.ConnectConfig

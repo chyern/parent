@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.chyern.parent.session.config.SessionConfig
+  com.chenyudan.parent.session.config.SessionConfig

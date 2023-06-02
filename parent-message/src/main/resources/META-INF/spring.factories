@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.chyern.parent.message.threadpool.SpringMessageThreadPoolConfig
+  com.chenyudan.parent.message.threadpool.SpringMessageThreadPoolConfig

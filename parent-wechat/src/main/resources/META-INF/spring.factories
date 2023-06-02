@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.chyern.parent.wechat.config.WechatConfig
+  com.chenyudan.parent.wechat.config.WechatConfig
