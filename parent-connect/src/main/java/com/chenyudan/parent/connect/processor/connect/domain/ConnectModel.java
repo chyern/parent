@@ -2,7 +2,7 @@ package com.chenyudan.parent.connect.processor.connect.domain;
 
 import com.chenyudan.parent.connect.processor.connect.constant.MediaType;
 import com.chenyudan.parent.connect.processor.connect.constant.Method;
-import com.chenyudan.parent.core.constant.CoreConstant;
+import com.chenyudan.parent.core.constant.Constant;
 import com.google.gson.GsonBuilder;
 import lombok.Data;
 import org.apache.commons.beanutils.BeanMap;
@@ -76,10 +76,10 @@ public class ConnectModel {
             if (value == null) {
                 continue;
             }
-            paramList.add(key + CoreConstant.EQUAL_SIGN + value);
+            paramList.add(key + Constant.EQUAL_SIGN + value);
         }
 
-        return StringUtils.join(paramList, CoreConstant.AMPERSAND);
+        return StringUtils.join(paramList, Constant.AMPERSAND);
     }
 
     /**
@@ -95,7 +95,7 @@ public class ConnectModel {
             List<String> collect = beanMap.entrySet().stream().map(entry -> {
                 Object key = entry.getKey();
                 Object value = entry.getValue();
-                return key + CoreConstant.EQUAL_SIGN + value;
+                return key + Constant.EQUAL_SIGN + value;
             }).collect(Collectors.toList());
             bodyStr = StringUtils.join(collect, "&");
         } else {

@@ -3,7 +3,7 @@ package com.chenyudan.parent.mysql.mybatis.domain;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.chenyudan.parent.core.constant.CoreConstant;
+import com.chenyudan.parent.core.constant.Constant;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -44,5 +44,5 @@ public class BaseEntity implements Serializable {
      * 是否删除(0表示未删除)
      */
     @TableLogic(value = "0", delval = "1")
-    private Integer isDelete = CoreConstant.IS_DELETE_N;
+    private Integer isDelete = Constant.IS_DELETE_N;
 }

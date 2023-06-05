@@ -3,7 +3,7 @@ package com.chenyudan.parent.connect.processor.connect.processor;
 import com.chenyudan.parent.api.exception.enums.ConnectErrorEnum;
 import com.chenyudan.parent.connect.processor.connect.domain.ConnectModel;
 import com.chenyudan.parent.connect.processor.connect.utils.ConnectUtil;
-import com.chenyudan.parent.core.constant.CoreConstant;
+import com.chenyudan.parent.core.constant.Constant;
 import com.chenyudan.parent.core.utils.AssertUtil;
 import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -93,7 +93,7 @@ public abstract class AbstractConnectProcessor {
         String paramsUrl = connectModel.getParamsUrl();
 
         if (StringUtils.isNotBlank(paramsUrl)) {
-            url = url + CoreConstant.QUESTION_MARK + paramsUrl;
+            url = url + Constant.QUESTION_MARK + paramsUrl;
         }
         return url;
     }
@@ -108,7 +108,7 @@ public abstract class AbstractConnectProcessor {
         for (Entry<String, String> entry : pathsMap.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
-            url = url.replaceAll(CoreConstant.OPEN_BRACE + key + CoreConstant.CLOSE_BRACE, value);
+            url = url.replaceAll(Constant.OPEN_BRACE + key + Constant.CLOSE_BRACE, value);
         }
         return url;
     }

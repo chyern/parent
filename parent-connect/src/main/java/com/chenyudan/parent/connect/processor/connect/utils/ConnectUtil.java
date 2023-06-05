@@ -8,7 +8,7 @@ import com.chenyudan.parent.connect.processor.connect.annotation.resource.Header
 import com.chenyudan.parent.connect.processor.connect.annotation.resource.Path;
 import com.chenyudan.parent.connect.processor.connect.annotation.resource.Query;
 import com.chenyudan.parent.connect.processor.connect.domain.ConnectModel;
-import com.chenyudan.parent.core.constant.CoreConstant;
+import com.chenyudan.parent.core.constant.Constant;
 import com.chenyudan.parent.core.utils.AssertUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
@@ -97,13 +97,13 @@ public class ConnectUtil implements ApplicationContextAware {
         String url = analysisProperty(connect.value());
         String requestUrl = requestMapping.value();
 
-        if (url.endsWith(CoreConstant.OBLIQUE)) {
-            url = StringUtils.substringBeforeLast(url, CoreConstant.OBLIQUE);
+        if (url.endsWith(Constant.OBLIQUE)) {
+            url = StringUtils.substringBeforeLast(url, Constant.OBLIQUE);
         }
-        if (requestUrl.startsWith(CoreConstant.OBLIQUE)) {
+        if (requestUrl.startsWith(Constant.OBLIQUE)) {
             url = url + requestUrl;
         } else {
-            url = url + CoreConstant.OBLIQUE + requestUrl;
+            url = url + Constant.OBLIQUE + requestUrl;
         }
 
         connectModel.setUrl(url);

@@ -1,6 +1,7 @@
 package com.chenyudan.parent.core.convert;
 
 import com.chenyudan.parent.api.enums.IIntegerEnum;
+import com.chenyudan.parent.api.enums.ILongEnum;
 import com.chenyudan.parent.api.enums.IStringEnum;
 
 /**
@@ -9,7 +10,7 @@ import com.chenyudan.parent.api.enums.IStringEnum;
  * @author Chyern
  * @since 2023/1/31 17:20
  */
-public interface CoreConvert {
+public interface Convert {
 
     default String convertEnum(IStringEnum stringEnum) {
         if (stringEnum == null) {
@@ -23,5 +24,12 @@ public interface CoreConvert {
             return null;
         }
         return integerEnum.getCode();
+    }
+
+    default Long convertEnum(ILongEnum iLongEnum) {
+        if (iLongEnum == null) {
+            return null;
+        }
+        return iLongEnum.getCode();
     }
 }

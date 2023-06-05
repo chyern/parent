@@ -6,7 +6,7 @@ package com.chenyudan.parent.core.constant;
  * @author Chyern
  * @since 2023/1/31 15:11
  */
-public interface CoreConstant {
+public interface Constant {
 
     /**
      * 未删除
