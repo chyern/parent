@@ -5,8 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.chenyudan.parent.core.constant.Constant;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -40,27 +38,26 @@ public class BaseEntity implements Serializable {
     /**
      * 组织ID
      */
-    @Column(name = "organization_id", nullable = false, columnDefinition = "varchar(64) default '' COMMENT '组织ID'")
+    @Column(name = "organization_id", nullable = false, columnDefinition = "varchar(64) DEFAULT '' COMMENT '组织ID'")
     private String organizationId;
 
     /**
      * 创建时间
      */
-    @CreationTimestamp
-    @Column(name = "create_time", nullable = false, columnDefinition = "timestamp COMMENT '创建时间'")
+    @Column(name = "create_time", nullable = false, columnDefinition = "timestamp DEFAULT current_timestamp COMMENT '创建时间'")
     private Date createTime;
 
     /**
      * 更新时间
      */
-    @UpdateTimestamp
-    @Column(name = "update_time", nullable = false, columnDefinition = "timestamp COMMENT '更新时间'")
+    @Column(name = "update_time", nullable = false, columnDefinition = "timestamp DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT '更新时间'")
     private Date updateTime;
 
     /**
      * 是否删除(0表示未删除)
      */
     @TableLogic(value = "0", delval = "1")
-    @Column(name = "is_delete", nullable = false, columnDefinition = "int(1) default '0' COMMENT '更新时间'")
+    @Column(name = "is_delete", nullable = false, columnDefinition = "int(1) DEFAULT '0' COMMENT '是否删除(0表示未删除)'")
+    @GeneratedValue(generator = "")
     private Integer isDelete = Constant.IS_DELETE_N;
 }
