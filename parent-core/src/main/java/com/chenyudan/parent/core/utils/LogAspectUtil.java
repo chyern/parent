@@ -22,9 +22,12 @@ public class LogAspectUtil {
 
     public static Object excute(ProceedingJoinPoint point) throws Throwable {
         String trackId = MDC.get(TRACK_ID);
-        if (StringUtils.isBlank(trackId)) {
+
+        boolean notExist = StringUtils.isBlank(trackId);
+        if (notExist) {
             MDC.put("trackId", UUID.randomUUID().toString());
         }
+
         StringBuilder logStr = new StringBuilder(System.lineSeparator());
         long t = System.currentTimeMillis();
         Object proceed;
@@ -44,7 +47,9 @@ public class LogAspectUtil {
             log.error(logStr.toString());
             throw throwable;
         } finally {
-            MDC.clear();
+            if (notExist) {
+                MDC.clear();
+            }
         }
     }
 }
