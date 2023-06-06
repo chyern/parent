@@ -13,7 +13,7 @@
         <module>parent-connect</module>
         <module>parent-core</module>
         <module>parent-message</module>
-        <module>parent-mysql</module>
+        <module>parent-database</module>
         <module>parent-session</module>
         <module>parent-wechat</module>
         <module>parent-test</module>
