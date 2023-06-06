@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author Chyern
  * @since 2023/2/2 14:41
  */
-@ApiModel(description = "Description: 基础请求")
+@ApiModel(description = "Description: 基础结果")
 @Data
 public class BaseResult implements Serializable {
     @ApiModelProperty(hidden = true)

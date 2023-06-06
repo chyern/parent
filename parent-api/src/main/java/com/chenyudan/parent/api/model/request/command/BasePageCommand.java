@@ -6,12 +6,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * Description: 分页指令
+ * Description: 基础分页指令
  *
  * @author Chyern
  * @since 2023/2/1 16:21
  */
-@ApiModel(description = "Description: 分页指令")
+@ApiModel(description = "Description: 基础分页指令")
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class BasePageCommand extends BaseCommand {

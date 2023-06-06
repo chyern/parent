@@ -18,9 +18,9 @@ import lombok.EqualsAndHashCode;
 public class BaseCommand extends Request {
 
     /**
-     * 用户
+     * 用户ID
      */
-    @ApiModelProperty("用户")
+    @ApiModelProperty("用户ID")
     private String userId;
 
 }

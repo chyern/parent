@@ -9,7 +9,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * Description: 返回
+ * Description: 响应
  *
  * @author Chyern
  * @since 2021/9/27
