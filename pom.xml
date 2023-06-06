@@ -69,7 +69,7 @@
             </dependency>
             <dependency>
                 <groupId>com.chenyudan</groupId>
-                <artifactId>parent-mysql</artifactId>
+                <artifactId>parent-database</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
