@@ -6,9 +6,11 @@ package com.chenyudan.parent.api.enums;
  * @author Chyern
  * @since 2022/7/28 12:02
  */
-public interface ILongEnum {
+public interface IEnum<T> {
 
-    Long getCode();
+    T getCode();
 
     String getDesc();
+
+    IEnum<T> getBy(T code);
 }

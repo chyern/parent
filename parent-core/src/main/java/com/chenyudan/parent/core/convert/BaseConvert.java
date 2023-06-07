@@ -1,8 +1,6 @@
 package com.chenyudan.parent.core.convert;
 
-import com.chenyudan.parent.api.enums.IIntegerEnum;
-import com.chenyudan.parent.api.enums.ILongEnum;
-import com.chenyudan.parent.api.enums.IStringEnum;
+import com.chenyudan.parent.api.enums.IEnum;
 
 /**
  * Description: 通用convert
@@ -10,23 +8,23 @@ import com.chenyudan.parent.api.enums.IStringEnum;
  * @author Chyern
  * @since 2023/1/31 17:20
  */
-public interface Convert {
+public interface BaseConvert {
 
-    default String convertEnum(IStringEnum stringEnum) {
+    default String convertStringEnum(IEnum<String> stringEnum) {
         if (stringEnum == null) {
             return null;
         }
         return stringEnum.getCode();
     }
 
-    default Integer convertEnum(IIntegerEnum integerEnum) {
+    default Integer convertIntegerEnum(IEnum<Integer> integerEnum) {
         if (integerEnum == null) {
             return null;
         }
         return integerEnum.getCode();
     }
 
-    default Long convertEnum(ILongEnum iLongEnum) {
+    default Long convertLongEnum(IEnum<Long> iLongEnum) {
         if (iLongEnum == null) {
             return null;
         }
