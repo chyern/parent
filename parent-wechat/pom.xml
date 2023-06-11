@@ -12,7 +12,6 @@
     <artifactId>parent-wechat</artifactId>
 
     <properties>
-        <skip_maven_deploy>false</skip_maven_deploy>
     </properties>
 
     <dependencies>

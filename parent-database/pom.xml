@@ -14,7 +14,6 @@
     <properties>
         <baomidou.version>3.5.3.1</baomidou.version>
         <druid.version>1.1.22</druid.version>
-        <skip_maven_deploy>false</skip_maven_deploy>
     </properties>
 
     <dependencies>

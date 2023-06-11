@@ -13,7 +13,6 @@
 
     <properties>
         <swagger-annotations.version>1.6.2</swagger-annotations.version>
-        <skip_maven_deploy>false</skip_maven_deploy>
     </properties>
 
     <dependencies>
