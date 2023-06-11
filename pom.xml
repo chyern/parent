@@ -31,15 +31,10 @@
 
     <distributionManagement>
         <repository>
-            <id>releases</id>
-            <name>Nexus Repository</name>
-            <url>http://127.0.0.1:8081/nexus/content/repositories/releases</url>
+            <id>github</id>
+            <name>GitHub chyern Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/chyern/parent</url>
         </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>Nexus Repository</name>
-            <url>http://127.0.0.1:8081/nexus/content/repositories/snapshots</url>
-        </snapshotRepository>
     </distributionManagement>
 
     <dependencyManagement>
