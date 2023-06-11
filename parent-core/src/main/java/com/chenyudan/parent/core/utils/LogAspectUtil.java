@@ -1,5 +1,6 @@
 package com.chenyudan.parent.core.utils;
 
+import ch.qos.logback.core.helpers.ThrowableToStringArray;
 import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -25,7 +26,7 @@ public class LogAspectUtil {
 
         boolean notExist = StringUtils.isBlank(trackId);
         if (notExist) {
-            MDC.put("trackId", UUID.randomUUID().toString());
+            MDC.put(TRACK_ID, UUID.randomUUID().toString());
         }
 
         StringBuilder logStr = new StringBuilder(System.lineSeparator());
@@ -45,6 +46,9 @@ public class LogAspectUtil {
             logStr.append("consume:").append(System.currentTimeMillis() - t).append(System.lineSeparator());
             logStr.append("result:").append(throwable.getMessage());
             log.error(logStr.toString());
+            if (notExist) {
+                log.error(StringUtils.join(ThrowableToStringArray.convert(throwable),System.lineSeparator()));
+            }
             throw throwable;
         } finally {
             if (notExist) {
