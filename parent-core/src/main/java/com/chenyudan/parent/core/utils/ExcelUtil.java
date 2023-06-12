@@ -4,6 +4,8 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.read.listener.ReadListener;
+import com.chenyudan.parent.api.exception.BaseException;
+import com.chenyudan.parent.api.exception.enums.CoreExceptionEnum;
 
 import java.io.File;
 import java.util.List;
@@ -21,12 +23,37 @@ public class ExcelUtil {
      *
      * @param filePath  文件路径
      * @param sheetName 页签名称
+     * @param clazz     对象
      * @param data      数据
      */
-    public static <T> File generateExcel(String filePath, String sheetName, List<T> data) {
-        EasyExcel.write(filePath, data.get(0).getClass()).sheet(sheetName).doWrite(data);
-        return new File(filePath);
+    public static <T> File generateExcel(String filePath, String sheetName, Class<T> clazz, List<T> data) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            throw new BaseException(CoreExceptionEnum.FILE_EXIST);
+        }
+        EasyExcel.write(filePath, clazz).sheet(sheetName).doWrite(data);
+        return file;
     }
+
+    /**
+     * 追加excel文件
+     *
+     * @param filePath  文件路径
+     * @param sheetName 页签名称
+     * @param clazz     对象
+     * @param data      数据
+     */
+    public static <T> File appendExcel(String filePath, String templatePath, String sheetName, Class<T> clazz, List<T> data) {
+        File file = new File(filePath);
+        AssertUtil.isTrue(!file.exists(), CoreExceptionEnum.FILE_EXIST);
+
+        File templatefile = new File(templatePath);
+        AssertUtil.isTrue(templatefile.exists(), CoreExceptionEnum.FILE_NOT_FIND);
+
+        EasyExcel.write(filePath, clazz).needHead(false).withTemplate(templatefile).sheet(sheetName).doWrite(data);
+        return file;
+    }
+
 
     /**
      * 读取excel

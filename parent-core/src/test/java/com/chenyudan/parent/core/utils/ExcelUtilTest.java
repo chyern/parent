@@ -3,14 +3,12 @@ package com.chenyudan.parent.core.utils;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.NumberFormat;
-import com.alibaba.excel.converters.localdatetime.LocalDateTimeDateConverter;
-import com.alibaba.excel.util.FileUtils;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,23 +23,29 @@ public class ExcelUtilTest {
 
     public static void main(String[] args) {
         List<WriteBO> writeBOS = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1; i++) {
             WriteBO writeBO = new WriteBO();
             writeBO.setOrderId(UUID.randomUUID().toString());
             writeBO.setPayment(0.0D);
-            writeBO.setCreationTime(LocalDateTime.now());
+            writeBO.setCreationTime(new Date());
 
             writeBOS.add(writeBO);
         }
 
-        String path = FileUtils.getTempFilePrefix() + UUID.randomUUID() + ".xls";
-        File file = ExcelUtil.generateExcel(path, "data", writeBOS);
+        String path = "/Users/chenyudan/git/parent/parent-core/src/test/java/com/chenyudan/parent/core/utils/";
+        //String path = FileUtils.getTempFilePrefix();
+        String name = UUID.randomUUID() + ".xlsx";
+
+        File file = ExcelUtil.generateExcel(path + name, "data", WriteBO.class, writeBOS);
 
         log.info(file.getPath());
 
-        List<ReadBO> readBOS = ExcelUtil.readExcel(path, ReadBO.class);
+        List<ReadBO> readBOS = ExcelUtil.readExcel(file.getPath(), ReadBO.class);
 
-        file.delete();
+
+        ExcelUtil.appendExcel(path + UUID.randomUUID() + ".xlsx", file.getPath(), "data", WriteBO.class, writeBOS);
+
+        boolean delete = file.delete();
     }
 
     @Data
@@ -53,8 +57,8 @@ public class ExcelUtilTest {
         @NumberFormat("￥#,###")
         private Double payment;
 
-        @ExcelProperty(value = "创建日期", converter = LocalDateTimeDateConverter.class)
-        private LocalDateTime creationTime;
+        @ExcelProperty(value = "创建日期")
+        private Date creationTime;
     }
 
     @Data
