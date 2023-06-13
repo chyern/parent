@@ -62,7 +62,17 @@ public class ExcelUtil {
      * @param clazz    读取对象
      */
     public static <T> List<T> readExcel(String filePath, Class<T> clazz) {
-        return readExcel(filePath, clazz, new ExcelListener<>());
+        return readExcel(filePath, 0, clazz);
+    }
+
+    /**
+     * 读取excel
+     *
+     * @param filePath 文件路径
+     * @param clazz    读取对象
+     */
+    public static <T> List<T> readExcel(String filePath, int sheetNo, Class<T> clazz) {
+        return readExcel(filePath, sheetNo, clazz, new ExcelListener<>());
     }
 
     /**
@@ -71,8 +81,8 @@ public class ExcelUtil {
      * @param filePath     文件路径
      * @param readListener 监听器
      */
-    public static <T> List<T> readExcel(String filePath, Class<T> clazz, ReadListener<T> readListener) {
-        return EasyExcel.read(filePath, clazz, readListener).sheet().doReadSync();
+    public static <T> List<T> readExcel(String filePath, int sheetNo, Class<T> clazz, ReadListener<T> readListener) {
+        return EasyExcel.read(filePath, clazz, readListener).sheet(sheetNo).doReadSync();
     }
 
 

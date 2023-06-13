@@ -22,6 +22,15 @@ import java.util.UUID;
 public class ExcelUtilTest {
 
     public static void main(String[] args) {
+        File generate = generate();
+        List<ReadBO> readBOS = ExcelUtil.readExcel(generate.getPath(), ReadBO.class);
+        File append = append(generate);
+
+        //generate.delete();
+        //append.delete();
+    }
+
+    private static File generate() {
         List<WriteBO> writeBOS = new ArrayList<>();
         for (int i = 0; i < 1; i++) {
             WriteBO writeBO = new WriteBO();
@@ -32,20 +41,27 @@ public class ExcelUtilTest {
             writeBOS.add(writeBO);
         }
 
-        String path = "/Users/chenyudan/git/parent/parent-core/src/test/java/com/chenyudan/parent/core/utils/";
-        //String path = FileUtils.getTempFilePrefix();
+        String path = System.getProperty("user.dir") + File.separator + "excelFile" + File.separator;
         String name = UUID.randomUUID() + ".xlsx";
 
-        File file = ExcelUtil.generateExcel(path + name, "data", WriteBO.class, writeBOS);
+        return ExcelUtil.generateExcel(path + name, "data", WriteBO.class, writeBOS);
+    }
 
-        log.info(file.getPath());
+    private static File append(File file) {
+        List<WriteBO> writeBOS = new ArrayList<>();
+        for (int i = 0; i < 1; i++) {
+            WriteBO writeBO = new WriteBO();
+            writeBO.setOrderId(UUID.randomUUID().toString());
+            writeBO.setPayment(0.0D);
+            writeBO.setCreationTime(new Date());
 
-        List<ReadBO> readBOS = ExcelUtil.readExcel(file.getPath(), ReadBO.class);
+            writeBOS.add(writeBO);
+        }
 
+        String path = System.getProperty("user.dir") + File.separator + "excelFile" + File.separator;
+        String name = UUID.randomUUID() + ".xlsx";
 
-        ExcelUtil.appendExcel(path + UUID.randomUUID() + ".xlsx", file.getPath(), "data", WriteBO.class, writeBOS);
-
-        boolean delete = file.delete();
+        return ExcelUtil.appendExcel(path + name, file.getPath(), "data", WriteBO.class, writeBOS);
     }
 
     @Data
