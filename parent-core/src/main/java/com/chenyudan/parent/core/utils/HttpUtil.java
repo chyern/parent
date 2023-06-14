@@ -1,7 +1,7 @@
 package com.chenyudan.parent.core.utils;
 
 import com.chenyudan.parent.api.exception.BaseException;
-import com.chenyudan.parent.api.exception.enums.ConnectErrorEnum;
+import com.chenyudan.parent.api.exception.enums.BaseExceptionEnum;
 import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
@@ -52,11 +52,11 @@ public class HttpUtil {
 
     public static String getResult(Builder builder) {
         try (Response response = httpClient.newCall(builder.build()).execute()) {
-            AssertUtil.isTrue(response.isSuccessful(), ConnectErrorEnum.CONNECT_ERROR);
+            AssertUtil.isTrue(response.isSuccessful(), BaseExceptionEnum.CONNECT_ERROR);
             ResponseBody responseBody = response.body();
             return responseBody != null ? responseBody.string() : null;
         } catch (IOException e) {
-            throw new BaseException(ConnectErrorEnum.CONNECT_ERROR);
+            throw new BaseException(BaseExceptionEnum.CONNECT_ERROR);
         }
     }
 

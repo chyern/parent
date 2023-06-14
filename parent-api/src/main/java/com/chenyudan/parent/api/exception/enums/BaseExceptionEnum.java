@@ -10,11 +10,12 @@ import com.chenyudan.parent.api.enums.IErrorEnum;
  */
 public enum BaseExceptionEnum implements IErrorEnum {
     SYSTEM_ERROR(10001, "System Exception"),
-    FILE_EXIST(10002, "The file already exists:{0}"),
-    FILE_NOT_FIND(10003, "The file resource does not exist:{0}"),
-    FILE_NOT_IS_DIRECTORY(10004, "The file resource is not a directory:{0}"),
-    DIRECTORY_IS_EMPTY(10005, "The directory is empty:{0}"),
-    PARAM_IS_BLANK(10006, "param is blank"),
+    CONNECT_ERROR(10002, "Connect is unsuccessful"),
+    FILE_EXIST(10003, "The file already exists:{0}"),
+    FILE_NOT_FIND(10004, "The file resource does not exist:{0}"),
+    FILE_NOT_IS_DIRECTORY(10005, "The file resource is not a directory:{0}"),
+    DIRECTORY_IS_EMPTY(10006, "The directory is empty:{0}"),
+    PARAM_IS_BLANK(10007, "param is blank"),
 
     ;
 

@@ -1,6 +1,6 @@
 package com.chenyudan.parent.connect.processor.connect.processor;
 
-import com.chenyudan.parent.connect.exception.ConnectErrorEnum;
+import com.chenyudan.parent.api.exception.enums.BaseExceptionEnum;
 import com.chenyudan.parent.connect.processor.connect.domain.ConnectModel;
 import com.chenyudan.parent.connect.processor.connect.utils.ConnectUtil;
 import com.chenyudan.parent.core.constant.Constant;
@@ -65,7 +65,7 @@ public abstract class AbstractConnectProcessor {
         //调用
         Response response = httpClient.newCall(builder.build()).execute();
         this.beforeReturnExecute(response);
-        AssertUtil.isTrue(response.isSuccessful(), ConnectErrorEnum.CONNECT_ERROR);
+        AssertUtil.isTrue(response.isSuccessful(), BaseExceptionEnum.CONNECT_ERROR);
         ResponseBody responseBody = response.body();
         if (Objects.isNull(responseBody) || void.class.equals(method.getReturnType())) {
             return null;
