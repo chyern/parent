@@ -1,6 +1,6 @@
 package com.chenyudan.parent.core.utils;
 
-import com.chenyudan.parent.api.exception.enums.CoreExceptionEnum;
+import com.chenyudan.parent.api.exception.enums.BaseExceptionEnum;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedInputStream;
@@ -49,9 +49,9 @@ public class ZipUtil {
      */
     private static void checkCompressFile(File compressFile) {
         String path = compressFile.getPath();
-        AssertUtil.isTrue(compressFile.exists(), CoreExceptionEnum.FILE_NOT_FIND, path);
-        AssertUtil.isTrue(compressFile.isDirectory(), CoreExceptionEnum.FILE_NOT_IS_DIRECTORY, path);
-        AssertUtil.isTrue(compressFile.listFiles() != null, CoreExceptionEnum.DIRECTORY_IS_EMPTY);
+        AssertUtil.isTrue(compressFile.exists(), BaseExceptionEnum.FILE_NOT_FIND, path);
+        AssertUtil.isTrue(compressFile.isDirectory(), BaseExceptionEnum.FILE_NOT_IS_DIRECTORY, path);
+        AssertUtil.isTrue(compressFile.listFiles() != null, BaseExceptionEnum.DIRECTORY_IS_EMPTY);
     }
 
     /**

@@ -2,7 +2,7 @@ package com.chenyudan.parent.core.utils;
 
 
 import com.chenyudan.parent.api.exception.BaseException;
-import com.chenyudan.parent.api.exception.enums.CoreExceptionEnum;
+import com.chenyudan.parent.api.exception.enums.BaseExceptionEnum;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedReader;
@@ -31,7 +31,7 @@ public class FileUtil {
      */
     public static File createFile(String path) throws BaseException, IOException {
         File file = new File(path);
-        AssertUtil.isTrue(!file.exists(), CoreExceptionEnum.FILE_EXIST);
+        AssertUtil.isTrue(!file.exists(), BaseExceptionEnum.FILE_EXIST);
         createParentFile(file);
         file.createNewFile();
         return file;
@@ -88,7 +88,7 @@ public class FileUtil {
      * @param file 文件
      */
     public static List<String> readFileByLine(File file) throws IOException {
-        AssertUtil.isTrue(file.exists(), CoreExceptionEnum.FILE_NOT_FIND);
+        AssertUtil.isTrue(file.exists(), BaseExceptionEnum.FILE_NOT_FIND);
 
         List<String> result = new ArrayList<>();
 
@@ -110,7 +110,7 @@ public class FileUtil {
      * @param file 文件
      */
     public static byte[] readFile(File file) throws IOException {
-        AssertUtil.isTrue(file.exists(), CoreExceptionEnum.FILE_NOT_FIND);
+        AssertUtil.isTrue(file.exists(), BaseExceptionEnum.FILE_NOT_FIND);
         try (FileInputStream fileInputStream = new FileInputStream(file)) {
             return fileInputStream.readAllBytes();
         }

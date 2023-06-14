@@ -1,6 +1,6 @@
 package com.chenyudan.parent.connect.processor.connect.processor;
 
-import com.chenyudan.parent.api.exception.enums.ConnectErrorEnum;
+import com.chenyudan.parent.connect.exception.ConnectErrorEnum;
 import com.chenyudan.parent.connect.processor.connect.domain.ConnectModel;
 import com.chenyudan.parent.connect.processor.connect.utils.ConnectUtil;
 import com.chenyudan.parent.core.constant.Constant;

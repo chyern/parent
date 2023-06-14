@@ -1,4 +1,4 @@
-package com.chenyudan.parent.api.exception.enums;
+package com.chenyudan.parent.connect.exception;
 
 import com.chenyudan.parent.api.enums.IErrorEnum;
 

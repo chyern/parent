@@ -5,7 +5,7 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.read.listener.ReadListener;
 import com.chenyudan.parent.api.exception.BaseException;
-import com.chenyudan.parent.api.exception.enums.CoreExceptionEnum;
+import com.chenyudan.parent.api.exception.enums.BaseExceptionEnum;
 
 import java.io.File;
 import java.util.List;
@@ -29,7 +29,7 @@ public class ExcelUtil {
     public static <T> File generateExcel(String filePath, String sheetName, Class<T> clazz, List<T> data) {
         File file = new File(filePath);
         if (file.exists()) {
-            throw new BaseException(CoreExceptionEnum.FILE_EXIST);
+            throw new BaseException(BaseExceptionEnum.FILE_EXIST);
         }
         EasyExcel.write(filePath, clazz).sheet(sheetName).doWrite(data);
         return file;
@@ -45,10 +45,10 @@ public class ExcelUtil {
      */
     public static <T> File appendExcel(String filePath, String templatePath, String sheetName, Class<T> clazz, List<T> data) {
         File file = new File(filePath);
-        AssertUtil.isTrue(!file.exists(), CoreExceptionEnum.FILE_EXIST);
+        AssertUtil.isTrue(!file.exists(), BaseExceptionEnum.FILE_EXIST);
 
         File templatefile = new File(templatePath);
-        AssertUtil.isTrue(templatefile.exists(), CoreExceptionEnum.FILE_NOT_FIND);
+        AssertUtil.isTrue(templatefile.exists(), BaseExceptionEnum.FILE_NOT_FIND);
 
         EasyExcel.write(filePath, clazz).needHead(false).withTemplate(templatefile).sheet(sheetName).doWrite(data);
         return file;
