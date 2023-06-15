@@ -7,7 +7,6 @@ import com.chenyudan.parent.database.mybatis.domain.PageResponse;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -18,51 +17,50 @@ import java.util.stream.Collectors;
  */
 public class PageUtil {
 
-    public static <T, R> PageRequest<R> buildPageRequest(PageRequest<T> request, ConvertFunctionalInterface<T, R> functionalInterface) {
-        PageRequest<R> pageRequest = new PageRequest<>();
+    public static <T, R> PageRequest<R> buildPageRequest(PageRequest<T> pageRequest, ConvertFunctionalInterface<T, R> functionalInterface) {
+        PageRequest<R> request = new PageRequest<>();
         pageRequest.setPageNo(request.getPageNo());
         pageRequest.setPageSize(request.getPageSize());
-        T data = request.getData();
-        R convert = functionalInterface.convert(data);
-        pageRequest.setData(convert);
-        return pageRequest;
+        R convert = functionalInterface.convert(pageRequest.getData());
+        request.setData(convert);
+        return request;
     }
 
 
     /**
      * IPage<T> -> PageResponse<T>
      */
-    public static <T, E extends IPage<T>> PageResponse<T> buildPageResponse(E e) {
+    public static <T> PageResponse<T> buildPageResponse(IPage<T> iPage) {
         PageResponse<T> response = new PageResponse<T>();
-        response.setPageNo(e.getCurrent());
-        response.setPageSize(e.getSize());
-        response.setTotal(e.getTotal());
-        response.setList(e.getRecords());
+        response.setPageNo(iPage.getCurrent());
+        response.setPageSize(iPage.getSize());
+        response.setTotal(iPage.getTotal());
+        response.setList(iPage.getRecords());
         return response;
     }
 
     /**
-     * PageResponse<R> -> PageResponse<T>
+     * PageResponse<T> -> PageResponse<R>
      */
-    public static <T, R, E extends PageResponse<R>> PageResponse<T> buildPageResponse(E e, Function<R, T> function) {
-        PageResponse<T> response = new PageResponse<T>();
-        response.setPageNo(e.getPageNo());
-        response.setPageSize(e.getPageSize());
-        response.setTotal(e.getTotal());
-        List<R> records = e.getList();
+    public static <T, R> PageResponse<R> buildPageResponse(PageResponse<T> pageResponse, ConvertFunctionalInterface<T, R> functionalInterface) {
+        PageResponse<R> response = new PageResponse<>();
+        response.setPageNo(pageResponse.getPageNo());
+        response.setPageSize(pageResponse.getPageSize());
+        response.setTotal(pageResponse.getTotal());
+        List<T> records = pageResponse.getList();
         if (CollectionUtils.isNotEmpty(records)) {
-            List<T> list = records.stream().map(function).collect(Collectors.toList());
+            List<R> list = records.stream().map(functionalInterface::convert).collect(Collectors.toList());
             response.setList(list);
         }
         return response;
     }
 
     /**
-     * IPage<R> -> PageResponse<T>
+     * IPage<T> -> PageResponse<R>
      */
-    public static <T, R, E extends IPage<R>> PageResponse<T> buildPageResponse(E e, Function<R, T> function) {
-        PageResponse<R> rPageResponse = buildPageResponse(e);
-        return buildPageResponse(rPageResponse, function);
+    public static <T, R> PageResponse<R> buildPageResponse(IPage<T> iPage, ConvertFunctionalInterface<T, R> functionalInterface) {
+        PageResponse<T> pageResponse = buildPageResponse(iPage);
+        return buildPageResponse(pageResponse, functionalInterface);
     }
 
 }
