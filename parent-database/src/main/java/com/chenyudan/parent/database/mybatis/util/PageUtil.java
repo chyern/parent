@@ -1,6 +1,8 @@
 package com.chenyudan.parent.database.mybatis.util;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.chenyudan.parent.core.convert.ConvertFunctionalInterface;
+import com.chenyudan.parent.database.mybatis.domain.PageRequest;
 import com.chenyudan.parent.database.mybatis.domain.PageResponse;
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -15,6 +17,17 @@ import java.util.stream.Collectors;
  * @since 2022/12/12 14:31
  */
 public class PageUtil {
+
+    public static <T, R> PageRequest<R> buildPageRequest(PageRequest<T> request, ConvertFunctionalInterface<T, R> functionalInterface) {
+        PageRequest<R> pageRequest = new PageRequest<>();
+        pageRequest.setPageNo(request.getPageNo());
+        pageRequest.setPageSize(request.getPageSize());
+        T data = request.getData();
+        R convert = functionalInterface.convert(data);
+        pageRequest.setData(convert);
+        return pageRequest;
+    }
+
 
     /**
      * IPage<T> -> PageResponse<T>
