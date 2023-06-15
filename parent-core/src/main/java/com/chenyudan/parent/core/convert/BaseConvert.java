@@ -33,11 +33,11 @@ public interface BaseConvert<T, R> {
         return iLongEnum.getCode();
     }
 
-    T convertRtoT(R r);
+    T toT(R r);
 
-    List<T> convertRtoT(List<R> r);
+    List<T> toT(List<R> r);
 
-    R convertTtoR(T t);
+    R toR(T t);
 
-    List<R> convertTtoR(List<T> t);
+    List<R> toR(List<T> t);
 }
