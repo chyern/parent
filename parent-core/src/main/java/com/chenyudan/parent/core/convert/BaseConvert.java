@@ -13,24 +13,15 @@ import java.util.List;
 public interface BaseConvert<T, R> {
 
     default String convertStringEnum(IEnum<String> stringEnum) {
-        if (stringEnum == null) {
-            return null;
-        }
-        return stringEnum.getCode();
+        return stringEnum == null ? null : stringEnum.getCode();
     }
 
     default Integer convertIntegerEnum(IEnum<Integer> integerEnum) {
-        if (integerEnum == null) {
-            return null;
-        }
-        return integerEnum.getCode();
+        return integerEnum == null ? null : integerEnum.getCode();
     }
 
     default Long convertLongEnum(IEnum<Long> iLongEnum) {
-        if (iLongEnum == null) {
-            return null;
-        }
-        return iLongEnum.getCode();
+        return iLongEnum == null ? null : iLongEnum.getCode();
     }
 
     T toT(R r);
