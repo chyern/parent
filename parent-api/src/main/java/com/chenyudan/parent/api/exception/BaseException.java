@@ -1,8 +1,7 @@
 package com.chenyudan.parent.api.exception;
 
 import com.chenyudan.parent.api.enums.IErrorEnum;
-
-import java.text.MessageFormat;
+import com.chenyudan.parent.api.utils.TranslationUtil;
 
 /**
  * Description: TODO
@@ -25,27 +24,31 @@ public class BaseException extends RuntimeException {
     }
 
     public BaseException(Integer errorCode, String errorMsg) {
-        super(errorMsg);
+        super(errorCode.toString());
         this.errorCode = errorCode;
-        this.errorMsg = errorMsg;
+        this.errorMsg = TranslationUtil.getMessage(errorCode.toString(), errorMsg);
     }
 
     public BaseException(Integer errorCode, String errorMsg, Object... objects) {
-        super(MessageFormat.format(errorMsg, objects));
+        super(errorCode.toString());
         this.errorCode = errorCode;
-        this.errorMsg = MessageFormat.format(errorMsg, objects);
+        this.errorMsg = TranslationUtil.getMessage(errorCode.toString(), errorMsg, objects);
     }
 
     public BaseException(IErrorEnum errorEnum) {
-        super(errorEnum.getErrorMsg());
-        this.errorCode = errorEnum.getErrorCode();
-        this.errorMsg = errorEnum.getErrorMsg();
+        super(errorEnum.getErrorCode().toString());
+        Integer errorCode = errorEnum.getErrorCode();
+        String errorMsg = errorEnum.getErrorMsg();
+        this.errorCode = errorCode;
+        this.errorMsg = TranslationUtil.getMessage(errorCode.toString(), errorMsg);
     }
 
     public BaseException(IErrorEnum errorEnum, Object... objects) {
-        super(MessageFormat.format(errorEnum.getErrorMsg(), objects));
-        this.errorCode = errorEnum.getErrorCode();
-        this.errorMsg = MessageFormat.format(errorEnum.getErrorMsg(), objects);
+        super(errorEnum.getErrorCode().toString());
+        Integer errorCode = errorEnum.getErrorCode();
+        String errorMsg = errorEnum.getErrorMsg();
+        this.errorCode = errorCode;
+        this.errorMsg = TranslationUtil.getMessage(errorCode.toString(), errorMsg, objects);
     }
 
 }

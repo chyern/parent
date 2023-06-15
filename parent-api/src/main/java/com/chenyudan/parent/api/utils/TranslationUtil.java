@@ -19,6 +19,10 @@ public class TranslationUtil implements MessageSourceAware {
         return messageSource.getMessage(code, args, null, ContextUtil.getLang());
     }
 
+    public static String getMessage(String code, String defaultMessage, Object... args) {
+        return messageSource.getMessage(code, args, defaultMessage, ContextUtil.getLang());
+    }
+
     public static String getMessage(Locale locale, String code, Object... args) {
         return messageSource.getMessage(code, args, null, locale);
     }
