@@ -2,8 +2,6 @@ package com.chenyudan.parent.core.domain;
 
 import lombok.Data;
 
-import java.util.Date;
-
 /**
  * Description: 基础DTO
  *
@@ -17,14 +15,4 @@ public class BaseBO {
      * 组织ID
      */
     private String organizationId;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
 }
