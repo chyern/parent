@@ -11,6 +11,4 @@ public interface IEnum<T> {
     T getCode();
 
     String getDesc();
-
-    IEnum<T> getBy(T code);
 }
