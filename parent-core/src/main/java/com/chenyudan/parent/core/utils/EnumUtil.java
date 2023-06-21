@@ -25,4 +25,17 @@ public class EnumUtil {
         return map;
     }
 
+    public static <T> IEnum<T> getBy(IEnum<T>[] enums, T code) {
+        if (enums == null) {
+            return null;
+        }
+
+        for (IEnum<T> anEnum : enums) {
+            if (anEnum.getCode().equals(code)) {
+                return anEnum;
+            }
+        }
+        return null;
+    }
+
 }
