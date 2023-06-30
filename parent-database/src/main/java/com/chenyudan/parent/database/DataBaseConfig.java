@@ -35,7 +35,7 @@ import java.util.Map;
 @AutoConfigureBefore(DruidDataSourceAutoConfigure.class)
 @EnableConfigurationProperties({MybatisConfigProperties.class})
 @Import({DataSourceSwitchAspect.class})
-public class MysqlConfig {
+public class DataBaseConfig {
 
     @Primary
     @ConfigurationProperties("spring.datasource.druid")

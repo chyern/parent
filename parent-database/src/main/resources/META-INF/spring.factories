@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.chenyudan.parent.database.MysqlConfig
+  com.chenyudan.parent.database.DataBaseConfig

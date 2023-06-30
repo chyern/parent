@@ -5,7 +5,7 @@ import com.chenyudan.parent.database.mybatis.interceptor.Interceptor;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.apache.ibatis.logging.Log;
-import org.apache.ibatis.logging.log4j2.Log4j2Impl;
+import org.apache.ibatis.logging.slf4j.Slf4jImpl;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -39,7 +39,7 @@ public class MybatisConfigProperties {
     /**
      * 打印日志实现类
      */
-    private Class<? extends Log> logImpl = Log4j2Impl.class;
+    private Class<? extends Log> logImpl = Slf4jImpl.class;
 
     /**
      * 获取扫描路径下的mapper资源

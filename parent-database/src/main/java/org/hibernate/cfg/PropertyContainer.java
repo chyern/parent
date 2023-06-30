@@ -30,7 +30,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 解决SpringDataJpa实体类中属性顺序与数据库中生成字段顺序不一致的问题 */
+ * 解决SpringDataJpa实体类中属性顺序与数据库中生成字段顺序不一致的问题
+ */
 class PropertyContainer {
     private static final CoreMessageLogger LOG = Logger.getMessageLogger(CoreMessageLogger.class, PropertyContainer.class.getName());
     private final XClass xClass;
@@ -57,17 +58,17 @@ class PropertyContainer {
         List<XProperty> fields = this.xClass.getDeclaredProperties(AccessType.FIELD.getType());
         List<XProperty> getters = this.xClass.getDeclaredProperties(AccessType.PROPERTY.getType());
         this.preFilter(fields, getters);
-        Map<String, XProperty> persistentAttributesFromGetters = new HashMap();
+        Map<String, XProperty> persistentAttributesFromGetters = new HashMap<>();
         this.collectPersistentAttributesUsingLocalAccessType(this.persistentAttributeMap, persistentAttributesFromGetters, fields, getters);
         this.collectPersistentAttributesUsingClassLevelAccessType(this.persistentAttributeMap, persistentAttributesFromGetters, fields, getters);
     }
 
     private void preFilter(List<XProperty> fields, List<XProperty> getters) {
-        Iterator propertyIterator = fields.iterator();
+        Iterator<XProperty> propertyIterator = fields.iterator();
 
         XProperty property;
-        while(propertyIterator.hasNext()) {
-            property = (XProperty)propertyIterator.next();
+        while (propertyIterator.hasNext()) {
+            property = propertyIterator.next();
             if (mustBeSkipped(property)) {
                 propertyIterator.remove();
             }
@@ -75,8 +76,8 @@ class PropertyContainer {
 
         propertyIterator = getters.iterator();
 
-        while(propertyIterator.hasNext()) {
-            property = (XProperty)propertyIterator.next();
+        while (propertyIterator.hasNext()) {
+            property = propertyIterator.next();
             if (mustBeSkipped(property)) {
                 propertyIterator.remove();
             }
@@ -85,12 +86,12 @@ class PropertyContainer {
     }
 
     private void collectPersistentAttributesUsingLocalAccessType(LinkedHashMap<String, XProperty> persistentAttributeMap, Map<String, XProperty> persistentAttributesFromGetters, List<XProperty> fields, List<XProperty> getters) {
-        Iterator propertyIterator = fields.iterator();
+        Iterator<XProperty> propertyIterator = fields.iterator();
 
         XProperty xProperty;
         Access localAccessAnnotation;
-        while(propertyIterator.hasNext()) {
-            xProperty = (XProperty)propertyIterator.next();
+        while (propertyIterator.hasNext()) {
+            xProperty = propertyIterator.next();
             localAccessAnnotation = xProperty.getAnnotation(Access.class);
             if (localAccessAnnotation != null && localAccessAnnotation.value() == javax.persistence.AccessType.FIELD) {
                 propertyIterator.remove();
@@ -100,8 +101,8 @@ class PropertyContainer {
 
         propertyIterator = getters.iterator();
 
-        while(propertyIterator.hasNext()) {
-            xProperty = (XProperty)propertyIterator.next();
+        while (propertyIterator.hasNext()) {
+            xProperty = propertyIterator.next();
             localAccessAnnotation = xProperty.getAnnotation(Access.class);
             if (localAccessAnnotation != null && localAccessAnnotation.value() == javax.persistence.AccessType.PROPERTY) {
                 propertyIterator.remove();
@@ -119,13 +120,13 @@ class PropertyContainer {
     }
 
     private void collectPersistentAttributesUsingClassLevelAccessType(LinkedHashMap<String, XProperty> persistentAttributeMap, Map<String, XProperty> persistentAttributesFromGetters, List<XProperty> fields, List<XProperty> getters) {
-        Iterator var5;
+        Iterator<XProperty> var5;
         XProperty getter;
         if (this.classLevelAccessType == AccessType.FIELD) {
             var5 = fields.iterator();
 
-            while(var5.hasNext()) {
-                getter = (XProperty)var5.next();
+            while (var5.hasNext()) {
+                getter = var5.next();
                 if (!persistentAttributeMap.containsKey(getter.getName())) {
                     persistentAttributeMap.put(getter.getName(), getter);
                 }
@@ -133,8 +134,8 @@ class PropertyContainer {
         } else {
             var5 = getters.iterator();
 
-            while(var5.hasNext()) {
-                getter = (XProperty)var5.next();
+            while (var5.hasNext()) {
+                getter = var5.next();
                 String name = getter.getName();
                 XProperty previous = persistentAttributesFromGetters.get(name);
                 if (previous != null) {
@@ -168,7 +169,7 @@ class PropertyContainer {
     }
 
     private void assertTypesAreResolvable() {
-        Iterator var1 = this.persistentAttributeMap.values().iterator();
+        Iterator<XProperty> var1 = this.persistentAttributeMap.values().iterator();
 
         XProperty xProperty;
         do {
@@ -176,8 +177,8 @@ class PropertyContainer {
                 return;
             }
 
-            xProperty = (XProperty)var1.next();
-        } while(xProperty.isTypeResolved() || discoverTypeWithoutReflection(xProperty));
+            xProperty = var1.next();
+        } while (xProperty.isTypeResolved() || discoverTypeWithoutReflection(xProperty));
 
         String msg = "Property " + StringHelper.qualify(this.xClass.getName(), xProperty.getName()) + " has an unbound type and no explicit target entity. Resolve this Generic usage issue or set an explicit target attribute (eg @OneToMany(target=) or use an explicit @Type";
         throw new AnnotationException(msg);
