@@ -73,5 +73,10 @@ public interface Constant {
      */
     String OBLIQUE = "/";
 
+    /**
+     * 连接符
+     */
+    String HYPHEN = "-";
+
 
 }
