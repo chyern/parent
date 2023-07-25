@@ -19,7 +19,7 @@ public class BeanConvertUtil {
     public static <T> T convert(Object org, Class<T> clazz) {
         T dest = null;
         try {
-            dest = clazz.newInstance();
+            dest = clazz.getDeclaredConstructor().newInstance();
             BeanUtils.copyProperties(org, dest);
         } catch (Exception e) {
             log.error(org.getClass().getName() + "to class " + clazz.getName());

@@ -62,7 +62,7 @@ public class MybatisConfigProperties {
      */
     public org.apache.ibatis.plugin.Interceptor[] resolveInterceptor() {
         try {
-            return interceptor.newInstance().resolveInterceptor();
+            return interceptor.getDeclaredConstructor().newInstance().resolveInterceptor();
         } catch (Exception e) {
             return new org.apache.ibatis.plugin.Interceptor[0];
         }
