@@ -1,8 +1,8 @@
-package com.chenyudan.parent.connect.processor.connect.annotation.method;
+package com.chenyudan.parent.connect.processor.annotation.method;
 
 
-import com.chenyudan.parent.connect.processor.connect.constant.MediaType;
-import com.chenyudan.parent.connect.processor.connect.constant.Method;
+import com.chenyudan.parent.connect.processor.constant.MediaType;
+import com.chenyudan.parent.connect.processor.constant.Method;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

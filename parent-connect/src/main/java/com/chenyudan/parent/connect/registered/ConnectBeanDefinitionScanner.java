@@ -1,6 +1,5 @@
 package com.chenyudan.parent.connect.registered;
 
-import com.chenyudan.parent.connect.processor.IConnectProcessor;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.config.ConstructorArgumentValues;
@@ -19,11 +18,8 @@ import java.util.Set;
  */
 public class ConnectBeanDefinitionScanner extends ClassPathBeanDefinitionScanner {
 
-    private final Class<? extends IConnectProcessor> processor;
-
-    public ConnectBeanDefinitionScanner(BeanDefinitionRegistry registry, Class<? extends IConnectProcessor> processor) {
+    public ConnectBeanDefinitionScanner(BeanDefinitionRegistry registry) {
         super(registry);
-        this.processor = processor;
     }
 
     @Override
@@ -39,7 +35,6 @@ public class ConnectBeanDefinitionScanner extends ClassPathBeanDefinitionScanner
             ScannedGenericBeanDefinition beanDefinition = (ScannedGenericBeanDefinition) beanDefinitionHolder.getBeanDefinition();
             ConstructorArgumentValues constructorArgumentValues = beanDefinition.getConstructorArgumentValues();
             constructorArgumentValues.addGenericArgumentValue(beanDefinition.getBeanClassName());
-            constructorArgumentValues.addGenericArgumentValue(processor);
             beanDefinition.setBeanClass(ConnectFactoryBean.class);
         }
         return beanDefinitionHolders;

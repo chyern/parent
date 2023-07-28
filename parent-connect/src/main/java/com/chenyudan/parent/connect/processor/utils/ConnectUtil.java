@@ -1,13 +1,13 @@
-package com.chenyudan.parent.connect.processor.connect.utils;
+package com.chenyudan.parent.connect.processor.utils;
 
-import com.chenyudan.parent.connect.exception.ConnectErrorEnum;
-import com.chenyudan.parent.connect.processor.connect.Connect;
-import com.chenyudan.parent.connect.processor.connect.annotation.method.RequestMapping;
-import com.chenyudan.parent.connect.processor.connect.annotation.resource.Body;
-import com.chenyudan.parent.connect.processor.connect.annotation.resource.Header;
-import com.chenyudan.parent.connect.processor.connect.annotation.resource.Path;
-import com.chenyudan.parent.connect.processor.connect.annotation.resource.Query;
-import com.chenyudan.parent.connect.processor.connect.domain.ConnectModel;
+import com.chenyudan.parent.connect.processor.exception.ConnectErrorEnum;
+import com.chenyudan.parent.connect.Connect;
+import com.chenyudan.parent.connect.processor.annotation.method.RequestMapping;
+import com.chenyudan.parent.connect.processor.annotation.resource.Body;
+import com.chenyudan.parent.connect.processor.annotation.resource.Header;
+import com.chenyudan.parent.connect.processor.annotation.resource.Path;
+import com.chenyudan.parent.connect.processor.annotation.resource.Query;
+import com.chenyudan.parent.connect.processor.domain.ConnectModel;
 import com.chenyudan.parent.core.constant.Constant;
 import com.chenyudan.parent.core.utils.AssertUtil;
 import org.apache.commons.lang3.StringUtils;

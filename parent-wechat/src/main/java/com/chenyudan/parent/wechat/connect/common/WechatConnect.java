@@ -1,9 +1,9 @@
 package com.chenyudan.parent.wechat.connect.common;
 
-import com.chenyudan.parent.connect.processor.connect.Connect;
-import com.chenyudan.parent.connect.processor.connect.annotation.method.RequestMapping;
-import com.chenyudan.parent.connect.processor.connect.annotation.resource.Query;
-import com.chenyudan.parent.connect.processor.connect.constant.Method;
+import com.chenyudan.parent.connect.Connect;
+import com.chenyudan.parent.connect.processor.annotation.method.RequestMapping;
+import com.chenyudan.parent.connect.processor.annotation.resource.Query;
+import com.chenyudan.parent.connect.processor.constant.Method;
 import com.chenyudan.parent.wechat.connect.common.domain.response.AccessTokenResponse;
 import com.chenyudan.parent.wechat.connect.common.domain.response.ApiDomainIpResponse;
 import com.chenyudan.parent.wechat.connect.common.process.WechatConnectProcessor;

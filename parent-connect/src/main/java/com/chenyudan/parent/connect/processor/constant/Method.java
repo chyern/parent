@@ -1,4 +1,4 @@
-package com.chenyudan.parent.connect.processor.connect.constant;
+package com.chenyudan.parent.connect.processor.constant;
 
 /**
  * Description: TODO

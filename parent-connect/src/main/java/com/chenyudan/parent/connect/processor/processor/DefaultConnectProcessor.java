@@ -1,4 +1,4 @@
-package com.chenyudan.parent.connect.processor.connect.processor;
+package com.chenyudan.parent.connect.processor.processor;
 
 import org.springframework.stereotype.Component;
 

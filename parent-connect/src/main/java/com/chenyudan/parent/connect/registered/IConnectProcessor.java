@@ -1,4 +1,4 @@
-package com.chenyudan.parent.connect.processor;
+package com.chenyudan.parent.connect.registered;
 
 import java.lang.reflect.Method;
 

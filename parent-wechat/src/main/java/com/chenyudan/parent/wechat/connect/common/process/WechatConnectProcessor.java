@@ -1,6 +1,6 @@
 package com.chenyudan.parent.wechat.connect.common.process;
 
-import com.chenyudan.parent.connect.processor.connect.processor.AbstractConnectProcessor;
+import com.chenyudan.parent.connect.processor.processor.AbstractConnectProcessor;
 import com.chenyudan.parent.wechat.connect.common.domain.response.AccessTokenResponse;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;

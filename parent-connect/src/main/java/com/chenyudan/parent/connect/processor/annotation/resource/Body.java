@@ -1,4 +1,4 @@
-package com.chenyudan.parent.connect.processor.connect.annotation.resource;
+package com.chenyudan.parent.connect.processor.annotation.resource;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -7,8 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Description: 请求地址参数
- * xx/{path}/xx
+ * Description: 请求对象
  *
  * @author Chyern
  * @since 2021/4/22
@@ -16,6 +15,5 @@ import java.lang.annotation.Target;
 @Documented
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Path {
-    String value();
+public @interface Body {
 }

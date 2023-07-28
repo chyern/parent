@@ -1,7 +1,7 @@
-package com.chenyudan.parent.connect.processor.connect.domain;
+package com.chenyudan.parent.connect.processor.domain;
 
-import com.chenyudan.parent.connect.processor.connect.constant.MediaType;
-import com.chenyudan.parent.connect.processor.connect.constant.Method;
+import com.chenyudan.parent.connect.processor.constant.MediaType;
+import com.chenyudan.parent.connect.processor.constant.Method;
 import com.chenyudan.parent.core.constant.Constant;
 import com.google.gson.GsonBuilder;
 import lombok.Data;

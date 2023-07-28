@@ -1,6 +1,5 @@
 package com.chenyudan.parent.connect.registered;
 
-import com.chenyudan.parent.connect.processor.IConnectProcessor;
 import org.springframework.cglib.proxy.InvocationHandler;
 
 import java.lang.reflect.Method;
@@ -12,21 +11,22 @@ import java.lang.reflect.Method;
  * @since 2021/4/24
  */
 public class ConnectProxy implements InvocationHandler {
-    private final IConnectProcessor connectProcessor;
 
-    public ConnectProxy(IConnectProcessor connectProcessor) {
-        this.connectProcessor = connectProcessor;
+    private final ConnectInvokeProcessor connectInvokeProcessor;
+
+    public ConnectProxy(ConnectInvokeProcessor connectInvokeProcessor) {
+        this.connectInvokeProcessor = connectInvokeProcessor;
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         try {
-            connectProcessor.before(proxy, method, args);
-            Object execute = connectProcessor.execute(proxy, method, args);
-            connectProcessor.after(proxy, method, args, execute);
+            connectInvokeProcessor.before(proxy, method, args);
+            Object execute = connectInvokeProcessor.execute(proxy, method, args);
+            connectInvokeProcessor.after(proxy, method, args, execute);
             return execute;
         } catch (Exception exception) {
-            connectProcessor.throwsException(proxy, method, args, exception);
+            connectInvokeProcessor.throwsException(proxy, method, args, exception);
             throw exception;
         }
     }

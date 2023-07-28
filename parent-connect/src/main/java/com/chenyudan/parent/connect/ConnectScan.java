@@ -1,11 +1,10 @@
 package com.chenyudan.parent.connect;
 
-import com.chenyudan.parent.connect.processor.IConnectProcessor;
+import com.chenyudan.parent.connect.registered.ConnectConfig;
 import com.chenyudan.parent.connect.registered.ConnectScanRegistrar;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import java.lang.annotation.Annotation;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -22,12 +21,8 @@ import java.lang.annotation.Target;
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import({ConnectScanRegistrar.class})
+@Import({ConnectConfig.class, ConnectScanRegistrar.class})
 public @interface ConnectScan {
 
-    String[] value() default {};
-
-    Class<? extends Annotation> annotation();
-
-    Class<? extends IConnectProcessor> connectProcessor();
+    String[] value();
 }

@@ -1,8 +1,9 @@
-package com.chenyudan.parent.connect.processor.connect.processor;
+package com.chenyudan.parent.connect.processor.processor;
 
 import com.chenyudan.parent.api.exception.enums.BaseExceptionEnum;
-import com.chenyudan.parent.connect.processor.connect.domain.ConnectModel;
-import com.chenyudan.parent.connect.processor.connect.utils.ConnectUtil;
+import com.chenyudan.parent.connect.processor.domain.ConnectModel;
+import com.chenyudan.parent.connect.processor.utils.ConnectUtil;
+import com.chenyudan.parent.connect.registered.IConnectProcessor;
 import com.chenyudan.parent.core.constant.Constant;
 import com.chenyudan.parent.core.utils.AssertUtil;
 import com.google.gson.GsonBuilder;
@@ -27,9 +28,7 @@ import java.util.concurrent.TimeUnit;
  * @since 2022/7/29 22:39
  */
 @Slf4j
-public abstract class AbstractConnectProcessor {
-
-    protected ConnectModel connectModel;
+public abstract class AbstractConnectProcessor implements IConnectProcessor {
 
     private static final OkHttpClient httpClient = new OkHttpClient()
             .newBuilder()
@@ -38,10 +37,11 @@ public abstract class AbstractConnectProcessor {
             .build();
 
     public void before(Object proxy, Method method, Object[] args) throws Throwable {
-        connectModel = ConnectUtil.buildBy(method, args);
     }
 
     public Object execute(Object proxy, Method method, Object[] args) throws Throwable {
+
+        ConnectModel connectModel = ConnectUtil.buildBy(method, args);
 
         //请求体
         RequestBody body = null;

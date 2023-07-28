@@ -1,7 +1,7 @@
-package com.chenyudan.parent.connect.processor.connect;
+package com.chenyudan.parent.connect;
 
-import com.chenyudan.parent.connect.processor.connect.processor.AbstractConnectProcessor;
-import com.chenyudan.parent.connect.processor.connect.processor.DefaultConnectProcessor;
+import com.chenyudan.parent.connect.processor.processor.DefaultConnectProcessor;
+import com.chenyudan.parent.connect.registered.IConnectProcessor;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -26,5 +26,5 @@ public @interface Connect {
      */
     String value();
 
-    Class<? extends AbstractConnectProcessor> processor() default DefaultConnectProcessor.class;
+    Class<? extends IConnectProcessor> processor() default DefaultConnectProcessor.class;
 }

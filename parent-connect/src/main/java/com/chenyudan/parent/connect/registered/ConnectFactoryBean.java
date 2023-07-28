@@ -1,6 +1,5 @@
 package com.chenyudan.parent.connect.registered;
 
-import com.chenyudan.parent.connect.processor.IConnectProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
@@ -17,20 +16,18 @@ import org.springframework.context.ApplicationContextAware;
 @Slf4j
 public class ConnectFactoryBean<T> implements FactoryBean<T>, ApplicationContextAware {
 
-    private ApplicationContext applicationContext;
+    private ApplicationContext context;
 
     private final Class<T> interfaceType;
-    private final Class<? extends IConnectProcessor> processor;
 
 
-    public ConnectFactoryBean(Class<? extends IConnectProcessor> processor, Class<T> interfaceType) {
+    public ConnectFactoryBean(Class<T> interfaceType) {
         this.interfaceType = interfaceType;
-        this.processor = processor;
     }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
+        this.context = applicationContext;
     }
 
     @Override
@@ -40,12 +37,12 @@ public class ConnectFactoryBean<T> implements FactoryBean<T>, ApplicationContext
 
     @Override
     public boolean isSingleton() {
-        return true;
+        return FactoryBean.super.isSingleton();
     }
 
     @Override
     public T getObject() {
-        IConnectProcessor connectProcessor = applicationContext.getBean(processor);
-        return (T) Proxy.newProxyInstance(interfaceType.getClassLoader(), new Class[]{interfaceType}, new ConnectProxy(connectProcessor));
+        ConnectInvokeProcessor connectInvokeProcessor = context.getBean(ConnectInvokeProcessor.class);
+        return (T) Proxy.newProxyInstance(interfaceType.getClassLoader(), new Class[]{interfaceType}, new ConnectProxy(connectInvokeProcessor));
     }
 }

@@ -2,7 +2,7 @@ package com.chenyudan.parent.connect.registered;
 
 import com.chenyudan.parent.connect.ConnectScan;
 import com.chenyudan.parent.connect.ConnectScans;
-import com.chenyudan.parent.connect.processor.IConnectProcessor;
+import com.chenyudan.parent.connect.Connect;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.annotation.AnnotationAttributes;
@@ -11,7 +11,6 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
-import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -37,17 +36,17 @@ public class ConnectScanRegistrar implements ImportBeanDefinitionRegistrar {
         }
 
         Map<String, Object> connectScanMap = metadata.getAnnotationAttributes(ConnectScan.class.getName());
-        AnnotationAttributes attributes = AnnotationAttributes.fromMap(connectScanMap);
-        registerBeanDefinitions(metadata, registry, attributes);
+        if (connectScanMap != null) {
+            AnnotationAttributes attributes = AnnotationAttributes.fromMap(connectScanMap);
+            registerBeanDefinitions(metadata, registry, attributes);
+        }
     }
 
     private void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry, AnnotationAttributes attributes) {
         String[] basePackages = attributes.getStringArray("value");
-        Class<? extends Annotation> annotation = attributes.getClass("annotation");
-        Class<? extends IConnectProcessor> connectProcessor = attributes.getClass("connectProcessor");
 
-        ConnectBeanDefinitionScanner scanner = new ConnectBeanDefinitionScanner(registry, connectProcessor);
-        scanner.addIncludeFilter(new AnnotationTypeFilter(annotation));
+        ConnectBeanDefinitionScanner scanner = new ConnectBeanDefinitionScanner(registry);
+        scanner.addIncludeFilter(new AnnotationTypeFilter(Connect.class));
 
         String[] packagesToScan = getPackagesToScan(importingClassMetadata, basePackages);
         scanner.doScan(packagesToScan);

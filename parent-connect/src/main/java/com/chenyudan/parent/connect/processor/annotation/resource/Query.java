@@ -1,4 +1,4 @@
-package com.chenyudan.parent.connect.processor.connect.annotation.resource;
+package com.chenyudan.parent.connect.processor.annotation.resource;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

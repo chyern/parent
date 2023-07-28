@@ -1,4 +1,4 @@
-package com.chenyudan.parent.connect.processor.connect.config;
+package com.chenyudan.parent.connect.registered;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +10,6 @@ import org.springframework.context.annotation.Configuration;
  * @since 2023/4/10 19:56
  */
 @Configuration
-@ComponentScan("com.chenyudan.parent.connect.processor.connect")
+@ComponentScan({"com.chenyudan.parent.connect.processor","com.chenyudan.parent.connect.registered"})
 public class ConnectConfig {
 }
