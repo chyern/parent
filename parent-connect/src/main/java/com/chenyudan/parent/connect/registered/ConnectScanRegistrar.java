@@ -46,6 +46,7 @@ public class ConnectScanRegistrar implements ImportBeanDefinitionRegistrar {
         String[] basePackages = attributes.getStringArray("value");
 
         ConnectBeanDefinitionScanner scanner = new ConnectBeanDefinitionScanner(registry);
+        scanner.resetFilters(false);
         scanner.addIncludeFilter(new AnnotationTypeFilter(Connect.class));
 
         String[] packagesToScan = getPackagesToScan(importingClassMetadata, basePackages);
