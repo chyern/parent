@@ -11,10 +11,6 @@
 
     <artifactId>parent-connect</artifactId>
 
-    <properties>
-        <okhttp.version>3.14.9</okhttp.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.chenyudan</groupId>
@@ -27,19 +23,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-annotations-api</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
-            <version>${okhttp.version}</version>
         </dependency>
     </dependencies>
 
