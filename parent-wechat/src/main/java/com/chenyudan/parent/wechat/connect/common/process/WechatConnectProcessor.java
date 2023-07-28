@@ -1,6 +1,6 @@
 package com.chenyudan.parent.wechat.connect.common.process;
 
-import com.chenyudan.parent.connect.processor.processor.AbstractConnectProcessor;
+import com.chenyudan.parent.connect.processor.processor.DefaultConnectProcessor;
 import com.chenyudan.parent.wechat.connect.common.domain.response.AccessTokenResponse;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  * @since 2022/7/29 15:41
  */
 @Component
-public class WechatConnectProcessor extends AbstractConnectProcessor {
+public class WechatConnectProcessor extends DefaultConnectProcessor {
 
     private static final Cache<String, AccessTokenResponse> cache = Caffeine.newBuilder().expireAfterAccess(7200, TimeUnit.SECONDS).build();
 

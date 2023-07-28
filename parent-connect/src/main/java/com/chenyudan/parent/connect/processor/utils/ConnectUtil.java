@@ -31,11 +31,11 @@ import java.util.Map;
 @Component
 public class ConnectUtil implements ApplicationContextAware {
 
-    private static ApplicationContext applicationContext;
+    private static ApplicationContext context;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        ConnectUtil.applicationContext = applicationContext;
+        ConnectUtil.context = applicationContext;
     }
 
     /**
@@ -123,11 +123,11 @@ public class ConnectUtil implements ApplicationContextAware {
             if (value.contains(":")) {
                 String substringBefore = StringUtils.substringBefore(value, ":");
                 String substringAfter = StringUtils.substringAfter(value, ":");
-                value = applicationContext.getEnvironment().getProperty(substringBefore, substringAfter);
+                value = context.getEnvironment().getProperty(substringBefore, substringAfter);
             } else {
-                boolean containsProperty = applicationContext.getEnvironment().containsProperty(value);
+                boolean containsProperty = context.getEnvironment().containsProperty(value);
                 AssertUtil.isTrue(containsProperty, ConnectErrorEnum.COULD_NOT_INSTANTIATION_KEY, key);
-                value = applicationContext.getEnvironment().getProperty(value);
+                value = context.getEnvironment().getProperty(value);
             }
         }
         return value;
