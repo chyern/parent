@@ -2,7 +2,7 @@ package com.chenyudan.parent.wechat.connect.common;
 
 import com.chenyudan.parent.connect.Connect;
 import com.chenyudan.parent.connect.processor.annotation.method.RequestMapping;
-import com.chenyudan.parent.connect.processor.annotation.resource.Query;
+import com.chenyudan.parent.connect.processor.annotation.resource.Queries;
 import com.chenyudan.parent.connect.processor.constant.Method;
 import com.chenyudan.parent.wechat.connect.common.domain.response.AccessTokenResponse;
 import com.chenyudan.parent.wechat.connect.common.domain.response.ApiDomainIpResponse;
@@ -25,7 +25,7 @@ public interface WechatConnect {
      * @return
      */
     @RequestMapping(value = "/cgi-bin/gettoken", method = Method.GET)
-    AccessTokenResponse getAccessToken(@Query("corpid") String corpid, @Query("corpsecret") String corpsecret);
+    AccessTokenResponse getAccessToken(@Queries("corpid") String corpid, @Queries("corpsecret") String corpsecret);
 
     /**
      * 获取企业微信API域名IP段
@@ -34,5 +34,5 @@ public interface WechatConnect {
      * @return
      */
     @RequestMapping(value = "/cgi-bin/get_api_domain_ip", method = Method.GET)
-    ApiDomainIpResponse getApiDomainIps(@Query("access_token") String access_token);
+    ApiDomainIpResponse getApiDomainIps(@Queries("access_token") String access_token);
 }

@@ -1,15 +1,17 @@
 package com.chenyudan.parent.connect.processor.utils;
 
-import com.chenyudan.parent.connect.processor.exception.ConnectErrorEnum;
 import com.chenyudan.parent.connect.Connect;
 import com.chenyudan.parent.connect.processor.annotation.method.RequestMapping;
 import com.chenyudan.parent.connect.processor.annotation.resource.Body;
 import com.chenyudan.parent.connect.processor.annotation.resource.Header;
 import com.chenyudan.parent.connect.processor.annotation.resource.Path;
+import com.chenyudan.parent.connect.processor.annotation.resource.Queries;
 import com.chenyudan.parent.connect.processor.annotation.resource.Query;
 import com.chenyudan.parent.connect.processor.domain.ConnectModel;
+import com.chenyudan.parent.connect.processor.exception.ConnectErrorEnum;
 import com.chenyudan.parent.core.constant.Constant;
 import com.chenyudan.parent.core.utils.AssertUtil;
+import com.chenyudan.parent.core.utils.BeanConvertUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -21,6 +23,8 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 /**
  * Description: TODO
@@ -66,9 +70,13 @@ public class ConnectUtil implements ApplicationContextAware {
             for (Annotation annotation : parameterAnnotations[i]) {
                 //head
                 if (annotation instanceof Header) {
-                    AssertUtil.isTrue(arg instanceof Map, ConnectErrorEnum.CONNECT_HEADER_TYPE_ERROR);
-                    Map<String, String> map = (Map<String, String>) arg;
-                    headMap.putAll(map);
+                    if (arg instanceof Map) {
+                        Map<String, String> map = (Map<String, String>) arg;
+                        headMap.putAll(map);
+                    } else {
+                        Map<String, Object> map = BeanConvertUtil.beanToMap(arg);
+                        headMap.putAll(map.entrySet().stream().collect(Collectors.toMap(Entry::getKey, e -> e.getValue().toString())));
+                    }
                 }
                 //path
                 if (annotation instanceof Path) {
@@ -76,9 +84,13 @@ public class ConnectUtil implements ApplicationContextAware {
                     pathMap.put(path.value(), arg.toString());
                 }
                 //param
+                if (annotation instanceof Queries) {
+                    Queries queries = (Queries) annotation;
+                    paramMap.put(queries.value(), arg);
+                }
                 if (annotation instanceof Query) {
-                    Query query = (Query) annotation;
-                    paramMap.put(query.value(), arg);
+                    Map<String, Object> map = BeanConvertUtil.beanToMap(arg);
+                    paramMap.putAll(map);
                 }
                 //body
                 if (annotation instanceof Body) {

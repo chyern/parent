@@ -3,7 +3,7 @@ package com.chenyudan.parent.wechat.connect.message.domain;
 import com.chenyudan.parent.connect.Connect;
 import com.chenyudan.parent.connect.processor.annotation.method.RequestMapping;
 import com.chenyudan.parent.connect.processor.annotation.resource.Body;
-import com.chenyudan.parent.connect.processor.annotation.resource.Query;
+import com.chenyudan.parent.connect.processor.annotation.resource.Queries;
 import com.chenyudan.parent.connect.processor.constant.Method;
 import com.chenyudan.parent.wechat.connect.message.domain.request.SendMessageRequest;
 import com.chenyudan.parent.wechat.connect.message.domain.response.SendMessageResponse;
@@ -25,5 +25,5 @@ public interface WechatMessageConnect {
      * @return
      */
     @RequestMapping(value = "/cgi-bin/message/send", method = Method.POST)
-    <T extends SendMessageRequest> SendMessageResponse sendMessage(@Query("access_token") String access_token, @Body T request);
+    <T extends SendMessageRequest> SendMessageResponse sendMessage(@Queries("access_token") String access_token, @Body T request);
 }

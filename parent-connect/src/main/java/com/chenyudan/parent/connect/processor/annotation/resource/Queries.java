@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 
 /**
  * Description: 请求参数
+ * ?a=xxx&b=xxx
  *
  * @author Chyern
  * @since 2021/4/22
@@ -15,5 +16,6 @@ import java.lang.annotation.Target;
 @Documented
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Query {
+public @interface Queries {
+    String value();
 }

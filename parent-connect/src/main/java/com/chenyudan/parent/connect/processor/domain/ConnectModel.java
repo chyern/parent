@@ -3,9 +3,9 @@ package com.chenyudan.parent.connect.processor.domain;
 import com.chenyudan.parent.connect.processor.constant.MediaType;
 import com.chenyudan.parent.connect.processor.constant.Method;
 import com.chenyudan.parent.core.constant.Constant;
+import com.chenyudan.parent.core.utils.BeanConvertUtil;
 import com.google.gson.GsonBuilder;
 import lombok.Data;
-import org.apache.commons.beanutils.BeanMap;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ public class ConnectModel {
      */
     public String getParamsUrl() {
         if (params == null) {
-            return StringUtils.EMPTY;
+            return Constant.EMPTY;
         }
 
         List<String> paramList = new ArrayList<>();
@@ -91,13 +91,13 @@ public class ConnectModel {
             return bodyStr;
         }
         if (MediaType.X_WWW_FORM_URLENCODED.equals(mediaType)) {
-            BeanMap beanMap = new BeanMap(body);
-            List<String> collect = beanMap.entrySet().stream().map(entry -> {
+            Map<String, Object> map = BeanConvertUtil.beanToMap(body);
+            List<String> collect = map.entrySet().stream().map(entry -> {
                 Object key = entry.getKey();
                 Object value = entry.getValue();
                 return key + Constant.EQUAL_SIGN + value;
             }).collect(Collectors.toList());
-            bodyStr = StringUtils.join(collect, "&");
+            bodyStr = StringUtils.join(collect, Constant.AMPERSAND);
         } else {
             bodyStr = new GsonBuilder().create().toJson(body);
         }

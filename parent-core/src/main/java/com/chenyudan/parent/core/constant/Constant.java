@@ -78,5 +78,10 @@ public interface Constant {
      */
     String HYPHEN = "-";
 
+    /**
+     * 空字符串
+     */
+    String EMPTY = "";
+
 
 }

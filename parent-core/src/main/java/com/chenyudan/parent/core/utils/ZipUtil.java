@@ -1,7 +1,7 @@
 package com.chenyudan.parent.core.utils;
 
 import com.chenyudan.parent.api.exception.enums.BaseExceptionEnum;
-import org.apache.commons.lang3.StringUtils;
+import com.chenyudan.parent.core.constant.Constant;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -34,7 +34,7 @@ public class ZipUtil {
 
         try (FileOutputStream fileOutputStream = new FileOutputStream(outFile);
              ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream)) {
-            compressZip(zipOutputStream, compressFile, StringUtils.EMPTY);
+            compressZip(zipOutputStream, compressFile, Constant.EMPTY);
             zipOutputStream.closeEntry();
         } catch (IOException exception) {
             outFile.deleteOnExit();
@@ -69,7 +69,7 @@ public class ZipUtil {
 
         for (File file : files) {
             if (file.isDirectory()) {
-                if (StringUtils.EMPTY.equals(suffixPath)) {
+                if (Constant.EMPTY.equals(suffixPath)) {
                     compressZip(zipOutputStream, file, file.getName());
                 } else {
                     compressZip(zipOutputStream, file, suffixPath + File.separator + file.getName());
@@ -89,7 +89,7 @@ public class ZipUtil {
      */
     private static void zip(ZipOutputStream zipOutputStream, File compressFile, String suffixPath) throws IOException {
         ZipEntry zEntry;
-        if (StringUtils.EMPTY.equals(suffixPath)) {
+        if (Constant.EMPTY.equals(suffixPath)) {
             zEntry = new ZipEntry(compressFile.getName());
         } else {
             zEntry = new ZipEntry(suffixPath + File.separator + compressFile.getName());
