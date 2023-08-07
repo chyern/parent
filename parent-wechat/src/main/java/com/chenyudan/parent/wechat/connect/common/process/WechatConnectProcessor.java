@@ -1,10 +1,10 @@
 package com.chenyudan.parent.wechat.connect.common.process;
 
 import com.chenyudan.parent.connect.processor.processor.DefaultConnectProcessor;
+import com.chenyudan.parent.core.utils.StringUtil;
 import com.chenyudan.parent.wechat.connect.common.domain.response.AccessTokenResponse;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -25,7 +25,7 @@ public class WechatConnectProcessor extends DefaultConnectProcessor {
     public Object execute(Object proxy, Method method, Object[] args) throws Throwable {
         Object result;
         if ("getAccessToken".equals(method.getName())) {
-            String key = StringUtils.join(args, "-");
+            String key = StringUtil.join(args, "-");
             result = cache.get(key, func -> {
                 try {
                     return (AccessTokenResponse) super.execute(proxy, method, args);

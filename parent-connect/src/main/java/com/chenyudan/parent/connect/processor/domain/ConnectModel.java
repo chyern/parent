@@ -4,9 +4,9 @@ import com.chenyudan.parent.connect.processor.constant.MediaType;
 import com.chenyudan.parent.connect.processor.constant.Method;
 import com.chenyudan.parent.core.constant.Constant;
 import com.chenyudan.parent.core.utils.BeanConvertUtil;
+import com.chenyudan.parent.core.utils.StringUtil;
 import com.google.gson.GsonBuilder;
 import lombok.Data;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +79,7 @@ public class ConnectModel {
             paramList.add(key + Constant.EQUAL_SIGN + value);
         }
 
-        return StringUtils.join(paramList, Constant.AMPERSAND);
+        return StringUtil.join(paramList, Constant.AMPERSAND);
     }
 
     /**
@@ -97,7 +97,7 @@ public class ConnectModel {
                 Object value = entry.getValue();
                 return key + Constant.EQUAL_SIGN + value;
             }).collect(Collectors.toList());
-            bodyStr = StringUtils.join(collect, Constant.AMPERSAND);
+            bodyStr = StringUtil.join(collect, Constant.AMPERSAND);
         } else {
             bodyStr = new GsonBuilder().create().toJson(body);
         }

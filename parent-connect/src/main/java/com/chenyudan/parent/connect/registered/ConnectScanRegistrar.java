@@ -1,15 +1,15 @@
 package com.chenyudan.parent.connect.registered;
 
+import com.chenyudan.parent.connect.Connect;
 import com.chenyudan.parent.connect.ConnectScan;
 import com.chenyudan.parent.connect.ConnectScans;
-import com.chenyudan.parent.connect.Connect;
+import com.chenyudan.parent.core.utils.StringUtil;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.util.ClassUtils;
-import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -59,6 +59,6 @@ public class ConnectScanRegistrar implements ImportBeanDefinitionRegistrar {
         if (packagesToScan.isEmpty()) {
             packagesToScan = Collections.singleton(ClassUtils.getPackageName(importingClassMetadata.getClassName()));
         }
-        return StringUtils.toStringArray(packagesToScan);
+        return StringUtil.toStringArray(packagesToScan);
     }
 }

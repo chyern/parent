@@ -3,7 +3,6 @@ package com.chenyudan.parent.core.utils;
 
 import com.chenyudan.parent.api.exception.BaseException;
 import com.chenyudan.parent.api.exception.enums.BaseExceptionEnum;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -150,7 +149,7 @@ public class FileUtil {
      * @param contents 写入内容
      */
     public static File writeFile(String path, List<String> contents) throws IOException {
-        String content = StringUtils.join(contents, System.lineSeparator());
+        String content = StringUtil.join(contents, System.lineSeparator());
         return writeFile(path, content);
     }
 

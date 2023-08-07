@@ -12,7 +12,7 @@ import com.chenyudan.parent.connect.processor.exception.ConnectErrorEnum;
 import com.chenyudan.parent.core.constant.Constant;
 import com.chenyudan.parent.core.utils.AssertUtil;
 import com.chenyudan.parent.core.utils.BeanConvertUtil;
-import org.apache.commons.lang3.StringUtils;
+import com.chenyudan.parent.core.utils.StringUtil;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -110,7 +110,7 @@ public class ConnectUtil implements ApplicationContextAware {
         String requestUrl = requestMapping.value();
 
         if (url.endsWith(Constant.OBLIQUE)) {
-            url = StringUtils.substringBeforeLast(url, Constant.OBLIQUE);
+            url = StringUtil.substringBeforeLast(url, Constant.OBLIQUE);
         }
         if (requestUrl.startsWith(Constant.OBLIQUE)) {
             url = url + requestUrl;
@@ -131,10 +131,10 @@ public class ConnectUtil implements ApplicationContextAware {
     private static String analysisProperty(String key) {
         String value = key;
         if (value.startsWith("${") && value.endsWith("}")) {
-            value = StringUtils.substringBetween(value, "${", "}");
+            value = StringUtil.substringBetween(value, "${", "}");
             if (value.contains(":")) {
-                String substringBefore = StringUtils.substringBefore(value, ":");
-                String substringAfter = StringUtils.substringAfter(value, ":");
+                String substringBefore = StringUtil.substringBefore(value, ":");
+                String substringAfter = StringUtil.substringAfter(value, ":");
                 value = context.getEnvironment().getProperty(substringBefore, substringAfter);
             } else {
                 boolean containsProperty = context.getEnvironment().containsProperty(value);

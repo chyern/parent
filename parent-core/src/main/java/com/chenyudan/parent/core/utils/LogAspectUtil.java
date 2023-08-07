@@ -3,7 +3,6 @@ package com.chenyudan.parent.core.utils;
 import ch.qos.logback.core.helpers.ThrowableToStringArray;
 import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.slf4j.MDC;
@@ -24,7 +23,7 @@ public class LogAspectUtil {
     public static Object excute(ProceedingJoinPoint point) throws Throwable {
         String trackId = MDC.get(TRACK_ID);
 
-        boolean notExist = StringUtils.isBlank(trackId);
+        boolean notExist = StringUtil.isBlank(trackId);
         if (notExist) {
             MDC.put(TRACK_ID, UUID.randomUUID().toString());
         }
@@ -55,7 +54,7 @@ public class LogAspectUtil {
             logStr.append("result:").append(throwable.getMessage());
             log.error(logStr.toString());
             if (notExist) {
-                log.error(StringUtils.join(ThrowableToStringArray.convert(throwable), System.lineSeparator()));
+                log.error(StringUtil.join(ThrowableToStringArray.convert(throwable), System.lineSeparator()));
             }
             throw throwable;
         } finally {

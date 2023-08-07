@@ -3,8 +3,8 @@ package com.chenyudan.parent.database.mybatis.injector.method;
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
+import com.chenyudan.parent.core.utils.StringUtil;
 import com.chenyudan.parent.database.mybatis.injector.constants.SqlMethod;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.executor.keygen.NoKeyGenerator;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlSource;
@@ -46,7 +46,7 @@ public class InsertBatchMethod extends AbstractMethod {
     private static LinkedHashMap<String, String> getTableFieldMap(TableInfo tableInfo) {
         LinkedHashMap<String, String> tableFieldMap = new LinkedHashMap<>();
 
-        if (StringUtils.isNotBlank(tableInfo.getKeyColumn()) && StringUtils.isNotBlank(tableInfo.getKeyProperty())) {
+        if (StringUtil.isNotBlank(tableInfo.getKeyColumn()) && StringUtil.isNotBlank(tableInfo.getKeyProperty())) {
             tableFieldMap.put(tableInfo.getKeyColumn(), tableInfo.getKeyProperty());
         }
 
@@ -57,7 +57,7 @@ public class InsertBatchMethod extends AbstractMethod {
 
     private static String prepareFieldSql(LinkedHashMap<String, String> tableFieldMap) {
         List<String> fieldColumns = new ArrayList<>(tableFieldMap.keySet());
-        return "(" + StringUtils.join(fieldColumns, ",") + ")";
+        return "(" + StringUtil.join(fieldColumns, ",") + ")";
     }
 
     private static String prepareValuesSql(LinkedHashMap<String, String> tableFieldMap) {
@@ -66,6 +66,6 @@ public class InsertBatchMethod extends AbstractMethod {
 
         List<String> fieldPropertys = tableFieldMap.values().stream().map(s -> "#{item." + s + "}").collect(Collectors.toList());
 
-        return begin + StringUtils.join(fieldPropertys, ",") + end;
+        return begin + StringUtil.join(fieldPropertys, ",") + end;
     }
 }

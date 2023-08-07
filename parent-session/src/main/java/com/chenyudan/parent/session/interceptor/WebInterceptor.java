@@ -1,8 +1,8 @@
 package com.chenyudan.parent.session.interceptor;
 
 import com.chenyudan.parent.core.utils.LambdaUtil;
+import com.chenyudan.parent.core.utils.StringUtil;
 import com.chenyudan.parent.session.config.SessionConfigProperties;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -29,10 +29,10 @@ public class WebInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         //从cookie中获取
         String token = getToken(request.getCookies());
-        if (StringUtils.isBlank(token)) {
+        if (StringUtil.isBlank(token)) {
             //从header中获取
             token = request.getHeader(sessionConfigProperties.getTokenKey());
-            if (StringUtils.isBlank(token)) {
+            if (StringUtil.isBlank(token)) {
                 //生成token
                 token = UUID.randomUUID().toString();
             }

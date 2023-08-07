@@ -1,6 +1,6 @@
+import com.chenyudan.parent.core.utils.StringUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collection;
 import java.util.Map;
@@ -16,7 +16,7 @@ public class Ognl {
 
     public static boolean isEmpty(Object o) {
         if (o instanceof String) {
-            return StringUtils.isEmpty((String) o);
+            return StringUtil.isEmpty((String) o);
         }
         if (o instanceof Collection) {
             return CollectionUtils.isEmpty((Collection<?>) o);
@@ -33,7 +33,7 @@ public class Ognl {
 
     public static boolean isBlank(Object o) {
         if (o instanceof String) {
-            return StringUtils.isBlank((String) o);
+            return StringUtil.isBlank((String) o);
         }
         return false;
     }

@@ -6,6 +6,7 @@ import com.chenyudan.parent.connect.processor.utils.ConnectUtil;
 import com.chenyudan.parent.connect.registered.IConnectProcessor;
 import com.chenyudan.parent.core.constant.Constant;
 import com.chenyudan.parent.core.utils.AssertUtil;
+import com.chenyudan.parent.core.utils.StringUtil;
 import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
@@ -13,7 +14,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -94,7 +94,7 @@ public class DefaultConnectProcessor implements IConnectProcessor {
         String url = buildPathUrl(connectModel.getUrl(), connectModel.getPaths());
         String paramsUrl = connectModel.getParamsUrl();
 
-        if (StringUtils.isNotBlank(paramsUrl)) {
+        if (StringUtil.isNotBlank(paramsUrl)) {
             url = url + Constant.QUESTION_MARK + paramsUrl;
         }
         return url;
