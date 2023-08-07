@@ -19,7 +19,7 @@ import java.util.UUID;
 @Slf4j
 public class LogAspectUtil {
 
-    private static final String TRACK_ID = "trackId";
+    public static final String TRACK_ID = "trackId";
 
     public static Object excute(ProceedingJoinPoint point) throws Throwable {
         String trackId = MDC.get(TRACK_ID);
@@ -35,11 +35,19 @@ public class LogAspectUtil {
         try {
             Signature signature = point.getSignature();
             logStr.append("class:").append(signature.getDeclaringTypeName()).append("#").append(signature.getName()).append(System.lineSeparator());
+
             String argStr = new GsonBuilder().create().toJson(point.getArgs());
+            argStr = StringUtil.substring(argStr, 0, 200);
             logStr.append("args:").append(argStr).append(System.lineSeparator());
+
             proceed = point.proceed();
+
             logStr.append("consume:").append(System.currentTimeMillis() - t).append(System.lineSeparator());
-            logStr.append("result:").append(new GsonBuilder().create().toJson(proceed));
+
+            String result = new GsonBuilder().create().toJson(proceed);
+            result = StringUtil.substring(result, 0, 200);
+            logStr.append("result:").append(result);
+
             log.info(logStr.toString());
             return proceed;
         } catch (Throwable throwable) {
@@ -47,7 +55,7 @@ public class LogAspectUtil {
             logStr.append("result:").append(throwable.getMessage());
             log.error(logStr.toString());
             if (notExist) {
-                log.error(StringUtils.join(ThrowableToStringArray.convert(throwable),System.lineSeparator()));
+                log.error(StringUtils.join(ThrowableToStringArray.convert(throwable), System.lineSeparator()));
             }
             throw throwable;
         } finally {
