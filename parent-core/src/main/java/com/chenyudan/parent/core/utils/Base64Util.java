@@ -22,7 +22,9 @@ public class Base64Util {
      * 本地图片转base64
      */
     public static String fileToBase64(File file) throws IOException {
-        return inputStreamToBase64(new FileInputStream(file));
+        try (FileInputStream inputStream = new FileInputStream(file);) {
+            return inputStreamToBase64(inputStream);
+        }
     }
 
     /**
@@ -34,17 +36,18 @@ public class Base64Util {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setConnectTimeout(5000);
-        InputStream inputStream = conn.getInputStream();
-
-        return inputStreamToBase64(inputStream);
+        try (InputStream inputStream = conn.getInputStream();) {
+            return inputStreamToBase64(inputStream);
+        }
     }
 
     /**
      * 字符串转换base64
      */
     public static String stringToBase64(String str) throws IOException {
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(str.getBytes());
-        return inputStreamToBase64(byteArrayInputStream);
+        try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(str.getBytes())) {
+            return inputStreamToBase64(byteArrayInputStream);
+        }
     }
 
     /**
@@ -58,7 +61,7 @@ public class Base64Util {
      * 将输入类转换成Base64
      */
     public static String inputStreamToBase64(InputStream inputStream) throws IOException {
-        try (inputStream; ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             // 将内容读取内存中
             byte[] buffer = new byte[1024];
             int len;

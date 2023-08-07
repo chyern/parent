@@ -2,6 +2,7 @@ package com.chenyudan.parent.core.utils;
 
 import com.chenyudan.parent.api.exception.BaseException;
 import com.chenyudan.parent.api.exception.enums.BaseExceptionEnum;
+import com.chenyudan.parent.core.constant.Constant;
 import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
@@ -11,13 +12,11 @@ import okhttp3.Request.Builder;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 /**
  * Description: TODO
@@ -40,7 +39,7 @@ public class HttpUtil {
         return getResult(builder);
     }
 
-    public static String post(String url, Map<String, Object> params, Object body, Map<String, String> headers) {
+    public static String postForJson(String url, Map<String, Object> params, Object body, Map<String, String> headers) {
         String actualUrl = buildUrl(url, params);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=UTF-8"), new GsonBuilder().create().toJson(body));
         Request.Builder builder = new Request.Builder().url(actualUrl).method("GET", requestBody);
@@ -69,11 +68,11 @@ public class HttpUtil {
     public static String buildUrl(String url, Map<String, Object> params) {
         String actualUrl = url;
         if (params != null && !params.isEmpty()) {
-            List<String> paramList = params.entrySet().stream().map(entry -> entry.getKey() + "=" + entry.getValue()).collect(Collectors.toList());
-            String paramsStr = StringUtils.join(paramList, "&");
-            actualUrl = actualUrl + "?" + paramsStr;
+            List<String> paramList = LambdaUtil.mapToList(params, entry -> entry.getKey() + Constant.EQUAL_SIGN + entry.getValue());
+            String paramsStr = StringUtil.join(paramList, Constant.AMPERSAND);
+            actualUrl = actualUrl + Constant.QUESTION_MARK + paramsStr;
         }
-        log.info("http请求地址:{}", actualUrl);
+        log.debug("http请求地址:{}", actualUrl);
         return actualUrl;
     }
 }

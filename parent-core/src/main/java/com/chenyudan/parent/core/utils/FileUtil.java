@@ -167,12 +167,12 @@ public class FileUtil {
                     continue;
                 }
                 try (FileInputStream fileInputStream = new FileInputStream(file)) {
-                    byte b[] = new byte[1024];
-                    int read = fileInputStream.read(b);
+                    byte[] bytes = new byte[1024];
+                    int read = fileInputStream.read(bytes);
                     while (read > 0) {
-                        fileOutputStream.write(b, 0, read);
+                        fileOutputStream.write(bytes, 0, read);
                         fileOutputStream.flush();
-                        read = fileInputStream.read(b);
+                        read = fileInputStream.read(bytes);
                     }
                 }
                 fileOutputStream.write(System.lineSeparator().getBytes());
