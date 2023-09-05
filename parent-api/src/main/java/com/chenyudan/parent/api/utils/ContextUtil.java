@@ -20,7 +20,11 @@ public class ContextUtil {
 
     private static final String LOGIN_USER = "login_user";
 
-    public static Map<String, Object> get() {
+    private static final String ORGANIZATION_ID = "organization_id";
+
+    private static final String TENANT_ID = "tenant_id";
+
+    public static Map<String, Object> getContext() {
         Map<String, Object> map = threadLocal.get();
         if (map == null) {
             map = new HashMap<>();
@@ -29,48 +33,62 @@ public class ContextUtil {
         return map;
     }
 
+    public static void putContext(String key, Object value) {
+        Map<String, Object> map = getContext();
+        map.put(key, value);
+    }
+
     public static void remove() {
         threadLocal.remove();
     }
 
-    public static void put(String key, Object value) {
-        Map<String, Object> map = get();
-        map.put(key, value);
-    }
-
     public static void putLang(String lang) {
-        Map<String, Object> map = get();
-        map.put(LANG, lang);
+        putContext(LANG, lang);
     }
 
     public static Locale getLang() {
-        Map<String, Object> map = get();
-        String value = (String) map.get(LANG);
-        if (value == null || value.trim().length() == 0) {
+        Object langObj = getContext().get(LANG);
+        if (langObj == null || langObj.toString().isEmpty()) {
             return Locale.SIMPLIFIED_CHINESE;
         } else {
-            return new Locale(value);
+            return new Locale(langObj.toString());
         }
     }
 
     public static void putUserId(String userId) {
-        Map<String, Object> map = get();
-        map.put(USER_ID, userId);
+        putContext(USER_ID, userId);
     }
 
     public static String getUserId() {
-        Map<String, Object> map = get();
-        return map.containsKey(USER_ID) ? (String) map.get(USER_ID) : null;
+        Map<String, Object> context = getContext();
+        return context.containsKey(USER_ID) ? (String) context.get(USER_ID) : null;
     }
 
     public static void putLoginUser(Object value) {
-        Map<String, Object> map = get();
-        map.put(LOGIN_USER, value);
+        putContext(LOGIN_USER, value);
     }
 
-    public static Object getLoginUer() {
-        Map<String, Object> map = get();
-        return map.get(LOGIN_USER);
+    public static Object getLoginUser() {
+        return getContext().get(LOGIN_USER);
     }
+
+    public static void putOrganizationId(String organizationId) {
+        putContext(ORGANIZATION_ID, organizationId);
+    }
+
+    public static String getOrganizationId() {
+        Map<String, Object> context = getContext();
+        return context.containsKey(ORGANIZATION_ID) ? (String) context.get(ORGANIZATION_ID) : null;
+    }
+
+    public static void putTenantId(String tenantId) {
+        putContext(TENANT_ID, tenantId);
+    }
+
+    public static String getTenantId() {
+        Map<String, Object> context = getContext();
+        return context.containsKey(TENANT_ID) ? (String) context.get(TENANT_ID) : null;
+    }
+
 
 }
