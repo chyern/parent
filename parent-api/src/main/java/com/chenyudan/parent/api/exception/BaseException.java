@@ -2,6 +2,7 @@ package com.chenyudan.parent.api.exception;
 
 import com.chenyudan.parent.api.enums.IErrorEnum;
 import com.chenyudan.parent.api.utils.TranslationUtil;
+import lombok.Getter;
 
 /**
  * Description: TODO
@@ -9,19 +10,12 @@ import com.chenyudan.parent.api.utils.TranslationUtil;
  * @author Chyern
  * @since 2021/7/19
  */
+@Getter
 public class BaseException extends RuntimeException {
 
     private final Integer errorCode;
 
     private final String errorMsg;
-
-    public Integer getErrorCode() {
-        return errorCode;
-    }
-
-    public String getErrorMsg() {
-        return errorMsg;
-    }
 
     public BaseException(Integer errorCode, String errorMsg) {
         super(errorCode.toString());

@@ -15,13 +15,14 @@ import java.io.Serializable;
 @ApiModel(description = "Description: 基础结果")
 @Data
 public class BaseResult implements Serializable {
+
     @ApiModelProperty(hidden = true)
     private static final long serialVersionUID = 5604336341064298376L;
 
     /**
      * 请求id
      */
-    @ApiModelProperty("请求id")
+    @ApiModelProperty("请求ID")
     private String requestId;
 
     /**

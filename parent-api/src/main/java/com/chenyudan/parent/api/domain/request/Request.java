@@ -30,7 +30,7 @@ public class Request implements Serializable {
     /**
      * 请求ip
      */
-    @ApiModelProperty("请求ip")
+    @ApiModelProperty("请求IP")
     private String requestIp;
 
     /**
