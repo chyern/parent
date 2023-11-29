@@ -3,7 +3,7 @@ package com.chenyudan.parent.connect.processor.constant;
 /**
  * Description: TODO
  *
- * @author Chyern
+ * @author chenyu
  * @since 2022/7/29 16:49
  */
 public enum MediaType {

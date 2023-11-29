@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Description: TODO
  *
- * @author Chyern
+ * @author chenyu
  * @since 2022/12/13 11:55
  */
 public abstract class BaseDaoImpl<T> implements BaseDao<T>, InitializingBean {

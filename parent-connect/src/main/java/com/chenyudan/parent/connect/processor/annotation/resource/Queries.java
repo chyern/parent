@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * Description: 请求参数
  * ?a=xxx&b=xxx
  *
- * @author Chyern
+ * @author chenyu
  * @since 2021/4/22
  */
 @Documented

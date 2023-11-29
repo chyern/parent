@@ -11,7 +11,7 @@ import com.chenyudan.parent.wechat.connect.common.process.WechatConnectProcessor
 /**
  * Description: TODO
  *
- * @author Chyern
+ * @author chenyu
  * @since 2023/1/11 15:19
  */
 @Connect(value = "https://qyapi.weixin.qq.com", processor = WechatConnectProcessor.class)

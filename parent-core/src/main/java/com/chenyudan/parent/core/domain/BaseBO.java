@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * Description: 基础DTO
  *
- * @author Chyern
+ * @author chenyu
  * @since 2022/12/13 14:17
  */
 @Data

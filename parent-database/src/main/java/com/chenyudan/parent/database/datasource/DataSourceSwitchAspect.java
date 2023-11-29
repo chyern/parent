@@ -12,7 +12,7 @@ import org.springframework.core.annotation.AnnotationUtils;
 /**
  * Description: 切换数据源拦截器
  *
- * @author Chyern
+ * @author chenyu
  * @since 2023/4/18 14:20
  */
 @Aspect

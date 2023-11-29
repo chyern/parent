@@ -8,7 +8,7 @@ import org.springframework.core.type.AnnotationMetadata;
 /**
  * Description: TODO
  *
- * @author Chyern
+ * @author chenyu
  * @since 2021/9/27
  */
 public class SessionScanRegistrar implements ImportBeanDefinitionRegistrar {

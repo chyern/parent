@@ -6,7 +6,7 @@ import java.security.MessageDigest;
 /**
  * Description: sha256工具类
  *
- * @author Chyern
+ * @author chenyu
  * @since 2021/4/12
  */
 public class Sha256Util {

@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 /**
  * Description: lambda工具类
  *
- * @author Chyern
+ * @author chenyu
  * @since 2022/3/27 21:29
  */
 public class LambdaUtil {

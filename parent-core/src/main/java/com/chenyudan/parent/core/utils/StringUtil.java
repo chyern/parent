@@ -9,7 +9,7 @@ import java.util.Collection;
 /**
  * Description: TODO
  *
- * @author Chyern
+ * @author chenyu
  * @since 2023/6/6 14:44
  */
 public class StringUtil extends StringUtils {

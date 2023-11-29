@@ -9,7 +9,7 @@ import java.util.Map;
  * Description: TODO
  * Ognl访问静态方法的表达式为: @Ognl@method(args)
  *
- * @author Chyern
+ * @author chenyu
  * @since 2023/3/1 17:27
  */
 public class Ognl {

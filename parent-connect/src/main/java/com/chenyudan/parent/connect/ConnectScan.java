@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 /**
  * Description: 扫描类
  *
- * @author Chyern
+ * @author chenyu
  * @since 2021/4/22
  */
 @Configuration

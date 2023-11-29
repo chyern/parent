@@ -5,7 +5,7 @@ import com.chenyudan.parent.api.enums.IErrorEnum;
 /**
  * Description: TODO
  *
- * @author Chyern
+ * @author chenyu
  * @since 2022/11/28 11:13
  */
 public enum BaseExceptionEnum implements IErrorEnum {

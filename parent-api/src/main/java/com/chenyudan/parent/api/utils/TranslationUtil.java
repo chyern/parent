@@ -8,7 +8,7 @@ import java.util.Locale;
 /**
  * Description: TODO
  *
- * @author Chyern
+ * @author chenyu
  * @since 2023/6/15 17:34
  */
 public class TranslationUtil implements MessageSourceAware {

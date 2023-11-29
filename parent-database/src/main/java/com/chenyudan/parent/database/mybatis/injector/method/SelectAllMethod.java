@@ -10,7 +10,7 @@ import org.apache.ibatis.mapping.SqlSource;
 /**
  * Description: TODO
  *
- * @author Chyern
+ * @author chenyu
  * @since 2022/11/3 11:57
  */
 public class SelectAllMethod extends AbstractMethod {

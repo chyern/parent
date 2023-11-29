@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 /**
  * Description: 连接器处理类
  *
- * @author Chyern
+ * @author chenyu
  * @since 2022/7/29 15:41
  */
 public interface IConnectProcessor {

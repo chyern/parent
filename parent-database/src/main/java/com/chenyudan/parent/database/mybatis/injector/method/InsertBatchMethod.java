@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 /**
  * Description: TODO
  *
- * @author Chyern
+ * @author chenyu
  * @since 2022/9/19 16:09
  */
 public class InsertBatchMethod extends AbstractMethod {

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Description: 通用convert
  *
- * @author Chyern
+ * @author chenyu
  * @since 2023/1/31 17:20
  */
 public interface BaseConvert<T, R> {

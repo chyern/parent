@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * Description: 请求地址参数
  * xx/{path}/xx
  *
- * @author Chyern
+ * @author chenyu
  * @since 2021/4/22
  */
 @Documented

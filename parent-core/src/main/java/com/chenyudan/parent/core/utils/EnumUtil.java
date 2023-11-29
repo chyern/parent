@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Description: 枚举工具类
  *
- * @author Chyern
+ * @author chenyu
  * @since 2023/6/7 11:42
  */
 public class EnumUtil {

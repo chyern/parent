@@ -6,7 +6,7 @@ import com.chenyudan.parent.wechat.connect.common.domain.response.BaseResponse;
 /**
  * Description: TODO
  *
- * @author Chyern
+ * @author chenyu
  * @since 2023/1/17 18:59
  */
 public class WechatResponseUtl {

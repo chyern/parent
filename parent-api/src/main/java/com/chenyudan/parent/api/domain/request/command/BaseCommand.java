@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 /**
  * Description: 基础指令
  *
- * @author Chyern
+ * @author chenyu
  * @since 2023/2/1 16:09
  */
 @ApiModel(description = "Description: 基础指令")

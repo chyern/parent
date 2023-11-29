@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 /**
  * Description: 被注解的接口能自动代理远程调用请求
  *
- * @author Chyern
+ * @author chenyu
  * @since 2021/4/22
  */
 @Documented

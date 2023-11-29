@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * Description: TODO
  *
- * @author Chyern
+ * @author chenyu
  * @since 2023/1/11 15:16
  */
 @ConnectScan(value = "com.chenyudan.wechat.connect")

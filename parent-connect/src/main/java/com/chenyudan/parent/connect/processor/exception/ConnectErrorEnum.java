@@ -5,7 +5,7 @@ import com.chenyudan.parent.api.enums.IErrorEnum;
 /**
  * Description: TODO
  *
- * @author Chyern
+ * @author chenyu
  * @since 2021/7/19
  */
 public enum ConnectErrorEnum implements IErrorEnum {

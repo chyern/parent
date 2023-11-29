@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * Description: TODO
  *
- * @author Chyern
+ * @author chenyu
  * @since 2023/1/10 12:22
  */
 public abstract class AbstractSpringMessageConsumerHandle<T extends SpringMessage> implements ApplicationContextAware, InitializingBean {

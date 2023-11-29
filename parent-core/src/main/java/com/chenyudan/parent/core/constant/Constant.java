@@ -3,7 +3,7 @@ package com.chenyudan.parent.core.constant;
 /**
  * Description: 常量
  *
- * @author Chyern
+ * @author chenyu
  * @since 2023/1/31 15:11
  */
 public interface Constant {

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Description: TODO
  *
- * @author Chyern
+ * @author chenyu
  * @since 2022/12/13 11:54
  */
 public interface BaseDao<T> {
