@@ -29,6 +29,9 @@ public class HttpUtil {
 
     private static final OkHttpClient httpClient = new OkHttpClient().newBuilder().connectTimeout(10L, TimeUnit.SECONDS).callTimeout(30L, TimeUnit.SECONDS).build();
 
+    public static String get(String url, Map<String, Object> params) {
+        return get(url, params, null);
+    }
 
     public static String get(String url, Map<String, Object> params, Map<String, String> headers) {
         String actualUrl = buildUrl(url, params);
@@ -39,10 +42,14 @@ public class HttpUtil {
         return getResult(builder);
     }
 
+    public static String postForJson(String url, Map<String, Object> params, Object body) {
+        return postForJson(url, params, body, null);
+    }
+
     public static String postForJson(String url, Map<String, Object> params, Object body, Map<String, String> headers) {
         String actualUrl = buildUrl(url, params);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=UTF-8"), new GsonBuilder().create().toJson(body));
-        Request.Builder builder = new Request.Builder().url(actualUrl).method("GET", requestBody);
+        Request.Builder builder = new Request.Builder().url(actualUrl).method("POST", requestBody);
         if (headers != null) {
             headers.forEach(builder::addHeader);
         }
