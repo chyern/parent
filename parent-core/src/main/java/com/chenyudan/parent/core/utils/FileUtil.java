@@ -111,7 +111,11 @@ public class FileUtil {
     public static byte[] readFile(File file) throws IOException {
         AssertUtil.isTrue(file.exists(), BaseExceptionEnum.FILE_NOT_FIND);
         try (FileInputStream fileInputStream = new FileInputStream(file)) {
-            return fileInputStream.readAllBytes();
+//            return fileInputStream.readAllBytes();
+
+            byte[] result = new byte[fileInputStream.available()];
+            fileInputStream.read(result);
+            return result;
         }
     }
 
